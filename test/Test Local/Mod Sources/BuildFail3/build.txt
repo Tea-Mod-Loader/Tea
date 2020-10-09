@@ -1,3 +1,0 @@
-author = Chicken Bones
-version = 0.1a
-displayName = Build Fail 2

@@ -1,4 +1,0 @@
-author = Chicken Bones
-version = 0.1
-displayName = NoSyncMod
-side = NoSync

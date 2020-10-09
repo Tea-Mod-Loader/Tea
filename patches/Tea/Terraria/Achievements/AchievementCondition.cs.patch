@@ -1,0 +1,11 @@
+--- src/Terraria/Terraria/Achievements/AchievementCondition.cs
++++ src/Tea/Terraria/Achievements/AchievementCondition.cs
+@@ -3,7 +_,7 @@
+ 
+ namespace Terraria.Achievements
+ {
+-	[JsonObject(MemberSerialization.OptIn)]
++	[JsonObject]
+ 	public abstract class AchievementCondition
+ 	{
+ 		public delegate void AchievementUpdate(AchievementCondition condition);

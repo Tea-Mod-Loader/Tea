@@ -1,0 +1,109 @@
+--- src/Terraria/Terraria/Main.cs
++++ src/Tea/Terraria/Main.cs
+@@ -69,6 +_,7 @@
+ using Terraria.Net;
+ using Terraria.ObjectData;
+ using Terraria.Social;
++using Terraria.Tea;
+ using Terraria.UI;
+ using Terraria.UI.Chat;
+ using Terraria.UI.Gamepad;
+@@ -81,7 +_,7 @@
+ namespace Terraria
+ {
+ #if CLIENT
+-	public class Main : Game
++	public partial class Main : Game
+ #else
+ 	public class Main : Terraria.Server.Game
+ #endif
+@@ -234,7 +_,7 @@
+ 		public static NPCHeadRenderer BossNPCHeadRenderer = null;
+ 		public static string versionNumber = "v1.4.0.5";
+ 		public static string versionNumber2 = "v1.4.0.5";
+-		public static string SavePath = Program.LaunchParameters.ContainsKey("-savedirectory") ? Program.LaunchParameters["-savedirectory"] : Platform.Get<IPathService>().GetStoragePath("Terraria");
++		public static string SavePath = Program.LaunchParameters.ContainsKey("-savedirectory") ? Program.LaunchParameters["-savedirectory"] : Platform.Get<IPathService>().GetStoragePath("Terraria" + Path.DirectorySeparatorChar + "Tea");
+ 		public static bool AnnouncementBoxDisabled;
+ 		public static int AnnouncementBoxRange = -1;
+ 		public static string AutogenSeedName;
+@@ -36391,7 +_,7 @@
+ 				netMode = 0;
+ 				ClearVisualPostProcessEffects();
+ 				int num11 = 0;
+-				num5 = 6;
++				num5 = 8;
+ 				num4 = 60;
+ 				array9[num11] = Lang.menu[12].Value;
+ 				if (selectedMenu == num11) {
+@@ -36424,6 +_,22 @@
+ 				}
+ 
+ 				num11++;
++				array9[num11] = "Mods";
++				if (selectedMenu == num11) {
++					SoundEngine.PlaySound(10, -1, -1, 1);
++
++					menuMode = LoaderMenus.modsMenuID;
++				}
++
++				num11++;
++				array9[num11] = "Mod Sources";
++				if (selectedMenu == num11) {
++					SoundEngine.PlaySound(10, -1, -1, 1);
++
++					menuMode = LoaderMenus.modSourcesID;
++				}
++
++				num11++;
+ 				array9[num11] = Lang.menu[14].Value;
+ 				if (selectedMenu == num11) {
+ 					SoundEngine.PlaySound(10);
+@@ -38121,6 +_,9 @@
+ 						netMode = 0;
+ 					}
+ 				}
++				else {
++					LoaderMenus.TeaMenus(this, selectedMenu, array9, array7, ref num, ref num3, ref num4);
++				}
+ 			}
+ 
+ 			if (menuMode == 888) {
+@@ -38854,8 +_,12 @@
+ 
+ 					Vector2 origin2 = FontAssets.MouseText.Value.MeasureString(versionNumber);
+ 					origin2.X *= 0.5f;
+-					origin2.Y *= 0.5f;
+ 					spriteBatch.DrawString(FontAssets.MouseText.Value, versionNumber, new Vector2(origin2.X + (float)num108 + 10f, (float)screenHeight - origin2.Y + (float)num109 - 2f), color12, 0f, origin2, 1f, SpriteEffects.None, 0f);
++
++					Vector2 origin3 = FontAssets.MouseText.Value.MeasureString(Loader.versionedName);
++					origin3.X *= 0.5f;
++					origin3.Y *= 0.5f;
++					spriteBatch.DrawString(FontAssets.MouseText.Value, Loader.versionedName, new Vector2(origin3.X + num108 + 10f, screenHeight - origin3.Y + num109 - 2f), color12, 0f, origin3, 1f, SpriteEffects.None, 0f);
+ 				}
+ 			}
+ 
+@@ -39246,7 +_,7 @@
+ 		}
+ 
+ 		private void DrawSplash_LoadingFlower(Microsoft.Xna.Framework.Color splashColor) {
+-			float val = (float)screenWidth / MinimumZoomComparerX;
++			/*float val = (float)screenWidth / MinimumZoomComparerX;
+ 			float val2 = (float)screenHeight / MinimumZoomComparerY;
+ 			float num = Math.Max(Math.Max(1f, val), val2);
+ 			Texture2D value = TextureAssets.LoadingSunflower.Value;
+@@ -39260,7 +_,14 @@
+ 			Microsoft.Xna.Framework.Rectangle rectangle = value.Frame(1, num3, 0, (num4 + 10) % num3);
+ 			float rotation = 0f;
+ 			Vector2 origin = rectangle.Size() / 2f;
++			
+-			spriteBatch.Draw(value, position, rectangle, splashColor, rotation, origin, num, SpriteEffects.None, 0f);
++			spriteBatch.Draw(value, position, rectangle, splashColor, rotation, origin, num, SpriteEffects.None, 0f);*/
++
++            Vector2 position = new Vector2(screenWidth / 2, screenHeight) - new Vector2(0f, 50f);
++			Texture2D teaTexture = TextureAssets.TeaTexture.Value;
++			Rectangle textureRect = TextureAssets.TeaTexture.Value.Frame(1, 1, 0, 0);
++
++			spriteBatch.Draw(teaTexture, position, textureRect, splashColor, ++teaRotation / 6, textureRect.Size() / 2f, 1f, SpriteEffects.None, 0f);
+ 		}
+ 
+ 		private void DrawSplash_LoadingStar(Microsoft.Xna.Framework.Color splashColor) {

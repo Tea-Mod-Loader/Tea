@@ -1,0 +1,11 @@
+--- src/Terraria/Terraria/Achievements/Achievement.cs
++++ src/Tea/Terraria/Achievements/Achievement.cs
+@@ -6,7 +_,7 @@
+ 
+ namespace Terraria.Achievements
+ {
+-	[JsonObject(MemberSerialization.OptIn)]
++	[JsonObject]
+ 	public class Achievement
+ 	{
+ 		public delegate void AchievementCompleted(Achievement achievement);

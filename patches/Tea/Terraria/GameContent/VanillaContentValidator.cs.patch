@@ -1,0 +1,17 @@
+--- src/Terraria/Terraria/GameContent/VanillaContentValidator.cs
++++ src/Tea/Terraria/GameContent/VanillaContentValidator.cs
+@@ -43,14 +_,7 @@
+ 		}
+ 
+ 		public bool AssetIsValid<T>(T content, string contentPath, out IRejectionReason rejectReason) where T : class {
+-			Texture2D texture2D = content as Texture2D;
+ 			rejectReason = null;
+-			if (texture2D != null) {
+-				if (!_info.TryGetValue(contentPath, out TextureMetaData value))
+-					return true;
+-
+-				return value.Matches(texture2D, out rejectReason);
+-			}
+ 
+ 			return true;
+ 		}

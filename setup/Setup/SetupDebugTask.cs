@@ -37,14 +37,14 @@ namespace Terraria.ModLoader.Setup
 			}
 
 			//Compile FNA tML.
-			taskInterface.SetStatus("Compiling tModLoader.FNA.exe");
-			tMLFNACompileFailed = RunCmd("src/tModLoader/Terraria", "dotnet", "build -c MacRelease", cancel: taskInterface.CancellationToken) != 0;
+			taskInterface.SetStatus("Compiling Tea.FNA.exe");
+			tMLFNACompileFailed = RunCmd("src/Tea/Terraria", "dotnet", "build -c MacRelease", cancel: taskInterface.CancellationToken) != 0;
 		}
 
 		private void UpdateModCompileVersion(string modCompileDir) {
-			var modLoaderCsPath = Path.Combine("src", "tModLoader", "Terraria", "ModLoader", "ModLoader.cs");
+			var teaCsPath = Path.Combine("src", "Tea", "Terraria", "Tea", "Loader.cs"); // TOOD: This
 			var r = new Regex(@"new Version\((.+?)\).+?string branchName.+?""(.*?)"".+?int beta.+?(\d+?)", RegexOptions.Singleline);
-			var match = r.Match(File.ReadAllText(modLoaderCsPath));
+			var match = r.Match(File.ReadAllText(teaCsPath));
 
 			string version = match.Groups[1].Value.Replace(", ", ".");
 			string branchName = match.Groups[2].Value;
@@ -68,7 +68,7 @@ namespace Terraria.ModLoader.Setup
 
 			if (tMLFNACompileFailed)
 				MessageBox.Show(
-					"Failed to compile tModLoader.FNA.exe\r\nJust build it from the tModLoader solution.",
+					"Failed to compile Tea.FNA.exe\r\nJust build it from the Tea solution.",
 					"MSBuild Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
 	}

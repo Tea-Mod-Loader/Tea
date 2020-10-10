@@ -112,7 +112,7 @@ namespace Terraria.Tea
 				modsLoaded = 0;
 			}
 
-			/*LoaderMenus.loadMods.SetProgressRecipes();
+			LoaderMenus.loadMods.SetProgressRecipes();
 
 			Recipe.numRecipes = 0;
 
@@ -123,13 +123,15 @@ namespace Terraria.Tea
                 ErrorLogger.LogLoadingError("recipes", e);
 
 				Main.menuMode = LoaderMenus.errorMessageID;
-			}*/
+
+				return;
+			}
 
 			Main.menuMode = 0;
 		}
 
 		private static void ResizeArrays(bool unloading = false) {
-
+			ItemLoader.ResizeArrays();
 		}
 
 		internal static string[] FindMods() {
@@ -615,7 +617,20 @@ namespace Terraria.Tea
 		}
 
 		internal static void AddRecipes() {
+			foreach (Mod mod in mods.Values) {
+				try {
+					mod.AddRecipes();
 
+					foreach (ModItem item in mod.items.Values) {
+						item.AddRecipes();
+					}
+				}
+				catch {
+					DisableMod(mod.filePath);
+
+					throw;
+				}
+			}
 		}
 	}
 }

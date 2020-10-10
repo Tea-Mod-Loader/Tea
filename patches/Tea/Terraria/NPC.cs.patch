@@ -1,0 +1,19 @@
+--- src/Terraria/Terraria/NPC.cs
++++ src/Tea/Terraria/NPC.cs
+@@ -19,6 +_,7 @@
+ using Terraria.Graphics.Effects;
+ using Terraria.ID;
+ using Terraria.Localization;
++using Terraria.Tea;
+ using Terraria.Utilities;
+ using Terraria.WorldBuilding;
+ 
+@@ -56648,7 +_,7 @@
+ 
+ 			if (type == 1 && ai[1] > 0f) {
+ 				int num3 = (int)ai[1];
+-				if (num3 > 0 && num3 < 5045) {
++				if (num3 > 0 && num3 < ItemLoader.Count) {
+ 					int stackForSlimeItemDrop = GetStackForSlimeItemDrop(num3);
+ 					Item.NewItem((int)position.X, (int)position.Y, width, height, num3, stackForSlimeItemDrop);
+ 				}

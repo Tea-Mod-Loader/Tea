@@ -1,0 +1,28 @@
+--- src/Terraria/Terraria/ID/ContentSamples.cs
++++ src/Tea/Terraria/ID/ContentSamples.cs
+@@ -2,6 +_,7 @@
+ using System.Linq;
+ using Terraria.GameContent.Bestiary;
+ using Terraria.Graphics.Shaders;
++using Terraria.Tea;
+ 
+ namespace Terraria.ID
+ {
+@@ -588,7 +_,7 @@
+ 
+ 			public static void SetCreativeMenuOrder() {
+ 				List<Item> list = new List<Item>();
+-				for (int i = 1; i < 5045; i++) {
++				for (int i = 1; i < ItemLoader.Count; i++) {
+ 					Item item = new Item();
+ 					item.SetDefaults(i);
+ 					list.Add(item);
+@@ -699,7 +_,7 @@
+ 			}
+ 
+ 			ItemsByType.Clear();
+-			for (int k = 0; k < 5045; k++) {
++			for (int k = 0; k < ItemLoader.Count; k++) {
+ 				Item item = new Item();
+ 				item.SetDefaults(k);
+ 				ItemsByType[k] = item;

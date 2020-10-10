@@ -26,6 +26,64 @@
  		public static bool AnnouncementBoxDisabled;
  		public static int AnnouncementBoxRange = -1;
  		public static string AutogenSeedName;
+@@ -5020,7 +_,7 @@
+ 		}
+ 
+ 		private static void Initialize_Items() {
+-			for (int i = 0; i < 5045; i++) {
++			for (int i = 0; i < ItemLoader.Count; i++) {
+ 				Item item = new Item();
+ 				item.SetDefaults(i);
+ 				if (item.headSlot > 0)
+@@ -12295,6 +_,15 @@
+ 		}
+ 
+ 		protected override void Update(GameTime gameTime) {
++			try {
++				do_Update(gameTime);
++			}
++			catch (Exception e) {
++				ErrorLogger.LogException(e);
++			}
++		}
++
++		protected void do_Update(GameTime gameTime) {
+ 			if (!IsEnginePreloaded) {
+ 				IsEnginePreloaded = true;
+ 				if (Main.OnEnginePreload != null)
+@@ -27688,6 +_,11 @@
+ 			Microsoft.Xna.Framework.Color color = Lighting.GetColor(item.Center.ToTileCoordinates());
+ 			Microsoft.Xna.Framework.Color currentColor = item.GetAlpha(color);
+ 			ItemSlot.GetItemLight(ref currentColor, ref scale, item);
++
++			if (!ItemLoader.PreDrawInWorld(item, Main.spriteBatch, color, currentColor, ref num, ref scale)) {
++				ItemLoader.PostDrawInWorld(item, Main.spriteBatch, color, currentColor, num, scale);
++			}
++
+ 			int num2 = item.glowMask;
+ 			if (!gamePaused && base.IsActive && ((item.type >= 71 && item.type <= 74) || item.type == 58 || item.type == 109) && color.R > 60 && (float)rand.Next(500) - (Math.Abs(item.velocity.X) + Math.Abs(item.velocity.Y)) * 10f < (float)((int)color.R / 50)) {
+ 				int num3 = Dust.NewDust(item.position, item.width, item.height, 43, 0f, 0f, 254, Microsoft.Xna.Framework.Color.White, 0.5f);
+@@ -27768,6 +_,11 @@
+ 
+ 			if (item.type == 3858)
+ 				spriteBatch.Draw(TextureAssets.GlowMask[233].Value, vector2, frame, new Microsoft.Xna.Framework.Color(255, 255, 255, 63) * 0.75f, num, frame.Size() / 2f, scale, SpriteEffects.None, 0f);
++
++			if (ItemLoader.animations.Contains(item.type)) {
++				ItemLoader.DrawAnimatedItem(item, color, currentColor, num, scale);
++				ItemLoader.PostDrawInWorld(item, spriteBatch, color, currentColor, num, scale);
++			}
+ 		}
+ 
+ 		public void DrawItems() {
+@@ -35924,7 +_,7 @@
+ 
+ 			string[] array9 = new string[maxMenuItems];
+ 			if (menuMode == -1)
+-				menuMode = 0;
++				menuMode = LoaderMenus.loadModsID;
+ 
+ 			if (Program.LoadedEverything)
+ 				GamepadMainMenuHandler.CanRun = true;
 @@ -36391,7 +_,7 @@
  				netMode = 0;
  				ClearVisualPostProcessEffects();

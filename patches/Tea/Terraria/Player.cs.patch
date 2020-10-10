@@ -1,0 +1,444 @@
+--- src/Terraria/Terraria/Player.cs
++++ src/Tea/Terraria/Player.cs
+@@ -29,6 +_,7 @@
+ using Terraria.Localization;
+ using Terraria.ObjectData;
+ using Terraria.Social;
++using Terraria.Tea;
+ using Terraria.UI;
+ using Terraria.UI.Chat;
+ using Terraria.UI.Gamepad;
+@@ -6191,37 +_,37 @@
+ 
+ 		private void UpdateItemDye(bool effectiveEquipmentSlot, bool armorHidden, Item armorItem, Item dyeItem) {
+ 			if (!armorItem.IsAir && (!(effectiveEquipmentSlot && armorHidden) || armorItem.wingSlot > 0 || armorItem.type == 934 || armorItem.type == 4341 || armorItem.type == 4563)) {
+-				if (armorItem.handOnSlot > 0 && armorItem.handOnSlot < 22)
++				if (armorItem.handOnSlot > 0)
+ 					cHandOn = dyeItem.dye;
+ 
+-				if (armorItem.handOffSlot > 0 && armorItem.handOffSlot < 14)
++				if (armorItem.handOffSlot > 0)
+ 					cHandOff = dyeItem.dye;
+ 
+-				if (armorItem.backSlot > 0 && armorItem.backSlot < 30)
++				if (armorItem.backSlot > 0)
+ 					cBack = dyeItem.dye;
+ 
+-				if (armorItem.frontSlot > 0 && armorItem.frontSlot < 9)
++				if (armorItem.frontSlot > 0)
+ 					cFront = dyeItem.dye;
+ 
+-				if (armorItem.shoeSlot > 0 && armorItem.shoeSlot < 25)
++				if (armorItem.shoeSlot > 0)
+ 					cShoe = dyeItem.dye;
+ 
+-				if (armorItem.waistSlot > 0 && armorItem.waistSlot < 17)
++				if (armorItem.waistSlot > 0)
+ 					cWaist = dyeItem.dye;
+ 
+-				if (armorItem.shieldSlot > 0 && armorItem.shieldSlot < 10)
++				if (armorItem.shieldSlot > 0)
+ 					cShield = dyeItem.dye;
+ 
+-				if (armorItem.neckSlot > 0 && armorItem.neckSlot < 11)
++				if (armorItem.neckSlot > 0)
+ 					cNeck = dyeItem.dye;
+ 
+-				if (armorItem.faceSlot > 0 && armorItem.faceSlot < 16)
++				if (armorItem.faceSlot > 0)
+ 					cFace = dyeItem.dye;
+ 
+-				if (armorItem.balloonSlot > 0 && armorItem.balloonSlot < 18)
++				if (armorItem.balloonSlot > 0)
+ 					cBalloon = dyeItem.dye;
+ 
+-				if (armorItem.wingSlot > 0 && armorItem.wingSlot < 47)
++				if (armorItem.wingSlot > 0)
+ 					cWings = dyeItem.dye;
+ 
+ 				if (armorItem.type == 934)
+@@ -8127,6 +_,8 @@
+ 
+ 				if (type == 4743)
+ 					hasFootball = true;
++
++				ItemLoader.UpdateInventory(inventory[j], this);
+ 			}
+ 
+ 			if (inventory[58].type == 4743)
+@@ -8990,6 +_,8 @@
+ 
+ 				if (armor[k].prefix == 80)
+ 					meleeSpeed += 0.04f;
++
++				ItemLoader.UpdateEquip(armor[k], this);
+ 			}
+ 
+ 			equippedAnyWallSpeedAcc = false;
+@@ -10229,6 +_,8 @@
+ 			}
+ 
+ 			ApplyMusicBox(currentItem);
++
++			ItemLoader.UpdateAccessory(currentItem, this);
+ 		}
+ 
+ 		private void ApplyMusicBox(Item currentItem) {
+@@ -10939,6 +_,8 @@
+ 				maxTurrets++;
+ 			}
+ 
++			ItemLoader.UpdateArmorSet(this, armor[0], armor[1], armor[2]);
++
+ 			ApplyArmorSoundAndDustChanges();
+ 		}
+ 
+@@ -14935,6 +_,8 @@
+ 						num = 0.15f;
+ 				}
+ 
++				ItemLoader.VerticalWingSpeeds(this, ref num2, ref num5, ref num4, ref num3, ref num);
++
+ 				velocity.Y -= num * gravDir;
+ 				if (gravDir == 1f) {
+ 					if (velocity.Y > 0f)
+@@ -18074,8 +_,10 @@
+ 				UpdateControlHolds();
+ 			}
+ 			else if (grappling[0] == -1 && !tongued) {
+-				if (wingsLogic > 0 && base.velocity.Y != 0f && !merman && !mount.Active)
++				if (wingsLogic > 0 && base.velocity.Y != 0f && !merman && !mount.Active) {
+-					WingAirLogicTweaks();
++                    WingAirLogicTweaks();
++					ItemLoader.HorizontalWingSpeeds(this);
++				}
+ 
+ 				if (empressBrooch)
+ 					runAcceleration *= 2f;
+@@ -25041,6 +_,9 @@
+ 				_ = bodyFrame;
+ 				reference6.Y = 0;
+ 			}
++			else if (ItemLoader.HoldItemFrame(inventory[selectedItem], this)) {
++				return;
++			}
+ 			else if (shieldRaised) {
+ 				bodyFrame.Y = bodyFrame.Height * 10;
+ 			}
+@@ -29058,7 +_,7 @@
+ 			if (itemAnimation == 0 && altFunctionUse == 2)
+ 				altFunctionUse = 0;
+ 
+-			bool flag2 = true;
++			bool flag2 = ItemLoader.CanUseItem(item, this);
+ 			if (gravDir == -1f && GolfHelper.IsPlayerHoldingClub(this))
+ 				flag2 = false;
+ 
+@@ -29204,6 +_,8 @@
+ 
+ 				if (((item.damage >= 0 && item.type > 0 && !item.noMelee) || item.type == 1450 || item.type == 1991 || item.type == 3183 || item.type == 4821 || item.type == 3542 || item.type == 3779) && itemAnimation > 0) {
+ 					ItemCheck_GetMeleeHitbox(item, drawHitbox, out bool dontAttack, out Rectangle itemRectangle);
++					ItemLoader.MeleeEffects(item, this, itemRectangle);
++
+ 					if (!dontAttack) {
+ 						itemRectangle = ItemCheck_EmitUseVisuals(item, itemRectangle);
+ 						if (Main.myPlayer == whoAmI && (item.type == 1991 || item.type == 3183 || item.type == 4821))
+@@ -29238,6 +_,8 @@
+ 				}
+ 
+ 				if (ItemTimeIsZero && itemAnimation > 0) {
++					ItemLoader.UseItem(item, this);
++
+ 					if (item.hairDye >= 0) {
+ 						ApplyItemTime(item);
+ 						if (whoAmI == Main.myPlayer) {
+@@ -29578,6 +_,8 @@
+ 						if (flag7.HasValue)
+ 							flag6 = flag7.Value;
+ 
++						ItemLoader.ConsumeItem(item, this, ref flag6);
++
+ 						if (flag6) {
+ 							if (item.stack > 0)
+ 								item.stack--;
+@@ -29855,6 +_,7 @@
+ 				if (Main.rand.Next(1, 101) <= 10)
+ 					flag = true;
+ 
++				ItemLoader.ModifyHitPvp(sItem, this, Main.player[i], ref damage, ref flag);
+ 				int num = Main.DamageVar(damage, luck);
+ 				StatusToPlayerPvP(sItem.type, i);
+ 				OnHit(player.Center.X, player.Center.Y, player);
+@@ -29900,6 +_,8 @@
+ 				if (sItem.type == 1826 && Main.npc[i].value > 0f)
+ 					pumpkinSword(i, (int)((double)damage * 1.5), knockBack);
+ 
++				ItemLoader.OnHitPvp(sItem, this, Main.player[i], damage, flag);
++
+ 				if (Main.netMode != 0)
+ 					NetMessage.SendPlayerHurt(i, playerDeathReason, num, direction, flag, pvp: true, -1);
+ 
+@@ -29925,6 +_,8 @@
+ 							if (Main.rand.Next(1, 101) <= weaponCrit)
+ 								flag = true;
+ 
++							ItemLoader.ModifyHitNPC(sItem, this, Main.npc[i], ref num, ref knockBack, ref flag);
++
+ 							int num2 = Item.NPCtoBanner(Main.npc[i].BannerID());
+ 							if (num2 > 0 && HasNPCBannerBuff(num2))
+ 								num = ((!Main.expertMode) ? ((int)((float)num * ItemID.Sets.BannerStrength[Item.BannerToItem(num2)].NormalDamageDealt)) : ((int)((float)num * ItemID.Sets.BannerStrength[Item.BannerToItem(num2)].ExpertDamageDealt)));
+@@ -29960,6 +_,7 @@
+ 
+ 							int dmgDone = (int)Main.npc[i].StrikeNPC(num4, knockBack, direction, flag);
+ 							ApplyNPCOnHitEffects(sItem, itemRectangle, num, knockBack, i, num4, dmgDone);
++							ItemLoader.OnHitNPC(sItem, this, Main.npc[i], num, knockBack, flag);
+ 							int num5 = Item.NPCtoBanner(Main.npc[i].BannerID());
+ 							if (num5 >= 0)
+ 								lastCreatureHit = num5;
+@@ -30543,6 +_,8 @@
+ 				}
+ 			}
+ 
++			ItemLoader.UseItemHitbox(sItem, this, ref itemRectangle, ref dontAttack);
++
+ 			if (sItem.type == 1450 && Main.rand.Next(3) == 0) {
+ 				int num = -1;
+ 				float x = itemRectangle.X + Main.rand.Next(itemRectangle.Width);
+@@ -33146,7 +_,7 @@
+ 					Main.projectile[num180].originalDamage = damage;
+ 					UpdateMaxTurrets();
+ 				}
+-				else {
++				else if (ItemLoader.Shoot(sItem, this, ref vector, ref num2, ref num3, ref projToShoot, ref Damage, ref KnockBack)) {
+ 					int num181 = Projectile.NewProjectile(vector.X, vector.Y, num2, num3, projToShoot, Damage, KnockBack, i);
+ 					if (sItem.type == 726)
+ 						Main.projectile[num181].magic = true;
+@@ -33627,6 +_,8 @@
+ 			if (sItem.type != 4952 || pulley)
+ 				return;
+ 
++			ItemLoader.HoldItem(sItem, this);
++
+ 			Vector2 pos = itemLocation + new Vector2(8 * direction, -10f * gravDir);
+ 			Vector3 rgb = new Vector3(1f, 0.7f, 0.8f) * 1.3f;
+ 			Vector2 vector = RotatedRelativePoint(pos);
+@@ -33665,6 +_,8 @@
+ 			if (!CanVisuallyHoldItem(sItem))
+ 				return;
+ 
++			ItemLoader.UseStyle(sItem, this);
++
+ 			if (isPettingAnimal) {
+ 				int num = miscCounter % 14 / 7;
+ 				CompositeArmStretchAmount stretch = CompositeArmStretchAmount.ThreeQuarters;
+@@ -33903,6 +_,8 @@
+ 				SetCompositeArmBack(enabled: true, stretch6, (float)Math.PI * -3f / 5f * (float)direction);
+ 				FlipItemLocationAndRotationForGravity();
+ 			}
++			
++			ItemLoader.HoldStyle(sItem, this);
+ 		}
+ 
+ 		private void ItemCheck_ApplyManaRegenDelay(Item sItem) {
+@@ -35776,6 +_,10 @@
+ 			if ((projToShoot == 145 || projToShoot == 146 || projToShoot == 147 || projToShoot == 148 || projToShoot == 149) && itemAnimation < itemAnimationMax - 5)
+ 				flag2 = true;
+ 
++			if (!ItemLoader.ConsumeAmmo(sItem, item, this)) {
++				flag2 = true;
++			}
++
+ 			if (!flag2 && item.consumable) {
+ 				item.stack--;
+ 				if (item.stack <= 0) {
+@@ -36654,49 +_,49 @@
+ 						binaryWriter.Write(player.shoeColor.G);
+ 						binaryWriter.Write(player.shoeColor.B);
+ 						for (int k = 0; k < player.armor.Length; k++) {
+-							binaryWriter.Write(player.armor[k].netID);
++							ItemLoader.WriteID(player.armor[k], binaryWriter);
+ 							binaryWriter.Write(player.armor[k].prefix);
+ 						}
+ 
+ 						for (int l = 0; l < player.dye.Length; l++) {
+-							binaryWriter.Write(player.dye[l].netID);
++							ItemLoader.WriteID(player.dye[l], binaryWriter);
+ 							binaryWriter.Write(player.dye[l].prefix);
+ 						}
+ 
+ 						for (int m = 0; m < 58; m++) {
+-							binaryWriter.Write(player.inventory[m].netID);
++							ItemLoader.WriteID(player.inventory[m], binaryWriter);
+ 							binaryWriter.Write(player.inventory[m].stack);
+ 							binaryWriter.Write(player.inventory[m].prefix);
+ 							binaryWriter.Write(player.inventory[m].favorited);
+ 						}
+ 
+ 						for (int n = 0; n < player.miscEquips.Length; n++) {
+-							binaryWriter.Write(player.miscEquips[n].netID);
++							ItemLoader.WriteID(player.miscEquips[n], binaryWriter);
+ 							binaryWriter.Write(player.miscEquips[n].prefix);
+-							binaryWriter.Write(player.miscDyes[n].netID);
++							ItemLoader.WriteID(player.miscDyes[n], binaryWriter);
+ 							binaryWriter.Write(player.miscDyes[n].prefix);
+ 						}
+ 
+ 						for (int num = 0; num < 40; num++) {
+-							binaryWriter.Write(player.bank.item[num].netID);
++							ItemLoader.WriteID(player.bank.item[num], binaryWriter);
+ 							binaryWriter.Write(player.bank.item[num].stack);
+ 							binaryWriter.Write(player.bank.item[num].prefix);
+ 						}
+ 
+ 						for (int num2 = 0; num2 < 40; num2++) {
+-							binaryWriter.Write(player.bank2.item[num2].netID);
++							ItemLoader.WriteID(player.bank2.item[num2], binaryWriter);
+ 							binaryWriter.Write(player.bank2.item[num2].stack);
+ 							binaryWriter.Write(player.bank2.item[num2].prefix);
+ 						}
+ 
+ 						for (int num3 = 0; num3 < 40; num3++) {
+-							binaryWriter.Write(player.bank3.item[num3].netID);
++							ItemLoader.WriteID(player.bank3.item[num3], binaryWriter);
+ 							binaryWriter.Write(player.bank3.item[num3].stack);
+ 							binaryWriter.Write(player.bank3.item[num3].prefix);
+ 						}
+ 
+ 						for (int num4 = 0; num4 < 40; num4++) {
+-							binaryWriter.Write(player.bank4.item[num4].netID);
++							ItemLoader.WriteID(player.bank4.item[num4], binaryWriter);
+ 							binaryWriter.Write(player.bank4.item[num4].stack);
+ 							binaryWriter.Write(player.bank4.item[num4].prefix);
+ 						}
+@@ -36959,7 +_,7 @@
+ 								else {
+ 									int num4 = 20;
+ 									for (int m = 0; m < num4; m++) {
+-										player.armor[m].netDefaults(binaryReader.ReadInt32());
++										ItemLoader.ReadID(player.armor[m], binaryReader);
+ 										player.armor[m].Prefix(binaryReader.ReadByte());
+ 									}
+ 								}
+@@ -36974,34 +_,24 @@
+ 
+ 									for (int n = 0; n < num5; n++) {
+ 										int num6 = n;
+-										player.dye[num6].netDefaults(binaryReader.ReadInt32());
++										ItemLoader.ReadID(player.dye[num6], binaryReader);
+ 										player.dye[num6].Prefix(binaryReader.ReadByte());
+ 									}
+ 								}
+ 
+ 								if (num >= 58) {
+ 									for (int num7 = 0; num7 < 58; num7++) {
+-										int num8 = binaryReader.ReadInt32();
+-										if (num8 >= 5045) {
+-											player.inventory[num7].netDefaults(0);
+-											binaryReader.ReadInt32();
+-											binaryReader.ReadByte();
+-											if (num >= 114)
+-												binaryReader.ReadBoolean();
+-										}
+-										else {
+-											player.inventory[num7].netDefaults(num8);
++                                        ItemLoader.ReadID(player.inventory[num7], binaryReader);
+-											player.inventory[num7].stack = binaryReader.ReadInt32();
++                                        player.inventory[num7].stack = binaryReader.ReadInt32();
+-											player.inventory[num7].Prefix(binaryReader.ReadByte());
++                                        player.inventory[num7].Prefix((int)binaryReader.ReadByte());
+-											if (num >= 114)
++										if (num >= 114)
+-												player.inventory[num7].favorited = binaryReader.ReadBoolean();
++											player.inventory[num7].favorited = binaryReader.ReadBoolean();
+-										}
+ 									}
+ 								}
+ 								else {
+ 									for (int num9 = 0; num9 < 48; num9++) {
+ 										int num10 = binaryReader.ReadInt32();
+-										if (num10 >= 5045) {
++										if (num10 >= ItemLoader.Count) {
+ 											player.inventory[num9].netDefaults(0);
+ 											binaryReader.ReadInt32();
+ 											binaryReader.ReadByte();
+@@ -37019,7 +_,7 @@
+ 										for (int num11 = 0; num11 < 5; num11++) {
+ 											if (num11 != 1) {
+ 												int num12 = binaryReader.ReadInt32();
+-												if (num12 >= 5045) {
++												if (num12 >= ItemLoader.Count) {
+ 													player.miscEquips[num11].netDefaults(0);
+ 													binaryReader.ReadByte();
+ 												}
+@@ -37029,7 +_,7 @@
+ 												}
+ 
+ 												num12 = binaryReader.ReadInt32();
+-												if (num12 >= 5045) {
++												if (num12 >= ItemLoader.Count) {
+ 													player.miscDyes[num11].netDefaults(0);
+ 													binaryReader.ReadByte();
+ 												}
+@@ -37042,38 +_,23 @@
+ 									}
+ 									else {
+ 										for (int num13 = 0; num13 < 5; num13++) {
+-											int num14 = binaryReader.ReadInt32();
+-											if (num14 >= 5045) {
+-												player.miscEquips[num13].netDefaults(0);
+-												binaryReader.ReadByte();
+-											}
+-											else {
+-												player.miscEquips[num13].netDefaults(num14);
+-												player.miscEquips[num13].Prefix(binaryReader.ReadByte());
+-											}
+-
+-											num14 = binaryReader.ReadInt32();
+-											if (num14 >= 5045) {
+-												player.miscDyes[num13].netDefaults(0);
+-												binaryReader.ReadByte();
+-											}
+-											else {
+-												player.miscDyes[num13].netDefaults(num14);
+-												player.miscDyes[num13].Prefix(binaryReader.ReadByte());
+-											}
++											ItemLoader.ReadID(player.miscEquips[num13], binaryReader);
++											player.miscEquips[num13].Prefix((int)binaryReader.ReadByte());
++											ItemLoader.ReadID(player.miscDyes[num13], binaryReader);
++											player.miscDyes[num13].Prefix((int)binaryReader.ReadByte());
+ 										}
+ 									}
+ 								}
+ 
+ 								if (num >= 58) {
+ 									for (int num15 = 0; num15 < 40; num15++) {
+-										player.bank.item[num15].netDefaults(binaryReader.ReadInt32());
++										ItemLoader.ReadID(player.bank.item[num15], binaryReader);
+ 										player.bank.item[num15].stack = binaryReader.ReadInt32();
+ 										player.bank.item[num15].Prefix(binaryReader.ReadByte());
+ 									}
+ 
+ 									for (int num16 = 0; num16 < 40; num16++) {
+-										player.bank2.item[num16].netDefaults(binaryReader.ReadInt32());
++										ItemLoader.ReadID(player.bank2.item[num16], binaryReader);
+ 										player.bank2.item[num16].stack = binaryReader.ReadInt32();
+ 										player.bank2.item[num16].Prefix(binaryReader.ReadByte());
+ 									}
+@@ -37094,7 +_,7 @@
+ 
+ 								if (num >= 182) {
+ 									for (int num19 = 0; num19 < 40; num19++) {
+-										player.bank3.item[num19].netDefaults(binaryReader.ReadInt32());
++										ItemLoader.ReadID(player.bank3.item[num19], binaryReader);
+ 										player.bank3.item[num19].stack = binaryReader.ReadInt32();
+ 										player.bank3.item[num19].Prefix(binaryReader.ReadByte());
+ 									}
+@@ -37102,7 +_,7 @@
+ 
+ 								if (num >= 198) {
+ 									for (int num20 = 0; num20 < 40; num20++) {
+-										player.bank4.item[num20].netDefaults(binaryReader.ReadInt32());
++										ItemLoader.ReadID(player.bank4.item[num20], binaryReader);
+ 										player.bank4.item[num20].stack = binaryReader.ReadInt32();
+ 										player.bank4.item[num20].Prefix(binaryReader.ReadByte());
+ 									}

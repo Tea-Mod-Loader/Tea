@@ -1,0 +1,51 @@
+--- src/Terraria/Terraria/Recipe.cs
++++ src/Tea/Terraria/Recipe.cs
+@@ -3,6 +_,7 @@
+ using Terraria.GameContent.Achievements;
+ using Terraria.ID;
+ using Terraria.Localization;
++using Terraria.Tea;
+ 
+ namespace Terraria
+ {
+@@ -113,6 +_,13 @@
+ 					break;
+ 
+ 				int num = item2.stack;
++
++				ModRecipe modRecipe = this as ModRecipe;
++
++				if (modRecipe != null) {
++					num = modRecipe.ConsumeItem(item.type, item.stack);
++				}
++
+ 				if (alchemy && Main.player[Main.myPlayer].alchemyTable) {
+ 					if (num > 1) {
+ 						int num2 = 0;
+@@ -456,6 +_,9 @@
+ 		public static void SetupRecipes() {
+ 			int num = 5;
+ 			int stack = 2;
++			RecipeGroup.recipeGroups.Clear();
++			RecipeGroup.recipeGroupIDs.Clear();
++			RecipeGroup.nextRecipeGroupIndex = 0;
+ 			SetupRecipeGroups();
+ 			currentRecipe.createItem.SetDefaults(8);
+ 			currentRecipe.createItem.stack = 3;
+@@ -13050,6 +_,7 @@
+ 			currentRecipe.requiredItem[0].SetDefaults(73);
+ 			currentRecipe.requiredItem[0].stack = 100;
+ 			AddRecipe();
++			Loader.AddRecipes();
+ 			CreateReverseWallRecipes();
+ 			CreateReversePlatformRecipes();
+ 			UpdateWhichItemsAreMaterials();
+@@ -13067,7 +_,7 @@
+ 		}
+ 
+ 		public static void UpdateWhichItemsAreMaterials() {
+-			for (int i = 0; i < 5045; i++) {
++			for (int i = 0; i < ItemLoader.Count; i++) {
+ 				Item item = new Item();
+ 				item.SetDefaults(i, noMatCheck: true);
+ 				item.checkMat();

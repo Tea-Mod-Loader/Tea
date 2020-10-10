@@ -1,13 +1,13 @@
 --- src/Terraria/Terraria/Lang.cs
 +++ src/Tea/Terraria/Lang.cs
-@@ -8,6 +_,7 @@
- using Terraria.Localization;
+@@ -9,6 +_,7 @@
  #if CLIENT
  using Terraria.Map;
-+using Terraria.Tea;
  #endif
++using Terraria.Tea;
  using Terraria.UI;
  
+ namespace Terraria
 @@ -35,13 +_,13 @@
  		public static LocalizedText[] chestType2 = new LocalizedText[14];
  		public static LocalizedText[] prefix = new LocalizedText[85];

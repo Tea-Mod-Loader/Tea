@@ -8,15 +8,18 @@
  using Terraria.UI;
  using Terraria.UI.Chat;
  using Terraria.UI.Gamepad;
-@@ -81,7 +_,7 @@
+@@ -81,9 +_,9 @@
  namespace Terraria
  {
  #if CLIENT
 -	public class Main : Game
 +	public partial class Main : Game
  #else
- 	public class Main : Terraria.Server.Game
+-	public class Main : Terraria.Server.Game
++	public partial class Main : Terraria.Server.Game
  #endif
+ 	{
+ 		public delegate void OnPlayerSelected(PlayerFileData player);
 @@ -234,7 +_,7 @@
  		public static NPCHeadRenderer BossNPCHeadRenderer = null;
  		public static string versionNumber = "v1.4.0.5";

@@ -155,6 +155,15 @@
  				return;
  
  			Vector2 zero = Vector2.Zero;
+@@ -1859,7 +_,7 @@
+ 
+ 			float scale = heldItem.scale;
+ 			Main.instance.LoadItem(num);
+-			Texture2D value = TextureAssets.Item[num].Value;
++			Texture2D value = ItemLoader.itemTexture[num];
+ 			Vector2 position = new Vector2((int)(drawinfo.ItemLocation.X - Main.screenPosition.X), (int)(drawinfo.ItemLocation.Y - Main.screenPosition.Y));
+ 			Rectangle? sourceRect = new Rectangle(0, 0, value.Width, value.Height);
+ 			if (num == 75)
 @@ -2147,7 +_,7 @@
  			if (drawinfo.usesCompositeTorso) {
  				DrawPlayer_28_ArmOverItemComposite(ref drawinfo);
@@ -191,6 +200,24 @@
  				DrawData item = new DrawData(TextureAssets.AccHandsOn[drawinfo.drawPlayer.handon].Value, new Vector2((int)(drawinfo.Position.X - Main.screenPosition.X - (float)(drawinfo.drawPlayer.bodyFrame.Width / 2) + (float)(drawinfo.drawPlayer.width / 2)), (int)(drawinfo.Position.Y - Main.screenPosition.Y + (float)drawinfo.drawPlayer.height - (float)drawinfo.drawPlayer.bodyFrame.Height + 4f)) + drawinfo.drawPlayer.bodyPosition + new Vector2(drawinfo.drawPlayer.bodyFrame.Width / 2, drawinfo.drawPlayer.bodyFrame.Height / 2), drawinfo.drawPlayer.bodyFrame, drawinfo.colorArmorBody, drawinfo.drawPlayer.bodyRotation, drawinfo.bodyVect, 1f, drawinfo.playerEffect, 0);
  				item.shader = drawinfo.cHandOn;
  				drawinfo.DrawDataCache.Add(item);
+@@ -2329,14 +_,14 @@
+ 				return;
+ 
+ 			Main.instance.LoadItem(heldItem.type);
+-			Asset<Texture2D> asset = TextureAssets.Item[heldItem.type];
++			Texture2D value = ItemLoader.itemTexture[heldItem.type];
+ 			if (!drawinfo.drawPlayer.frozen && (drawinfo.drawPlayer.itemAnimation > 0 || (heldItem.holdStyle != 0 && !drawinfo.drawPlayer.pulley)) && heldItem.type > 0 && !drawinfo.drawPlayer.dead && !heldItem.noUseGraphic && (!drawinfo.drawPlayer.wet || !heldItem.noWet)) {
+ 				if (drawinfo.drawPlayer.gravDir == -1f) {
+-					DrawData item = new DrawData(asset.Value, new Vector2((int)(drawinfo.ItemLocation.X - Main.screenPosition.X), (int)(drawinfo.ItemLocation.Y - Main.screenPosition.Y)), new Rectangle(0, 0, asset.Width(), asset.Height()), heldItem.GetAlpha(drawinfo.itemColor), drawinfo.drawPlayer.itemRotation, new Vector2((float)asset.Width() * 0.5f - (float)asset.Width() * 0.5f * (float)drawinfo.drawPlayer.direction, 0f), heldItem.scale, drawinfo.itemEffect, 0);
++					DrawData item = new DrawData(value, new Vector2((int)(drawinfo.ItemLocation.X - Main.screenPosition.X), (int)(drawinfo.ItemLocation.Y - Main.screenPosition.Y)), new Rectangle(0, 0, value.Width, value.Height), heldItem.GetAlpha(drawinfo.itemColor), drawinfo.drawPlayer.itemRotation, new Vector2((float)value.Width * 0.5f - (float)value.Width * 0.5f * (float)drawinfo.drawPlayer.direction, 0f), heldItem.scale, drawinfo.itemEffect, 0);
+ 					drawinfo.DrawDataCache.Add(item);
+ 				}
+ 				else {
+-					DrawData item = new DrawData(asset.Value, new Vector2((int)(drawinfo.ItemLocation.X - Main.screenPosition.X), (int)(drawinfo.ItemLocation.Y - Main.screenPosition.Y)), new Rectangle(0, 0, asset.Width(), asset.Height()), heldItem.GetAlpha(drawinfo.itemColor), drawinfo.drawPlayer.itemRotation, new Vector2((float)asset.Width() * 0.5f - (float)asset.Width() * 0.5f * (float)drawinfo.drawPlayer.direction, asset.Height()), heldItem.scale, drawinfo.itemEffect, 0);
++					DrawData item = new DrawData(value, new Vector2((int)(drawinfo.ItemLocation.X - Main.screenPosition.X), (int)(drawinfo.ItemLocation.Y - Main.screenPosition.Y)), new Rectangle(0, 0, value.Width, value.Height), heldItem.GetAlpha(drawinfo.itemColor), drawinfo.drawPlayer.itemRotation, new Vector2((float)value.Width * 0.5f - (float)value.Width * 0.5f * (float)drawinfo.drawPlayer.direction, value.Height), heldItem.scale, drawinfo.itemEffect, 0);
+ 					drawinfo.DrawDataCache.Add(item);
+ 				}
+ 			}
 @@ -2348,7 +_,7 @@
  		}
  

@@ -1,5 +1,6 @@
 ﻿using Microsoft.CSharp;
 using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -7,7 +8,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using Terraria.ID;
 
 namespace Terraria.Tea
 {
@@ -32,6 +32,7 @@ namespace Terraria.Tea
 		internal static string modToBuild;
 		internal static readonly IDictionary<string, Mod> mods = new Dictionary<string, Mod>();
 		internal const bool IsBeta = true;
+		internal static IAssetRepository ModAssets;
 
 		private static bool loadedAllReferences = false;
 		private static readonly IList<string> buildReferences = new List<string>();
@@ -609,8 +610,21 @@ namespace Terraria.Tea
 		}
 
 		public static Texture2D GetTexture(string name) {
-			if (!textures.ContainsKey(name)) {
-				throw new ArgumentException("Missing texture " + name);
+			if (Main.dedServ) {
+				return null;
+			}
+
+			int slash = name.IndexOfAny(new char[] { '/', ' ', ':' });
+
+			if (slash < 0) {
+				throw new ArgumentException("Missing mod qualifier: " + name);
+			}
+
+			string modName = name.Substring(0, slash);
+			string subName = name.Substring(slash + 1);
+
+			if (modName == "Terraria") {
+				return Main.Assets.Request<Texture2D>(Path.Combine("Images", subName)).Value;
 			}
 
 			return textures[name];

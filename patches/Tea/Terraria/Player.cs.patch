@@ -125,6 +125,18 @@
  			else if (shieldRaised) {
  				bodyFrame.Y = bodyFrame.Height * 10;
  			}
+@@ -29021,9 +_,9 @@
+ 		public Rectangle GetItemDrawFrame(int type) {
+ 			Main.instance.LoadItem(type);
+ 			if (type == 75)
+-				return TextureAssets.Item[type].Frame(1, 8);
++				return ItemLoader.itemTexture[type].Frame(1, 8);
+ 
+-			return TextureAssets.Item[type].Frame();
++			return ItemLoader.itemTexture[type].Frame();
+ 		}
+ 
+ 		public void ItemCheck(int i) {
 @@ -29058,7 +_,7 @@
  			if (itemAnimation == 0 && altFunctionUse == 2)
  				altFunctionUse = 0;

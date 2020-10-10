@@ -1,0 +1,22 @@
+--- src/Terraria/Terraria/GameContent/UI/Elements/UIDynamicItemCollection.cs
++++ src/Tea/Terraria/GameContent/UI/Elements/UIDynamicItemCollection.cs
+@@ -34,8 +_,6 @@
+ 				Rectangle itemSlotHitbox = GetItemSlotHitbox(startX, startY, startItemIndex, i);
+ 				Item inv = ContentSamples.ItemsByType[num2];
+ 				int context = 29;
+-				if (TextureAssets.Item[num2].State == AssetState.NotLoaded)
+-					num--;
+ 
+ 				bool cREATIVE_ItemSlotShouldHighlightAsSelected = false;
+ 				if (base.IsMouseHovering && itemSlotHitbox.Contains(Main.MouseScreen.ToPoint()) && !PlayerInput.IgnoreMouseInterface) {
+@@ -56,10 +_,6 @@
+ 			while (_itemIdsToLoadTexturesFor.Count > 0 && num > 0) {
+ 				int num3 = _itemIdsToLoadTexturesFor[0];
+ 				_itemIdsToLoadTexturesFor.RemoveAt(0);
+-				if (TextureAssets.Item[num3].State == AssetState.NotLoaded) {
+-					Main.instance.LoadItem(num3);
+-					num -= 4;
+-				}
+ 			}
+ 		}
+ 

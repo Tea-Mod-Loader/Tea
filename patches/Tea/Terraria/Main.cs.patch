@@ -26,6 +26,15 @@
  		public static bool AnnouncementBoxDisabled;
  		public static int AnnouncementBoxRange = -1;
  		public static string AutogenSeedName;
+@@ -2408,7 +_,7 @@
+ 		public static Vector2 DrawPlayerItemPos(float gravdir, int itemtype) {
+ 			float num = 10f;
+ 			instance.LoadItem(itemtype);
+-			Vector2 result = new Vector2(TextureAssets.Item[itemtype].Width() / 2, TextureAssets.Item[itemtype].Height() / 2);
++			Vector2 result = new Vector2(ItemLoader.itemTexture[itemtype].Width / 2, ItemLoader.itemTexture[itemtype].Height / 2);
+ 			switch (itemtype) {
+ 				case 95:
+ 					num = 6f;
 @@ -5020,7 +_,7 @@
  		}
  
@@ -51,6 +60,176 @@
  			if (!IsEnginePreloaded) {
  				IsEnginePreloaded = true;
  				if (Main.OnEnginePreload != null)
+@@ -16842,7 +_,7 @@
+ 					zero2.Y -= 6f;
+ 
+ 				instance.LoadItem(327);
+-				mySpriteBatch.Draw(TextureAssets.Item[327].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) + zero2.X, rCurrentNPC.position.Y - screenPos.Y + (float)(rCurrentNPC.height / 2) + zero2.Y), new Microsoft.Xna.Framework.Rectangle(0, 0, TextureAssets.Item[327].Width(), TextureAssets.Item[327].Height()), npcColor, num35, new Vector2(TextureAssets.Item[327].Width() / 2, TextureAssets.Item[327].Height() / 2), 1f, SpriteEffects.None, 0f);
++				mySpriteBatch.Draw(ItemLoader.itemTexture[327], new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) + zero2.X, rCurrentNPC.position.Y - screenPos.Y + (float)(rCurrentNPC.height / 2) + zero2.Y), new Microsoft.Xna.Framework.Rectangle(0, 0, ItemLoader.itemTexture[327].Width, ItemLoader.itemTexture[327].Height), npcColor, num35, new Vector2(ItemLoader.itemTexture[327].Width / 2, ItemLoader.itemTexture[327].Height / 2), 1f, SpriteEffects.None, 0f);
+ 			}
+ 
+ 			if (type == 69)
+@@ -19872,8 +_,8 @@
+ 			float num3 = 22f * rCurrentNPC.scale;
+ 			float num4 = 18f * rCurrentNPC.scale;
+ 			instance.LoadItem(num);
+-			float num5 = TextureAssets.Item[num].Width();
++			float num5 = ItemLoader.itemTexture[num].Width;
+-			float num6 = TextureAssets.Item[num].Height();
++			float num6 = ItemLoader.itemTexture[num].Height;
+ 			bool num7 = (int)rCurrentNPC.ai[0] == -999;
+ 			if (num7) {
+ 				num3 = 14f * rCurrentNPC.scale;
+@@ -19905,7 +_,7 @@
+ 				num8 -= num5 * addedRotation;
+ 			}
+ 
+-			spriteBatch.Draw(TextureAssets.Item[num].Value, new Vector2(rCurrentNPC.Center.X - screenPosition.X + num8, rCurrentNPC.Center.Y - screenPosition.Y + rCurrentNPC.gfxOffY + num9), null, npcColor, num11, new Vector2(TextureAssets.Item[num].Width() / 2, TextureAssets.Item[num].Height() / 2), num2, SpriteEffects.None, 0f);
++			spriteBatch.Draw(ItemLoader.itemTexture[num], new Vector2(rCurrentNPC.Center.X - screenPosition.X + num8, rCurrentNPC.Center.Y - screenPosition.Y + rCurrentNPC.gfxOffY + num9), null, npcColor, num11, new Vector2(ItemLoader.itemTexture[num].Width / 2, ItemLoader.itemTexture[num].Height / 2), num2, SpriteEffects.None, 0f);
+ 		}
+ 
+ 		protected void DrawNPCExtras(NPC n, bool beforeDraw, float addHeight, float addY, Microsoft.Xna.Framework.Color npcColor, Vector2 halfSize, SpriteEffects npcSpriteEffect, Vector2 screenPosition) {
+@@ -20125,7 +_,7 @@
+ 				}
+ 
+ 				instance.LoadItem(num8);
+-				Texture2D value3 = TextureAssets.Item[num8].Value;
++				Texture2D value3 = ItemLoader.itemTexture[num8];
+ 				int num10 = (int)DrawPlayerItemPos(1f, num8).X - num9;
+ 				Vector2 origin2 = new Vector2(-num10, value3.Height / 2);
+ 				if (n.spriteDirection == -1)
+@@ -20154,13 +_,13 @@
+ 
+ 			if (NPCID.Sets.AttackType[n.type] == 3 && n.ai[0] == 15f) {
+ 				instance.LoadItem(4);
+-				Texture2D value9 = TextureAssets.Item[4].Value;
++				Texture2D value9 = ItemLoader.itemTexture[4];
+ 				int num11 = 32;
+ 				float scaleFactor = 0f;
+ 				Vector2 zero = Vector2.Zero;
+ 				if (n.type == 207) {
+ 					instance.LoadItem(3349);
+-					value9 = TextureAssets.Item[3349].Value;
++					value9 = ItemLoader.itemTexture[3349];
+ 					scaleFactor = 0.15f;
+ 					if (beforeDraw)
+ 						return;
+@@ -20170,7 +_,7 @@
+ 				}
+ 				else if (n.type == 353) {
+ 					instance.LoadItem(3352);
+-					value9 = TextureAssets.Item[3352].Value;
++					value9 = ItemLoader.itemTexture[3352];
+ 					scaleFactor = 0.15f;
+ 					if (!beforeDraw)
+ 						return;
+@@ -20180,7 +_,7 @@
+ 				}
+ 				else if (n.type == 441) {
+ 					instance.LoadItem(3351);
+-					value9 = TextureAssets.Item[3351].Value;
++					value9 = ItemLoader.itemTexture[3351];
+ 					num11 = 28;
+ 					scaleFactor = 0.1f;
+ 					if (!beforeDraw)
+@@ -20200,7 +_,7 @@
+ 				return;
+ 
+ 			instance.LoadItem(353);
+-			Texture2D value10 = TextureAssets.Item[353].Value;
++			Texture2D value10 = ItemLoader.itemTexture[353];
+ 			int num12 = 32;
+ 			float scaleFactor2 = 0.15f;
+ 			Vector2 zero2 = Vector2.Zero;
+@@ -22026,9 +_,9 @@
+ 
+ 				if (projectile.type == 933) {
+ 					int num145 = (int)projectile.ai[1];
+-					if (TextureAssets.Item.IndexInRange(num145)) {
++					if (num145 > 0 && num145 < ItemLoader.itemTexture.Length) {
+ 						instance.LoadItem(num145);
+-						value13 = TextureAssets.Item[num145].Value;
++						value13 = ItemLoader.itemTexture[num145];
+ 						rectangle3 = value13.Frame();
+ 						origin4 = rectangle3.Size() / 2f;
+ 						num144 = -(float)Math.PI / 4f * (float)projectile.spriteDirection;
+@@ -23429,7 +_,7 @@
+ 					if (projectile.type == 714) {
+ 						y17 = 0;
+ 						instance.LoadItem(3930);
+-						value66 = TextureAssets.Item[3930].Value;
++						value66 = ItemLoader.itemTexture[3930];
+ 					}
+ 
+ 					EntitySpriteDraw(value66, vector35, new Microsoft.Xna.Framework.Rectangle(0, y17, value66.Width, num238), projectile.GetAlpha(color29), projectile.rotation, new Vector2((float)value66.Width / 2f, (float)num238 / 2f), projectile.scale, spriteEffects, 0);
+@@ -24802,7 +_,7 @@
+ 
+ 					int type2 = Main.player[projectile.owner].inventory[Main.player[projectile.owner].selectedItem].type;
+ 					instance.LoadItem(type2);
+-					Texture2D value144 = TextureAssets.Item[type2].Value;
++					Texture2D value144 = ItemLoader.itemTexture[type2];
+ 					Microsoft.Xna.Framework.Color color90 = Lighting.GetColor((int)vector57.X / 16, (int)vector57.Y / 16);
+ 					EntitySpriteDraw(value144, vector57 - screenPosition + value141 * num348, null, color90, projectile.rotation + (float)Math.PI / 2f + ((spriteEffects == SpriteEffects.None || spriteEffects == SpriteEffects.FlipVertically) ? ((float)Math.PI) : 0f), new Vector2((spriteEffects != 0 && spriteEffects != SpriteEffects.FlipVertically) ? value144.Width : 0, (float)value144.Height / 2f) + Vector2.UnitY * 1f, Main.player[projectile.owner].inventory[Main.player[projectile.owner].selectedItem].scale, spriteEffects, 0);
+ 					EntitySpriteDraw(TextureAssets.GlowMask[39].Value, vector57 - screenPosition + value141 * num348, null, new Microsoft.Xna.Framework.Color(255, 255, 255, 0), projectile.rotation + (float)Math.PI / 2f + ((spriteEffects == SpriteEffects.None || spriteEffects == SpriteEffects.FlipVertically) ? ((float)Math.PI) : 0f), new Vector2((spriteEffects != 0 && spriteEffects != SpriteEffects.FlipVertically) ? value144.Width : 0, (float)value144.Height / 2f) + Vector2.UnitY * 1f, Main.player[projectile.owner].inventory[Main.player[projectile.owner].selectedItem].scale, spriteEffects, 0);
+@@ -25152,7 +_,7 @@
+ 						}
+ 
+ 						instance.LoadItem(num385);
+-						EntitySpriteDraw(TextureAssets.Item[num385].Value, new Vector2(center5.X - screenPosition.X, center5.Y - screenPosition.Y), new Microsoft.Xna.Framework.Rectangle(0, 0, TextureAssets.Item[num385].Width(), TextureAssets.Item[num385].Height()), color29, rotation30, new Vector2(TextureAssets.Item[num385].Width() / 2, TextureAssets.Item[num385].Height() / 2), projectile.scale, spriteEffects, 0);
++						EntitySpriteDraw(ItemLoader.itemTexture[num385], new Vector2(center5.X - screenPosition.X, center5.Y - screenPosition.Y), new Microsoft.Xna.Framework.Rectangle(0, 0, ItemLoader.itemTexture[num385].Width, ItemLoader.itemTexture[num385].Height), color29, rotation30, new Vector2(ItemLoader.itemTexture[num385].Width / 2, ItemLoader.itemTexture[num385].Height / 2), projectile.scale, spriteEffects, 0);
+ 					}
+ 					else if (projectile.ai[0] <= 1f) {
+ 						EntitySpriteDraw(TextureAssets.Projectile[projectile.type].Value, new Vector2(projectile.position.X - screenPosition.X + num137 + (float)num136, projectile.position.Y - screenPosition.Y + (float)(projectile.height / 2) + projectile.gfxOffY), new Microsoft.Xna.Framework.Rectangle(0, 0, TextureAssets.Projectile[projectile.type].Width(), TextureAssets.Projectile[projectile.type].Height()), projectile.GetAlpha(color29), projectile.rotation, new Vector2(num137, projectile.height / 2 + num135), projectile.scale, spriteEffects, 0);
+@@ -25712,7 +_,7 @@
+ 				float num3 = rand.NextFloat();
+ 				float scale = Utils.GetLerpValue(0f, 0.3f, num3, clamped: true) * Utils.GetLerpValue(1f, 0.5f, num3, clamped: true);
+ 				Microsoft.Xna.Framework.Color color = proj.GetAlpha(Lighting.GetColor(proj.Center.ToTileCoordinates())) * scale;
+-				Texture2D value2 = TextureAssets.Item[4923].Value;
++				Texture2D value2 = ItemLoader.itemTexture[4923];
+ 				Vector2 origin = value2.Size() / 2f;
+ 				float num4 = rand.NextFloatDirection();
+ 				float scaleFactor = 8f + MathHelper.Lerp(0f, 20f, num3) + rand.NextFloat() * 6f;
+@@ -26992,7 +_,7 @@
+ 				globalTimeWrappedHourly = globalTimeWrappedHourly * 0.5f + 0.5f;
+ 				Vector2 position = proj.Center - screenPosition;
+ 				instance.LoadItem(75);
+-				Texture2D value10 = TextureAssets.Item[75].Value;
++				Texture2D value10 = ItemLoader.itemTexture[75];
+ 				Microsoft.Xna.Framework.Rectangle rectangle = value10.Frame(1, 8);
+ 				EntitySpriteDraw(origin: rectangle.Size() / 2f, texture: value10, position: position, sourceRectangle: rectangle, color: color, rotation: rotation, scale: proj.scale, effects: SpriteEffects.None, worthless: 0);
+ 			}
+@@ -27632,10 +_,10 @@
+ 			LoadItem(item.type);
+ 			if (ItemID.Sets.AnimatesAsSoul[item.type] || ItemID.Sets.NebulaPickup[item.type]) {
+ 				DrawItem_AnimateSlot(slot, itemAnimations[item.type].TicksPerFrame, itemAnimations[item.type].FrameCount);
+-				texture = TextureAssets.Item[item.type].Value;
++				texture = ItemLoader.itemTexture[item.type];
+ 			}
+ 			else if (ItemID.Sets.IsFood[item.type]) {
+-				texture = TextureAssets.Item[item.type].Value;
++				texture = ItemLoader.itemTexture[item.type];
+ 			}
+ 			else {
+ 				switch (item.type) {
+@@ -27650,15 +_,15 @@
+ 							return;
+ 						}
+ 					case 3858:
+-						texture = TextureAssets.Item[item.type].Value;
++						texture = ItemLoader.itemTexture[item.type];
+ 						DrawItem_AnimateSlot(slot, 5, 3);
+ 						break;
+ 					case 75:
+-						texture = TextureAssets.Item[item.type].Value;
++						texture = ItemLoader.itemTexture[item.type];
+ 						DrawItem_AnimateSlot(slot, itemAnimations[item.type].TicksPerFrame, itemAnimations[item.type].FrameCount * 2 - 1);
+ 						break;
+ 					default:
+-						texture = TextureAssets.Item[item.type].Value;
++						texture = ItemLoader.itemTexture[item.type];
+ 						break;
+ 				}
+ 			}
 @@ -27688,6 +_,11 @@
  			Microsoft.Xna.Framework.Color color = Lighting.GetColor(item.Center.ToTileCoordinates());
  			Microsoft.Xna.Framework.Color currentColor = item.GetAlpha(color);
@@ -63,6 +242,34 @@
  			int num2 = item.glowMask;
  			if (!gamePaused && base.IsActive && ((item.type >= 71 && item.type <= 74) || item.type == 58 || item.type == 109) && color.R > 60 && (float)rand.Next(500) - (Math.Abs(item.velocity.X) + Math.Abs(item.velocity.Y)) * 10f < (float)((int)color.R / 50)) {
  				int num3 = Dust.NewDust(item.position, item.width, item.height, 43, 0f, 0f, 254, Microsoft.Xna.Framework.Color.White, 0.5f);
+@@ -27721,11 +_,11 @@
+ 
+ 				globalTimeWrappedHourly2 = globalTimeWrappedHourly2 * 0.5f + 0.5f;
+ 				for (float num8 = 0f; num8 < 1f; num8 += 0.25f) {
+-					spriteBatch.Draw(TextureAssets.Item[item.type].Value, vector2 + new Vector2(0f, 8f).RotatedBy((num8 + num7) * ((float)Math.PI * 2f)) * globalTimeWrappedHourly2, frame, new Microsoft.Xna.Framework.Color(50, 50, 255, 50), num, vector, scale, SpriteEffects.None, 0f);
++					spriteBatch.Draw(ItemLoader.itemTexture[item.type], vector2 + new Vector2(0f, 8f).RotatedBy((num8 + num7) * ((float)Math.PI * 2f)) * globalTimeWrappedHourly2, frame, new Microsoft.Xna.Framework.Color(50, 50, 255, 50), num, vector, scale, SpriteEffects.None, 0f);
+ 				}
+ 
+ 				for (float num9 = 0f; num9 < 1f; num9 += 0.34f) {
+-					spriteBatch.Draw(TextureAssets.Item[item.type].Value, vector2 + new Vector2(0f, 4f).RotatedBy((num9 + num7) * ((float)Math.PI * 2f)) * globalTimeWrappedHourly2, frame, new Microsoft.Xna.Framework.Color(120, 120, 255, 127), num, vector, scale, SpriteEffects.None, 0f);
++					spriteBatch.Draw(ItemLoader.itemTexture[item.type], vector2 + new Vector2(0f, 4f).RotatedBy((num9 + num7) * ((float)Math.PI * 2f)) * globalTimeWrappedHourly2, frame, new Microsoft.Xna.Framework.Color(120, 120, 255, 127), num, vector, scale, SpriteEffects.None, 0f);
+ 				}
+ 			}
+ 			else if (item.type == 4143) {
+@@ -27738,11 +_,11 @@
+ 
+ 				globalTimeWrappedHourly3 = globalTimeWrappedHourly3 * 0.5f + 0.5f;
+ 				for (float num11 = 0f; num11 < 1f; num11 += 0.34f) {
+-					spriteBatch.Draw(TextureAssets.Item[item.type].Value, vector2 + new Vector2(0f, 8f).RotatedBy((num11 + num10) * ((float)Math.PI * 2f)) * globalTimeWrappedHourly3, frame, new Microsoft.Xna.Framework.Color(30, 30, 155, 60), num, vector, scale, SpriteEffects.None, 0f);
++					spriteBatch.Draw(ItemLoader.itemTexture[item.type], vector2 + new Vector2(0f, 8f).RotatedBy((num11 + num10) * ((float)Math.PI * 2f)) * globalTimeWrappedHourly3, frame, new Microsoft.Xna.Framework.Color(30, 30, 155, 60), num, vector, scale, SpriteEffects.None, 0f);
+ 				}
+ 
+ 				for (float num12 = 0f; num12 < 1f; num12 += 0.34f) {
+-					spriteBatch.Draw(TextureAssets.Item[item.type].Value, vector2 + new Vector2(0f, 4f).RotatedBy((num12 + num10) * ((float)Math.PI * 2f)) * globalTimeWrappedHourly3, frame, new Microsoft.Xna.Framework.Color(60, 60, 127, 57), num, vector, scale, SpriteEffects.None, 0f);
++					spriteBatch.Draw(ItemLoader.itemTexture[item.type], vector2 + new Vector2(0f, 4f).RotatedBy((num12 + num10) * ((float)Math.PI * 2f)) * globalTimeWrappedHourly3, frame, new Microsoft.Xna.Framework.Color(60, 60, 127, 57), num, vector, scale, SpriteEffects.None, 0f);
+ 				}
+ 
+ 				spriteBatch.Draw(texture, vector2, frame, new Microsoft.Xna.Framework.Color(255, 255, 255, 128), num, vector, scale, SpriteEffects.None, 0f);
 @@ -27768,6 +_,11 @@
  
  			if (item.type == 3858)
@@ -75,6 +282,51 @@
  		}
  
  		public void DrawItems() {
+@@ -28679,7 +_,7 @@
+ 				item.netDefaults(npcChatCornerItem);
+ 				float num3 = 1f;
+ 				LoadItem(item.type);
+-				Texture2D value = TextureAssets.Item[item.type].Value;
++				Texture2D value = ItemLoader.itemTexture[item.type];
+ 				if (value.Width > 32 || value.Height > 32)
+ 					num3 = ((value.Width <= value.Height) ? (32f / (float)value.Height) : (32f / (float)value.Width));
+ 
+@@ -33130,7 +_,7 @@
+ 
+ 				if (num > 0) {
+ 					instance.LoadItem(num);
+-					spriteBatch.Draw(TextureAssets.Item[num].Value, new Vector2(mouseX + 10, mouseY + 10), Item.GetDrawHitbox(num, null), currentColor, 0f, default(Vector2), num2, effects, 0f);
++					spriteBatch.Draw(ItemLoader.itemTexture[num], new Vector2(mouseX + 10, mouseY + 10), Item.GetDrawHitbox(num, null), currentColor, 0f, default(Vector2), num2, effects, 0f);
+ 				}
+ 
+ 				if (player[myPlayer].cursorItemIconText != "")
+@@ -33138,7 +_,7 @@
+ 
+ 				if (player[myPlayer].cursorItemIconID == 0 && player[myPlayer].inventory[player[myPlayer].selectedItem].color != default(Microsoft.Xna.Framework.Color)) {
+ 					instance.LoadItem(player[myPlayer].inventory[player[myPlayer].selectedItem].type);
+-					spriteBatch.Draw(TextureAssets.Item[player[myPlayer].inventory[player[myPlayer].selectedItem].type].Value, new Vector2(mouseX + 10, mouseY + 10), Item.GetDrawHitbox(player[myPlayer].inventory[player[myPlayer].selectedItem].type, null), color, 0f, default(Vector2), num2, SpriteEffects.None, 0f);
++					spriteBatch.Draw(ItemLoader.itemTexture[player[myPlayer].inventory[player[myPlayer].selectedItem].type], new Vector2(mouseX + 10, mouseY + 10), Item.GetDrawHitbox(player[myPlayer].inventory[player[myPlayer].selectedItem].type, null), color, 0f, default(Vector2), num2, SpriteEffects.None, 0f);
+ 				}
+ 
+ 				if (!flag)
+@@ -34371,7 +_,7 @@
+ 
+ 					vector.Y += 26f;
+ 					instance.LoadItem(list[num2]);
+-					Texture2D value = TextureAssets.Item[list[num2]].Value;
++					Texture2D value = ItemLoader.itemTexture[list[num2]];
+ 					Microsoft.Xna.Framework.Point point = (vector + screenPosition).ToTileCoordinates();
+ 					spriteBatch.Draw(value, vector, null, Lighting.GetColor(point.X, point.Y), (float)Math.PI / 4f, value.Size() / 2f, 1f, SpriteEffects.None, 0f);
+ 				}
+@@ -34498,7 +_,7 @@
+ 
+ 		public static void DrawItemIcon(SpriteBatch spriteBatch, Item theItem, Vector2 screenPositionForItemCenter, Microsoft.Xna.Framework.Color itemLightColor, float sizeLimit) {
+ 			instance.LoadItem(theItem.type);
+-			Texture2D value = TextureAssets.Item[theItem.type].Value;
++			Texture2D value = ItemLoader.itemTexture[theItem.type];
+ 			Microsoft.Xna.Framework.Rectangle value2 = (itemAnimations[theItem.type] == null) ? value.Frame() : itemAnimations[theItem.type].GetFrame(value);
+ 			int width = value2.Width;
+ 			int height = value2.Height;
 @@ -35924,7 +_,7 @@
  
  			string[] array9 = new string[maxMenuItems];
@@ -165,3 +417,29 @@
  		}
  
  		private void DrawSplash_LoadingStar(Microsoft.Xna.Framework.Color splashColor) {
+@@ -39273,12 +_,12 @@
+ 			if (num2 >= 8)
+ 				num2 = 14 - num2;
+ 
+-			Microsoft.Xna.Framework.Rectangle rectangle = TextureAssets.Item[75].Frame(1, 8, 0, num2);
++			Microsoft.Xna.Framework.Rectangle rectangle = ItemLoader.itemTexture[75].Frame(1, 8, 0, num2);
+ 			rectangle.Height -= 2;
+ 			float rotation = 0f;
+ 			Vector2 origin = rectangle.Size() / 2f;
+ 			origin.Y += 2f;
+-			spriteBatch.Draw(TextureAssets.Item[75].Value, position, rectangle, splashColor, rotation, origin, 1f, SpriteEffects.None, 0f);
++			spriteBatch.Draw(ItemLoader.itemTexture[75], position, rectangle, splashColor, rotation, origin, 1f, SpriteEffects.None, 0f);
+ 		}
+ 
+ 		protected void DrawUnderworldBackground(bool flat) {
+@@ -44719,8 +_,8 @@
+ 		}
+ 
+ 		public void LoadItem(int i) {
+-			if (TextureAssets.Item[i].State == AssetState.NotLoaded)
++			//if (TextureAssets.Item[i].State == AssetState.NotLoaded)
+-				Assets.Request<Texture2D>(TextureAssets.Item[i].Name);
++			//	Assets.Request<Texture2D>(TextureAssets.Item[i].Name);
+ 		}
+ 
+ 		public void LoadNPC(int i) {

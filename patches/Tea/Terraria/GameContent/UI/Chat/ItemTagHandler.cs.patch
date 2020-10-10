@@ -1,0 +1,19 @@
+--- src/Terraria/Terraria/GameContent/UI/Chat/ItemTagHandler.cs
++++ src/Tea/Terraria/GameContent/UI/Chat/ItemTagHandler.cs
+@@ -1,6 +_,7 @@
+ using Microsoft.Xna.Framework;
+ using Microsoft.Xna.Framework.Graphics;
+ using ReLogic.Graphics;
++using Terraria.Tea;
+ using Terraria.UI;
+ using Terraria.UI.Chat;
+ 
+@@ -27,7 +_,7 @@
+ 				float num2 = 1f;
+ 				if (Main.netMode != 2 && !Main.dedServ) {
+ 					Main.instance.LoadItem(_item.type);
+-					Texture2D value = TextureAssets.Item[_item.type].Value;
++					Texture2D value = ItemLoader.itemTexture[_item.type];
+ 					Rectangle rectangle = (Main.itemAnimations[_item.type] == null) ? value.Frame() : Main.itemAnimations[_item.type].GetFrame(value);
+ 					if (rectangle.Height > 32)
+ 						num2 = 32f / (float)rectangle.Height;

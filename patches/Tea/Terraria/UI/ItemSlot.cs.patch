@@ -17,6 +17,54 @@
  						if (Main.mouseRightRelease) {
  							player.OpenFishingCrate(inv[slot].type);
  							inv[slot].stack--;
+@@ -1580,7 +_,7 @@
+ 			Vector2 vector = value.Size() * inventoryScale;
+ 			if (item.type > 0 && item.stack > 0) {
+ 				Main.instance.LoadItem(item.type);
+-				Texture2D value7 = TextureAssets.Item[item.type].Value;
++				Texture2D value7 = ItemLoader.itemTexture[item.type];
+ 				Rectangle rectangle2 = (Main.itemAnimations[item.type] == null) ? value7.Frame() : Main.itemAnimations[item.type].GetFrame(value7);
+ 				Color currentColor = color;
+ 				float scale3 = 1f;
+@@ -1999,7 +_,7 @@
+ 					}
+ 
+ 					Vector2 position = new Vector2(shopx + ChatManager.GetStringSize(FontAssets.MouseText.Value, text, Vector2.One).X + (float)(24 * i) + 45f, shopy + 50f);
+-					sb.Draw(TextureAssets.Item[74 - i].Value, position, null, Color.White, 0f, TextureAssets.Item[74 - i].Value.Size() / 2f, 1f, SpriteEffects.None, 0f);
++					sb.Draw(ItemLoader.itemTexture[74 - i], position, null, Color.White, 0f, ItemLoader.itemTexture[74 - i].Size() / 2f, 1f, SpriteEffects.None, 0f);
+ 					Utils.DrawBorderStringFourWay(sb, FontAssets.ItemStack.Value, coinsArray[3 - i].ToString(), position.X - 11f, position.Y, Color.White, Color.Black, new Vector2(0.3f), 0.75f);
+ 				}
+ 			}
+@@ -2007,7 +_,7 @@
+ 				for (int j = 0; j < 4; j++) {
+ 					Main.instance.LoadItem(74 - j);
+ 					int num = (j == 0 && coinsArray[3 - j] > 99) ? (-6) : 0;
+-					sb.Draw(TextureAssets.Item[74 - j].Value, new Vector2(shopx + 11f + (float)(24 * j), shopy + 75f), null, Color.White, 0f, TextureAssets.Item[74 - j].Value.Size() / 2f, 1f, SpriteEffects.None, 0f);
++					sb.Draw(ItemLoader.itemTexture[74 - j], new Vector2(shopx + 11f + (float)(24 * j), shopy + 75f), null, Color.White, 0f, ItemLoader.itemTexture[74 - j].Size() / 2f, 1f, SpriteEffects.None, 0f);
+ 					Utils.DrawBorderStringFourWay(sb, FontAssets.ItemStack.Value, coinsArray[3 - j].ToString(), shopx + (float)(24 * j) + (float)num, shopy + 75f, Color.White, Color.Black, new Vector2(0.3f), 0.75f);
+ 				}
+ 			}
+@@ -2032,16 +_,16 @@
+ 				Main.instance.LoadItem(346);
+ 				Main.instance.LoadItem(87);
+ 				if (num4 > 0)
+-					sb.Draw(TextureAssets.Item[4076].Value, Utils.CenteredRectangle(new Vector2(shopx + 92f, shopy + 45f), TextureAssets.Item[4076].Value.Size() * 0.65f), null, Color.White);
++					sb.Draw(ItemLoader.itemTexture[4076], Utils.CenteredRectangle(new Vector2(shopx + 92f, shopy + 45f), ItemLoader.itemTexture[4076].Size() * 0.65f), null, Color.White);
+ 
+ 				if (num3 > 0)
+-					sb.Draw(TextureAssets.Item[3813].Value, Utils.CenteredRectangle(new Vector2(shopx + 92f, shopy + 45f), TextureAssets.Item[3813].Value.Size() * 0.65f), null, Color.White);
++					sb.Draw(ItemLoader.itemTexture[3813], Utils.CenteredRectangle(new Vector2(shopx + 92f, shopy + 45f), ItemLoader.itemTexture[3813].Size() * 0.65f), null, Color.White);
+ 
+ 				if (num2 > 0)
+-					sb.Draw(TextureAssets.Item[346].Value, Utils.CenteredRectangle(new Vector2(shopx + 80f, shopy + 50f), TextureAssets.Item[346].Value.Size() * 0.65f), null, Color.White);
++					sb.Draw(ItemLoader.itemTexture[346], Utils.CenteredRectangle(new Vector2(shopx + 80f, shopy + 50f), ItemLoader.itemTexture[346].Size() * 0.65f), null, Color.White);
+ 
+ 				if (num > 0)
+-					sb.Draw(TextureAssets.Item[87].Value, Utils.CenteredRectangle(new Vector2(shopx + 70f, shopy + 60f), TextureAssets.Item[87].Value.Size() * 0.65f), null, Color.White);
++					sb.Draw(ItemLoader.itemTexture[87], Utils.CenteredRectangle(new Vector2(shopx + 70f, shopy + 60f), ItemLoader.itemTexture[87].Size() * 0.65f), null, Color.White);
+ 
+ 				DrawMoney(sb, Lang.inter[66].Value, shopx, shopy, Utils.CoinsSplit(num5), horizontal);
+ 			}
 @@ -2062,7 +_,7 @@
  		}
  

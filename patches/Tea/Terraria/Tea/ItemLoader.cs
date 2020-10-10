@@ -21,6 +21,7 @@ namespace Terraria.Tea
 		internal static readonly int[] vanillaWings = new int[Main.maxWings];
 
 		public static int Count = nextItem;
+		public static Texture2D[] itemTexture = new Texture2D[ItemID.Count];
 
 		internal static int ReserveItemID() {
 			int reserveID = nextItem;
@@ -39,6 +40,7 @@ namespace Terraria.Tea
 		}
 
 		internal static void ResizeArrays() {
+            Array.Resize(ref itemTexture, nextItem);
 			Array.Resize(ref TextureAssets.Item, nextItem);
 			Array.Resize(ref TextureAssets.ItemFlame, nextItem);
 			Array.Resize(ref Main.itemAnimations, nextItem);
@@ -110,6 +112,7 @@ namespace Terraria.Tea
             Array.Resize(ref ItemID.Sets.Torches, nextItem);
             Array.Resize(ref ItemID.Sets.WaterTorches, nextItem);
             Array.Resize(ref ItemID.Sets.Workbenches, nextItem);
+			Array.Resize(ref ItemID.Sets.ItemsThatAllowRepeatedRightClick, nextItem);
 
 			for (int k = ItemID.Count; k < nextItem; k++) {
 				Lang._itemNameCache[k] = LocalizedText.Empty;
@@ -255,14 +258,14 @@ namespace Terraria.Tea
 				Main.itemFrame[item.whoAmI] = 0;
 			}
 
-			Rectangle frame = TextureAssets.Item[item.type].Frame(1, frameCount, 0, Main.itemFrame[item.whoAmI]);
+			Rectangle frame = ItemLoader.itemTexture[item.type].Frame(1, frameCount, 0, Main.itemFrame[item.whoAmI]);
 			float offX = (item.width / 2 - frame.Width / 2);
 			float offY = (item.height - frame.Height);
 
-			Main.spriteBatch.Draw(TextureAssets.Item[item.type].Value, new Vector2(item.position.X - Main.screenPosition.X + (frame.Width / 2) + offX, item.position.Y - Main.screenPosition.Y + (frame.Height / 2) + offY), new Rectangle?(frame), alpha, rotation, frame.Size() / 2f, scale, SpriteEffects.None, 0f);
+			Main.spriteBatch.Draw(ItemLoader.itemTexture[item.type], new Vector2(item.position.X - Main.screenPosition.X + (frame.Width / 2) + offX, item.position.Y - Main.screenPosition.Y + (frame.Height / 2) + offY), new Rectangle?(frame), alpha, rotation, frame.Size() / 2f, scale, SpriteEffects.None, 0f);
 
 			if (item.color != default) {
-				Main.spriteBatch.Draw(TextureAssets.Item[item.type].Value, new Vector2(item.position.X - Main.screenPosition.X + (frame.Width / 2) + offX, item.position.Y - Main.screenPosition.Y + (frame.Height / 2) + offY), new Rectangle?(frame), item.GetColor(color), rotation, frame.Size() / 2f, scale, SpriteEffects.None, 0f);
+				Main.spriteBatch.Draw(ItemLoader.itemTexture[item.type], new Vector2(item.position.X - Main.screenPosition.X + (frame.Width / 2) + offX, item.position.Y - Main.screenPosition.Y + (frame.Height / 2) + offY), new Rectangle?(frame), item.GetColor(color), rotation, frame.Size() / 2f, scale, SpriteEffects.None, 0f);
 			}
 		}
 

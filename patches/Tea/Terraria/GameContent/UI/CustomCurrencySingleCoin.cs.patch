@@ -1,0 +1,19 @@
+--- src/Terraria/Terraria/GameContent/UI/CustomCurrencySingleCoin.cs
++++ src/Tea/Terraria/GameContent/UI/CustomCurrencySingleCoin.cs
+@@ -4,6 +_,7 @@
+ using System.Collections.Generic;
+ using System.Linq;
+ using Terraria.Localization;
++using Terraria.Tea;
+ using Terraria.UI.Chat;
+ 
+ namespace Terraria.GameContent.UI
+@@ -68,7 +_,7 @@
+ 		public override void DrawSavingsMoney(SpriteBatch sb, string text, float shopx, float shopy, long totalCoins, bool horizontal = false) {
+ 			int num = _valuePerUnit.Keys.ElementAt(0);
+ 			Main.instance.LoadItem(num);
+-			Texture2D value = TextureAssets.Item[num].Value;
++			Texture2D value = ItemLoader.itemTexture[num];
+ 			if (horizontal) {
+ 				_ = 99;
+ 				Vector2 position = new Vector2(shopx + ChatManager.GetStringSize(FontAssets.MouseText.Value, text, Vector2.One).X + 45f, shopy + 50f);

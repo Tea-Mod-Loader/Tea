@@ -1,0 +1,37 @@
+--- src/Terraria/Terraria/GameContent/Drawing/TileDrawing.cs
++++ src/Tea/Terraria/GameContent/Drawing/TileDrawing.cs
+@@ -10,6 +_,7 @@
+ using Terraria.Graphics.Capture;
+ using Terraria.ID;
+ using Terraria.ObjectData;
++using Terraria.Tea;
+ using Terraria.UI;
+ using Terraria.Utilities;
+ 
+@@ -5336,7 +_,7 @@
+ 					item.netDefaults(num5);
+ 					item.Prefix(frameX2);
+ 					Main.instance.LoadItem(item.type);
+-					Texture2D value = TextureAssets.Item[item.type].Value;
++					Texture2D value = ItemLoader.itemTexture[item.type];
+ 					Rectangle value2 = (Main.itemAnimations[item.type] == null) ? value.Frame() : Main.itemAnimations[item.type].GetFrame(value);
+ 					int width = value2.Width;
+ 					int height = value2.Height;
+@@ -5366,7 +_,7 @@
+ 					Item item3 = ((TEFoodPlatter)TileEntity.ByPosition[new Point16(num, num2)]).item;
+ 					if (!item3.IsAir) {
+ 						Main.instance.LoadItem(item3.type);
+-						Texture2D value3 = TextureAssets.Item[item3.type].Value;
++						Texture2D value3 = ItemLoader.itemTexture[item3.type];
+ 						Rectangle value4 = (!ItemID.Sets.IsFood[item3.type]) ? value3.Frame() : value3.Frame(1, 3, 0, 2);
+ 						int width2 = value4.Width;
+ 						int height2 = value4.Height;
+@@ -5389,7 +_,7 @@
+ 				if (type == 471) {
+ 					Item item4 = (TileEntity.ByPosition[new Point16(num, num2)] as TEWeaponsRack).item;
+ 					Main.instance.LoadItem(item4.type);
+-					Texture2D value5 = TextureAssets.Item[item4.type].Value;
++					Texture2D value5 = ItemLoader.itemTexture[item4.type];
+ 					Rectangle value6 = (Main.itemAnimations[item4.type] == null) ? value5.Frame() : Main.itemAnimations[item4.type].GetFrame(value5);
+ 					int width3 = value6.Width;
+ 					int height3 = value6.Height;

@@ -1,10 +1,38 @@
 --- src/Terraria/Terraria/Initializers/AssetInitializer.cs
 +++ src/Tea/Terraria/Initializers/AssetInitializer.cs
-@@ -54,6 +_,7 @@
+@@ -14,6 +_,7 @@
+ using Terraria.GameContent.UI;
+ using Terraria.ID;
+ using Terraria.IO;
++using Terraria.Tea;
+ using Terraria.Utilities;
+ 
+ namespace Terraria.Initializers
+@@ -52,8 +_,9 @@
+ 			TextureAssets.SplashTextureLegoBack = LoadAsset<Texture2D>("Images\\SplashScreens\\Splash_" + num + "_0", AssetRequestMode.ImmediateLoad);
+ 			TextureAssets.SplashTextureLegoTree = LoadAsset<Texture2D>("Images\\SplashScreens\\Splash_" + num + "_1", AssetRequestMode.ImmediateLoad);
  			TextureAssets.SplashTextureLegoFront = LoadAsset<Texture2D>("Images\\SplashScreens\\Splash_" + num + "_2", AssetRequestMode.ImmediateLoad);
- 			TextureAssets.Item[75] = LoadAsset<Texture2D>("Images\\Item_" + (short)75, AssetRequestMode.ImmediateLoad);
+-			TextureAssets.Item[75] = LoadAsset<Texture2D>("Images\\Item_" + (short)75, AssetRequestMode.ImmediateLoad);
++			ItemLoader.itemTexture[75] = Loader.GetTexture("Terraria/Item_" + 75);
  			TextureAssets.LoadingSunflower = LoadAsset<Texture2D>("Images\\UI\\Sunflower_Loading", AssetRequestMode.ImmediateLoad);
 +			TextureAssets.TeaTexture = LoadAsset<Texture2D>("Tea\\UI\\Tea", AssetRequestMode.ImmediateLoad);
  		}
  
  		public static void LoadAssetsWhileInInitialBlackScreen() {
+@@ -91,10 +_,12 @@
+ 		private static void LoadTextures(AssetRequestMode mode) {
+ 			for (int i = 0; i < TextureAssets.Item.Length; i++) {
+ 				int num = ItemID.Sets.TextureCopyLoad[i];
+-				if (num != -1)
+-					TextureAssets.Item[i] = TextureAssets.Item[num];
+-				else
+-					TextureAssets.Item[i] = LoadAsset<Texture2D>("Images/Item_" + i, AssetRequestMode.DoNotLoad);
++				if (num != -1) {
++					ItemLoader.itemTexture[i] = ItemLoader.itemTexture[num];
++				}
++				else {
++					ItemLoader.itemTexture[i] = Loader.GetTexture("Terraria/Item_" + i);
++				}
+ 			}
+ 
+ 			for (int j = 0; j < TextureAssets.Npc.Length; j++) {

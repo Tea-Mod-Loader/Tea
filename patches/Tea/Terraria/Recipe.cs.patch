@@ -8,16 +8,10 @@
  
  namespace Terraria
  {
-@@ -113,6 +_,13 @@
+@@ -113,6 +_,7 @@
  					break;
  
  				int num = item2.stack;
-+
-+				ModRecipe modRecipe = this as ModRecipe;
-+
-+				if (modRecipe != null) {
-+					num = modRecipe.ConsumeItem(item.type, item.stack);
-+				}
 +
  				if (alchemy && Main.player[Main.myPlayer].alchemyTable) {
  					if (num > 1) {

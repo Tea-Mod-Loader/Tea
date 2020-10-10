@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Terraria.DataStructures;
 
 namespace Terraria.Tea
 {
@@ -11,7 +12,6 @@ namespace Terraria.Tea
         internal readonly List<ModRecipe> recipes = new List<ModRecipe>();
 		internal readonly IDictionary<string, ModItem> items = new Dictionary<string, ModItem>();
 		internal readonly IDictionary<string, GlobalItem> globalItems = new Dictionary<string, GlobalItem>();
-
 
 		private string name;
 
@@ -27,7 +27,18 @@ namespace Terraria.Tea
 
 		public virtual void AddRecipes() { }
 
-		internal void SetupContent() { }
+		internal void SetupContent() {
+			foreach (ModItem item in items.Values) {
+				ItemLoader.itemTexture[item.item.type] = Loader.GetTexture(item.mod.ModAssembly.GetName().Name + item.texture);
+				item.SetDefaults();
+				DrawAnimation animation = item.GetAnimation();
+
+				if (animation != null) {
+					Main.RegisterItemAnimation(item.item.type, animation);
+					ItemLoader.animations.Add(item.item.type);
+				}
+			}
+		}
 
 		internal void Autoload() {
 			Type[] classes = ModAssembly.GetTypes();

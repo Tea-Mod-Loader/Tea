@@ -1,0 +1,31 @@
+--- src/Terraria/Terraria/GameContent/UI/CustomCurrencyManager.cs
++++ src/Tea/Terraria/GameContent/UI/CustomCurrencyManager.cs
+@@ -2,6 +_,7 @@
+ using Microsoft.Xna.Framework.Graphics;
+ using System.Collections.Generic;
+ using Terraria.ID;
++using Terraria.Tea;
+ 
+ namespace Terraria.GameContent.UI
+ {
+@@ -37,16 +_,16 @@
+ 				Main.instance.LoadItem(346);
+ 				Main.instance.LoadItem(87);
+ 				if (num4 > 0)
+-					sb.Draw(TextureAssets.Item[4076].Value, Utils.CenteredRectangle(new Vector2(shopx + 96f, shopy + 50f), TextureAssets.Item[4076].Value.Size() * 0.65f), null, Color.White);
++					sb.Draw(ItemLoader.itemTexture[4076], Utils.CenteredRectangle(new Vector2(shopx + 96f, shopy + 50f), ItemLoader.itemTexture[4076].Size() * 0.65f), null, Color.White);
+ 
+ 				if (num3 > 0)
+-					sb.Draw(TextureAssets.Item[3813].Value, Utils.CenteredRectangle(new Vector2(shopx + 80f, shopy + 50f), TextureAssets.Item[3813].Value.Size() * 0.65f), null, Color.White);
++					sb.Draw(ItemLoader.itemTexture[3813], Utils.CenteredRectangle(new Vector2(shopx + 80f, shopy + 50f), ItemLoader.itemTexture[3813].Size() * 0.65f), null, Color.White);
+ 
+ 				if (num2 > 0)
+-					sb.Draw(TextureAssets.Item[346].Value, Utils.CenteredRectangle(new Vector2(shopx + 80f, shopy + 50f), TextureAssets.Item[346].Value.Size() * 0.65f), null, Color.White);
++					sb.Draw(ItemLoader.itemTexture[346], Utils.CenteredRectangle(new Vector2(shopx + 80f, shopy + 50f), ItemLoader.itemTexture[346].Size() * 0.65f), null, Color.White);
+ 
+ 				if (num > 0)
+-					sb.Draw(TextureAssets.Item[87].Value, Utils.CenteredRectangle(new Vector2(shopx + 70f, shopy + 60f), TextureAssets.Item[87].Value.Size() * 0.65f), null, Color.White);
++					sb.Draw(ItemLoader.itemTexture[87], Utils.CenteredRectangle(new Vector2(shopx + 70f, shopy + 60f), ItemLoader.itemTexture[87].Size() * 0.65f), null, Color.White);
+ 
+ 				Utils.DrawBorderStringFourWay(sb, FontAssets.MouseText.Value, Lang.inter[66].Value, shopx, shopy + 40f, Color.White * ((float)(int)Main.mouseTextColor / 255f), Color.Black, Vector2.Zero);
+ 				customCurrencySystem.DrawSavingsMoney(sb, Lang.inter[66].Value, shopx, shopy, num5, horizontal);

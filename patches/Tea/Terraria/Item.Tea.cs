@@ -5,5 +5,6 @@ namespace Terraria
 	partial class Item
 	{
 		public ModItem modItem { get; internal set; }
+		public string name = "";
 	}
 }

@@ -15,6 +15,15 @@
  	{
  		private string _nameOverride;
  		public const int luckPotionDuration1 = 10800;
+@@ -156,7 +_,7 @@
+ 		public const int WALL_PLACEMENT_USETIME = 7;
+ 		public static int numberOfNewItems = 0;
+ 
+-		public string Name => _nameOverride ?? Lang.GetItemNameValue(type);
++		public string Name => _nameOverride ?? (string.IsNullOrWhiteSpace(name) ? Lang.GetItemNameValue(type) : name);
+ 
+ 		public string HoverName {
+ 			get {
 @@ -291,7 +_,7 @@
  					num = -1;
  
@@ -116,6 +125,32 @@
  			if (ItemID.Sets.ItemNoGravity[type]) {
  				base.velocity.X *= 0.95f;
  				if ((double)base.velocity.X < 0.1 && (double)base.velocity.X > -0.1)
+@@ -45594,11 +_,11 @@
+ 		public static Rectangle GetDrawHitbox(int type, Player user) {
+ 			Main.instance.LoadItem(type);
+ 			if (ItemID.Sets.IsFood[type])
+-				return TextureAssets.Item[type].Frame(1, 3, 0, 1);
++				return ItemLoader.itemTexture[type].Frame(1, 3, 0, 1);
+ 
+ 			switch (type) {
+ 				case 75:
+-					return TextureAssets.Item[type].Frame(1, 8);
++					return ItemLoader.itemTexture[type].Frame(1, 8);
+ 				case 520:
+ 				case 521:
+ 				case 547:
+@@ -45613,9 +_,9 @@
+ 				case 4068:
+ 				case 4069:
+ 				case 4070:
+-					return TextureAssets.Item[type].Frame(1, 4);
++					return ItemLoader.itemTexture[type].Frame(1, 4);
+ 				default:
+-					return TextureAssets.Item[type].Frame();
++					return ItemLoader.itemTexture[type].Frame();
+ 			}
+ 		}
+ 
 @@ -45777,8 +_,25 @@
  			}
  		}

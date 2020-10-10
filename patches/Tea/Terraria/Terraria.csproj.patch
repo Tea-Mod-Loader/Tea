@@ -1,5 +1,14 @@
 --- src/Terraria/Terraria/Terraria.csproj
 +++ src/Tea/Terraria/Terraria.csproj
+@@ -18,7 +_,7 @@
+   </PropertyGroup>
+   <PropertyGroup>
+     <PdbFile>bin\$(OutputName)</PdbFile>
+-    <ApplicationIcon>Icon.ico</ApplicationIcon>
++    <ApplicationIcon>Tea.ico</ApplicationIcon>
+   </PropertyGroup>
+   <ItemGroup>
+     <Reference Include="FNA" Condition="$(DefineConstants.Contains('FNA'))" />
 @@ -62,8 +_,8 @@
      <EmbeddedResource Remove="Libraries/Mac/**" Condition="!$(DefineConstants.Contains('MAC'))" />
      <EmbeddedResource Remove="Libraries/Linux/**" Condition="!$(DefineConstants.Contains('LINUX'))" />

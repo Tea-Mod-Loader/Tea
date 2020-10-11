@@ -1,0 +1,72 @@
+--- src/Terraria/Terraria/IO/WorldFile.cs
++++ src/Tea/Terraria/IO/WorldFile.cs
+@@ -12,6 +_,7 @@
+ using Terraria.ID;
+ using Terraria.Localization;
+ using Terraria.Social;
++using Terraria.Tea;
+ using Terraria.UI;
+ using Terraria.Utilities;
+ 
+@@ -875,8 +_,8 @@
+ 			writer.Write(NPC.savedGolfer);
+ 			writer.Write(Main.invasionSizeStart);
+ 			writer.Write(_tempCultistDelay);
+-			writer.Write((short)663);
++			writer.Write((short)NPCLoader.Count);
+-			for (int j = 0; j < 663; j++) {
++			for (int j = 0; j < NPCLoader.Count; j++) {
+ 				writer.Write(NPC.killCount[j]);
+ 			}
+ 
+@@ -1123,7 +_,7 @@
+ 
+ 					writer.Write((short)item.stack);
+ 					if (item.stack > 0) {
+-						writer.Write(item.netID);
++						ItemLoader.WriteID(item, writer);
+ 						writer.Write(item.prefix);
+ 					}
+ 				}
+@@ -1481,7 +_,7 @@
+ 
+ 			int num2 = reader.ReadInt16();
+ 			for (int i = 0; i < num2; i++) {
+-				if (i < 663)
++				if (i < NPCLoader.Count)
+ 					NPC.killCount[i] = reader.ReadInt32();
+ 				else
+ 					reader.ReadInt32();
+@@ -1807,12 +_,12 @@
+ 					short num5 = reader.ReadInt16();
+ 					Item item = new Item();
+ 					if (num5 > 0) {
+-						item.netDefaults(reader.ReadInt32());
++						ItemLoader.ReadID(item, reader);
+ 						item.stack = num5;
+ 						item.Prefix(reader.ReadByte());
+ 					}
+ 					else if (num5 < 0) {
+-						item.netDefaults(reader.ReadInt32());
++						ItemLoader.ReadID(item, reader);
+ 						item.Prefix(reader.ReadByte());
+ 						item.stack = 1;
+ 					}
+@@ -1823,7 +_,7 @@
+ 				for (int k = 0; k < num4; k++) {
+ 					short num5 = reader.ReadInt16();
+ 					if (num5 > 0) {
+-						reader.ReadInt32();
++						ItemLoader.ReadID(new Item(), reader);
+ 						reader.ReadByte();
+ 					}
+ 				}
+@@ -2080,7 +_,7 @@
+ 					fileIO.ReadString();
+ 					for (int k = 0; k < num10; k++) {
+ 						if (fileIO.ReadInt16() > 0) {
+-							fileIO.ReadInt32();
++							ItemLoader.ReadID(new Item(), fileIO);
+ 							fileIO.ReadByte();
+ 						}
+ 					}

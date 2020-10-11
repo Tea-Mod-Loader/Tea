@@ -17,7 +17,7 @@ namespace Terraria.Tea
 		public static readonly string ReferencePath = Main.SavePath + Path.DirectorySeparatorChar + "dllReferences";
 		public static readonly string ModSourcesPath = Main.SavePath + Path.DirectorySeparatorChar + "Mod Sources";
         public static readonly string branchName = "master";
-		public static readonly int beta = 1;
+		public static readonly int beta = 2;
 		public static readonly string versionedName = $"Tea v{teaVersion}" +
 											  (branchName.Length == 0 ? "" : $" {branchName}") +
 											  (beta == 0 ? "" : $" Beta {beta}");
@@ -133,6 +133,7 @@ namespace Terraria.Tea
 
 		private static void ResizeArrays(bool unloading = false) {
 			ItemLoader.ResizeArrays();
+			NPCLoader.ResizeArrays();
 		}
 
 		internal static string[] FindMods() {
@@ -315,9 +316,10 @@ namespace Terraria.Tea
 			}
 
 			loadedMods.Clear();
-			mods.Clear();
+			ItemLoader.Unload();
+			NPCLoader.Unload();
 			textures.Clear();
-			ResizeArrays(true);
+			mods.Clear();
 		}
 
 		internal static void Reload() {

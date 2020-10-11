@@ -19,7 +19,7 @@
  		}
  
  		public static void LoadAssetsWhileInInitialBlackScreen() {
-@@ -91,10 +_,12 @@
+@@ -91,14 +_,16 @@
  		private static void LoadTextures(AssetRequestMode mode) {
  			for (int i = 0; i < TextureAssets.Item.Length; i++) {
  				int num = ItemID.Sets.TextureCopyLoad[i];
@@ -36,3 +36,8 @@
  			}
  
  			for (int j = 0; j < TextureAssets.Npc.Length; j++) {
+-				TextureAssets.Npc[j] = LoadAsset<Texture2D>("Images/NPC_" + j, AssetRequestMode.DoNotLoad);
++				NPCLoader.npcTexture[j] = Loader.GetTexture("Terraria/NPC_" + j);
+ 			}
+ 
+ 			for (int k = 0; k < TextureAssets.Projectile.Length; k++) {

@@ -17,3 +17,21 @@
  							item2.netDefaults(num71);
  							item2.newAndShiny = newAndShiny;
  							item2.Prefix(pre2);
+@@ -1319,7 +_,7 @@
+ 						if (num83 == 245)
+ 							NPC.golemBoss = num80;
+ 
+-						if (nPC3.type >= 0 && nPC3.type < 663 && Main.npcCatchable[nPC3.type])
++						if (nPC3.type >= 0 && nPC3.type < NPCLoader.Count && Main.npcCatchable[nPC3.type])
+ 							nPC3.releaseOwner = reader.ReadByte();
+ 
+ 						break;
+@@ -2163,7 +_,7 @@
+ 						if (Main.netMode != 2)
+ 							break;
+ 
+-						if (num179 >= 0 && num179 < 663 && NPCID.Sets.MPAllowedEnemies[num179]) {
++						if (num179 >= 0 && num179 < NPCLoader.Count && NPCID.Sets.MPAllowedEnemies[num179]) {
+ 							if (!NPC.AnyNPCs(num179))
+ 								NPC.SpawnOnPlayer(plr, num179);
+ 						}

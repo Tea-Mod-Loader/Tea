@@ -1,0 +1,19 @@
+--- src/Terraria/Terraria/NetMessage.cs
++++ src/Tea/Terraria/NetMessage.cs
+@@ -12,6 +_,7 @@
+ using Terraria.IO;
+ using Terraria.Localization;
+ using Terraria.Social;
++using Terraria.Tea;
+ 
+ namespace Terraria
+ {
+@@ -579,7 +_,7 @@
+ 								}
+ 							}
+ 
+-							if (nPC2.type >= 0 && nPC2.type < 663 && Main.npcCatchable[nPC2.type])
++							if (nPC2.type >= 0 && nPC2.type < NPCLoader.Count && Main.npcCatchable[nPC2.type])
+ 								writer.Write((byte)nPC2.releaseOwner);
+ 
+ 							break;

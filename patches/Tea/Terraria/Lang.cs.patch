@@ -15,7 +15,8 @@
 -		private static LocalizedText[] _itemNameCache = new LocalizedText[5045];
 +		internal static LocalizedText[] _itemNameCache = new LocalizedText[5045];
  		private static LocalizedText[] _projectileNameCache = new LocalizedText[950];
- 		private static LocalizedText[] _npcNameCache = new LocalizedText[663];
+-		private static LocalizedText[] _npcNameCache = new LocalizedText[663];
++		internal static LocalizedText[] _npcNameCache = new LocalizedText[663];
  		private static LocalizedText[] _negativeNpcNameCache = new LocalizedText[65];
  		private static LocalizedText[] _buffNameCache = new LocalizedText[323];
  		private static LocalizedText[] _buffDescriptionCache = new LocalizedText[323];
@@ -24,6 +25,15 @@
  		private static LocalizedText[] _emojiNameCache = new LocalizedText[145];
  
  		public static string GetMapObjectName(int id) {
+@@ -109,7 +_,7 @@
+ 		public static string GetNPCNameValue(int netID) => GetNPCName(netID).Value;
+ 
+ 		public static LocalizedText GetNPCName(int netID) {
+-			if (netID > 0 && netID < 663)
++			if (netID > 0 && netID < NPCLoader.Count)
+ 				return _npcNameCache[netID];
+ 
+ 			if (netID < 0 && -netID - 1 < _negativeNpcNameCache.Length)
 @@ -122,7 +_,7 @@
  
  		public static LocalizedText GetItemName(int id) {

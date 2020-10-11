@@ -1,0 +1,18 @@
+--- src/Terraria/Terraria/GameContent/TownRoomManager.cs
++++ src/Tea/Terraria/GameContent/TownRoomManager.cs
+@@ -3,13 +_,14 @@
+ using System.Collections.Generic;
+ using System.IO;
+ using Terraria.ID;
++using Terraria.Tea;
+ 
+ namespace Terraria.GameContent
+ {
+ 	public class TownRoomManager
+ 	{
+ 		private List<Tuple<int, Point>> _roomLocationPairs = new List<Tuple<int, Point>>();
+-		private bool[] _hasRoom = new bool[663];
++		public bool[] _hasRoom = new bool[NPCLoader.Count];
+ 
+ 		public void AddOccupantsToList(int x, int y, List<int> occupantsList) {
+ 			AddOccupantsToList(new Point(x, y), occupantsList);

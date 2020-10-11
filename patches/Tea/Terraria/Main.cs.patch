@@ -47,6 +47,15 @@
  				Item item = new Item();
  				item.SetDefaults(i);
  				if (item.headSlot > 0)
+@@ -7194,7 +_,7 @@
+ 			tilePile[331] = true;
+ 			tilePile[332] = true;
+ 			tilePile[333] = true;
+-			for (int m = 0; m < 663; m++) {
++			for (int m = 0; m < NPCLoader.Count; m++) {
+ 				npcCatchable[m] = false;
+ 			}
+ 
 @@ -12295,6 +_,15 @@
  		}
  
@@ -63,6 +72,24 @@
  			if (!IsEnginePreloaded) {
  				IsEnginePreloaded = true;
  				if (Main.OnEnginePreload != null)
+@@ -16293,7 +_,7 @@
+ 			Microsoft.Xna.Framework.Rectangle rectangle = new Microsoft.Xna.Framework.Rectangle((int)screenPosition.X - 800, (int)screenPosition.Y - 800, screenWidth + 1600, screenHeight + 1600);
+ 			for (int num = 199; num >= 0; num--) {
+ 				try {
+-					if (npc[num].active && npc[num].type > 0 && npc[num].type < 663 && !npc[num].hide) {
++					if (npc[num].active && npc[num].type > 0 && npc[num].type < NPCLoader.Count && !npc[num].hide) {
+ 						npc[num].position += npc[num].netOffset;
+ 						if (npc[num].behindTiles == behindTiles) {
+ 							if (npc[num].type == 125 || npc[num].type == 126) {
+@@ -16408,7 +_,7 @@
+ 
+ 		protected void DrawNPCCheckAlt(NPC n) {
+ 			if (TownNPCProfiles.Instance.GetProfile(n.type, out ITownNPCProfile profile))
+-				TextureAssets.Npc[n.type] = profile.GetTextureNPCShouldUse(n);
++				NPCLoader.npcTexture[n.type] = profile.GetTextureNPCShouldUse(n).Value;
+ 		}
+ 
+ 		protected void DrawNPC(int iNPCIndex, bool behindTiles) {
 @@ -16842,7 +_,7 @@
  					zero2.Y -= 6f;
  
@@ -72,6 +99,966 @@
  			}
  
  			if (type == 69)
+@@ -16853,7 +_,7 @@
+ 
+ 			float num36 = 0f;
+ 			float num37 = NPCAddHeight(rCurrentNPC);
+-			Vector2 halfSize = new Vector2(TextureAssets.Npc[type].Width() / 2, TextureAssets.Npc[type].Height() / npcFrameCount[type] / 2);
++			Vector2 halfSize = new Vector2(NPCLoader.npcTexture[type].Width / 2, NPCLoader.npcTexture[type].Height / npcFrameCount[type] / 2);
+ 			if (type == 108 || type == 124 || type == 625) {
+ 				num36 = 2f;
+ 			}
+@@ -16973,7 +_,7 @@
+ 					if (type != 546 && type != 552 && type != 553 && type != 554 && type != 561 && type != 562 && type != 563 && type != 555 && type != 556 && type != 557 && type != 558 && type != 559 && type != 560 && type != 574 && type != 575 && type != 568 && type != 569 && type != 572 && type != 573 && type != 566 && type != 567 && type != 570 && type != 578 && type != 571 && type != 583 && type != 584 && type != 585 && type != 618 && type != 620 && type != 661) {
+ 						switch (type) {
+ 							case 551: {
+-									Texture2D value9 = TextureAssets.Npc[type].Value;
++									Texture2D value9 = NPCLoader.npcTexture[type];
+ 									Vector2 vector13 = rCurrentNPC.Center - screenPos;
+ 									Microsoft.Xna.Framework.Rectangle frame = rCurrentNPC.frame;
+ 									_ = frame.Size() / 2f;
+@@ -17035,7 +_,7 @@
+ 									return;
+ 								}
+ 							case 657: {
+-									Texture2D value2 = TextureAssets.Npc[type].Value;
++									Texture2D value2 = NPCLoader.npcTexture[type];
+ 									Vector2 vector9 = rCurrentNPC.Bottom - screenPos;
+ 									vector9.Y += 2f;
+ 									int num39 = npcFrameCount[rCurrentNPC.type];
+@@ -17197,7 +_,7 @@
+ 								}
+ 							case 576:
+ 							case 577: {
+-									Texture2D value22 = TextureAssets.Npc[type].Value;
++									Texture2D value22 = NPCLoader.npcTexture[type];
+ 									Vector2 vector18 = rCurrentNPC.Bottom - screenPos;
+ 									Microsoft.Xna.Framework.Rectangle rectangle6 = value22.Frame(5, 10, rCurrentNPC.frame.Y / 10, rCurrentNPC.frame.Y % 10);
+ 									Vector2 origin8 = rectangle6.Size() * new Vector2(0.5f, 1f);
+@@ -17240,7 +_,7 @@
+ 									return;
+ 								}
+ 							case 594: {
+-									Texture2D value17 = TextureAssets.Npc[type].Value;
++									Texture2D value17 = NPCLoader.npcTexture[type];
+ 									Vector2 position7 = rCurrentNPC.Top - screenPos;
+ 									Microsoft.Xna.Framework.Rectangle rectangle4 = value17.Frame(8, 1, rCurrentNPC.frame.Y);
+ 									Microsoft.Xna.Framework.Rectangle value18 = value17.Frame(8);
+@@ -17262,7 +_,7 @@
+ 								}
+ 							case 564:
+ 							case 565: {
+-									Texture2D value19 = TextureAssets.Npc[type].Value;
++									Texture2D value19 = NPCLoader.npcTexture[type];
+ 									Vector2 vector17 = rCurrentNPC.Bottom - screenPos;
+ 									Microsoft.Xna.Framework.Rectangle rectangle5 = value19.Frame(5, 9, rCurrentNPC.frame.Y / 9, rCurrentNPC.frame.Y % 9);
+ 									Vector2 origin7 = rectangle5.Size() * new Vector2(0.5f, 1f);
+@@ -17340,7 +_,7 @@
+ 									return;
+ 								}
+ 							case 548: {
+-									Texture2D value7 = TextureAssets.Npc[type].Value;
++									Texture2D value7 = NPCLoader.npcTexture[type];
+ 									Vector2 vector12 = rCurrentNPC.Bottom - screenPos;
+ 									Microsoft.Xna.Framework.Rectangle rectangle3 = value7.Frame();
+ 									Vector2 origin3 = rectangle3.Size() / 2f;
+@@ -17464,7 +_,7 @@
+ 							case 457:
+ 							case 458:
+ 							case 459: {
+-									Texture2D value6 = TextureAssets.Npc[type].Value;
++									Texture2D value6 = NPCLoader.npcTexture[type];
+ 									Vector2 position2 = rCurrentNPC.Center - screenPos;
+ 									position2 -= new Vector2(value6.Width, value6.Height / npcFrameCount[type]) * rCurrentNPC.scale / 2f;
+ 									position2 += halfSize * rCurrentNPC.scale + new Vector2(0f, num36 + num37 + rCurrentNPC.gfxOffY);
+@@ -17477,7 +_,7 @@
+ 							case 488:
+ 								break;
+ 							case 549: {
+-									Texture2D value98 = TextureAssets.Npc[type].Value;
++									Texture2D value98 = NPCLoader.npcTexture[type];
+ 									Vector2 vector33 = rCurrentNPC.Center - screenPos;
+ 									Microsoft.Xna.Framework.Rectangle frame8 = rCurrentNPC.frame;
+ 									Vector2 origin21 = new Vector2(70f, 127f);
+@@ -17554,7 +_,7 @@
+ 							case 493:
+ 							case 507:
+ 							case 517: {
+-									Texture2D value83 = TextureAssets.Npc[type].Value;
++									Texture2D value83 = NPCLoader.npcTexture[type];
+ 									Vector2 vector31 = rCurrentNPC.Center - screenPos;
+ 									Vector2 value84 = vector31 - new Vector2(300f, 310f);
+ 									vector31 -= new Vector2(value83.Width, value83.Height / npcFrameCount[type]) * rCurrentNPC.scale / 2f;
+@@ -17661,7 +_,7 @@
+ 							case 402: {
+ 									LoadNPC(403);
+ 									LoadNPC(404);
+-									Texture2D value100 = TextureAssets.Npc[rCurrentNPC.type].Value;
++									Texture2D value100 = NPCLoader.npcTexture[rCurrentNPC.type];
+ 									Vector2 vector34 = rCurrentNPC.Center - screenPos;
+ 									vector34 -= new Vector2(value100.Width, value100.Height / npcFrameCount[rCurrentNPC.type]) * rCurrentNPC.scale / 2f;
+ 									vector34 += halfSize * rCurrentNPC.scale + new Vector2(0f, num36 + num37 + rCurrentNPC.gfxOffY);
+@@ -17669,7 +_,7 @@
+ 									float num209 = 2f / (float)rCurrentNPC.oldPos.Length * 0.7f;
+ 									int num210 = rCurrentNPC.oldPos.Length - 1;
+ 									while ((float)num210 >= 1f) {
+-										value100 = ((num208 != 0) ? TextureAssets.Npc[403].Value : TextureAssets.Npc[404].Value);
++										value100 = ((num208 != 0) ? NPCLoader.npcTexture[403] : NPCLoader.npcTexture[404]);
+ 										mySpriteBatch.Draw(value100, vector34 + rCurrentNPC.oldPos[num210] - rCurrentNPC.position, null, rCurrentNPC.GetAlpha(npcColor) * (0.8f - num209 * (float)num210 / 2f), rCurrentNPC.oldRot[num210], halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 										value100 = ((num208 != 0) ? TextureAssets.GlowMask[133].Value : TextureAssets.GlowMask[134].Value);
+ 										mySpriteBatch.Draw(value100, vector34 + rCurrentNPC.oldPos[num210] - rCurrentNPC.position, null, new Microsoft.Xna.Framework.Color(255, 255, 255, 0) * (1f - num209 * (float)num210 / 2f), rCurrentNPC.oldRot[num210], halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+@@ -17677,18 +_,18 @@
+ 										num210 -= 2;
+ 									}
+ 
+-									value100 = TextureAssets.Npc[rCurrentNPC.type].Value;
++									value100 = NPCLoader.npcTexture[rCurrentNPC.type];
+ 									mySpriteBatch.Draw(value100, vector34, rCurrentNPC.frame, rCurrentNPC.GetAlpha(npcColor), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 									value100 = TextureAssets.GlowMask[135].Value;
+ 									mySpriteBatch.Draw(value100, vector34, rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255, 255, 255, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 									break;
+ 								}
+ 							case 519: {
+-									Texture2D value82 = TextureAssets.Npc[rCurrentNPC.type].Value;
++									Texture2D value82 = NPCLoader.npcTexture[rCurrentNPC.type];
+ 									Vector2 vector30 = rCurrentNPC.Center - screenPos;
+ 									vector30 -= new Vector2(value82.Width, value82.Height / npcFrameCount[rCurrentNPC.type]) * rCurrentNPC.scale / 2f;
+ 									vector30 += halfSize * rCurrentNPC.scale + new Vector2(0f, num36 + num37 + rCurrentNPC.gfxOffY);
+-									value82 = TextureAssets.Npc[rCurrentNPC.type].Value;
++									value82 = NPCLoader.npcTexture[rCurrentNPC.type];
+ 									mySpriteBatch.Draw(value82, vector30, rCurrentNPC.frame, rCurrentNPC.GetAlpha(npcColor), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 									int num155 = 0;
+ 									float num156 = 1f / (float)rCurrentNPC.oldPos.Length * 0.7f;
+@@ -17706,7 +_,7 @@
+ 									break;
+ 								}
+ 							case 522: {
+-									Texture2D value97 = TextureAssets.Npc[rCurrentNPC.type].Value;
++									Texture2D value97 = NPCLoader.npcTexture[rCurrentNPC.type];
+ 									Vector2 vector32 = rCurrentNPC.Center - screenPos;
+ 									vector32 -= new Vector2(value97.Width, value97.Height / npcFrameCount[rCurrentNPC.type]) * rCurrentNPC.scale / 2f;
+ 									vector32 += halfSize * rCurrentNPC.scale + new Vector2(0f, num36 + num37 + rCurrentNPC.gfxOffY);
+@@ -17730,7 +_,7 @@
+ 							case 370:
+ 							case 372:
+ 							case 373: {
+-									Texture2D value91 = TextureAssets.Npc[type].Value;
++									Texture2D value91 = NPCLoader.npcTexture[type];
+ 									Microsoft.Xna.Framework.Color value92 = Microsoft.Xna.Framework.Color.White;
+ 									float amount9 = 0f;
+ 									bool flag11 = type == 370 && rCurrentNPC.ai[0] > 4f;
+@@ -17898,8 +_,8 @@
+ 								}
+ 							case 439:
+ 							case 440: {
+-									int num168 = rCurrentNPC.frame.Y / (TextureAssets.Npc[type].Height() / npcFrameCount[type]);
++									int num168 = rCurrentNPC.frame.Y / (NPCLoader.npcTexture[type].Height / npcFrameCount[type]);
+-									Texture2D value87 = TextureAssets.Npc[type].Value;
++									Texture2D value87 = NPCLoader.npcTexture[type];
+ 									Texture2D value88 = TextureAssets.Extra[30].Value;
+ 									Microsoft.Xna.Framework.Rectangle rectangle10 = value88.Frame();
+ 									rectangle10.Height /= 2;
+@@ -17976,7 +_,7 @@
+ 							case 393:
+ 							case 394:
+ 							case 395: {
+-									Texture2D value81 = TextureAssets.Npc[type].Value;
++									Texture2D value81 = NPCLoader.npcTexture[type];
+ 									Vector2 vec = rCurrentNPC.Center - screenPos + Vector2.UnitY * rCurrentNPC.gfxOffY;
+ 									vec = vec.Floor();
+ 									float scaleFactor15 = 0f;
+@@ -17998,7 +_,7 @@
+ 							case 83:
+ 							case 84:
+ 							case 179:
+-								mySpriteBatch.Draw(TextureAssets.Npc[type].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36), rCurrentNPC.frame, Microsoft.Xna.Framework.Color.White, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++								mySpriteBatch.Draw(NPCLoader.npcTexture[type], new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36), rCurrentNPC.frame, Microsoft.Xna.Framework.Color.White, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 								break;
+ 							case 87:
+ 							case 88:
+@@ -18017,7 +_,7 @@
+ 									if (alpha12.B < b3)
+ 										alpha12.B = b3;
+ 
+-									mySpriteBatch.Draw(TextureAssets.Npc[type].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36), rCurrentNPC.frame, alpha12, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++									mySpriteBatch.Draw(NPCLoader.npcTexture[type], new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36), rCurrentNPC.frame, alpha12, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 									break;
+ 								}
+ 							default: {
+@@ -18025,7 +_,7 @@
+ 										case 384:
+ 											return;
+ 										case 491: {
+-												Texture2D value50 = TextureAssets.Npc[rCurrentNPC.type].Value;
++												Texture2D value50 = NPCLoader.npcTexture[rCurrentNPC.type];
+ 												Microsoft.Xna.Framework.Rectangle rectangle9 = rCurrentNPC.frame;
+ 												Vector2 origin14 = rectangle9.OriginFlip(new Vector2(208f, 460f), spriteEffects);
+ 												Vector2 vector23 = rCurrentNPC.Center - screenPos;
+@@ -18067,10 +_,7 @@
+ 												origin14 = rectangle9.Size() * new Vector2(0.5f, 0f);
+ 												mySpriteBatch.Draw(value50, vector23 + (new Vector2(-60f, -330f) * value51).RotatedBy(rCurrentNPC.rotation), rectangle9, alpha7, rCurrentNPC.rotation, origin14, rCurrentNPC.scale, spriteEffects, 0f);
+ 												LoadNPC(492);
+-												if (!TextureAssets.Npc[492].IsLoaded)
+-													return;
+-
+-												value50 = TextureAssets.Npc[492].Value;
++												value50 = NPCLoader.npcTexture[492];
+ 												rectangle9 = value50.Frame(1, 9);
+ 												origin14 = rectangle9.Size() * new Vector2(0.5f, 0f) + new Vector2(0f, 10f);
+ 												for (int num87 = 0; num87 < 4; num87++) {
+@@ -18085,9 +_,9 @@
+ 											}
+ 										case 398: {
+ 												bool flag8 = false;
+-												Texture2D value25 = TextureAssets.Npc[type].Value;
+-												Texture2D value26 = TextureAssets.Extra[16].Value;
+-												Texture2D value27 = TextureAssets.Extra[14].Value;
++												Texture2D value25 = NPCLoader.npcTexture[type];
++												Texture2D value26 = NPCLoader.npcTexture[16];
++												Texture2D value27 = NPCLoader.npcTexture[14];
+ 												float num70 = 340f;
+ 												float scaleFactor4 = 0.5f;
+ 												Vector2 value28 = new Vector2(220f, -60f);
+@@ -18141,7 +_,7 @@
+ 												return;
+ 											}
+ 										case 397: {
+-												Texture2D value52 = TextureAssets.Npc[type].Value;
++												Texture2D value52 = NPCLoader.npcTexture[type];
+ 												float num89 = 0.5f;
+ 												Vector2 value53 = new Vector2(220f, -60f);
+ 												Vector2 value54 = new Vector2(0f, 76f);
+@@ -18194,10 +_,10 @@
+ 												return;
+ 											}
+ 										case 396: {
+-												Texture2D value34 = TextureAssets.Npc[type].Value;
++												Texture2D value34 = NPCLoader.npcTexture[type];
+ 												Vector2 origin12 = new Vector2(191f, 130f);
+-												Texture2D value35 = TextureAssets.Extra[18].Value;
+-												Texture2D value36 = TextureAssets.Extra[19].Value;
++												Texture2D value35 = NPCLoader.npcTexture[18];
++												Texture2D value36 = NPCLoader.npcTexture[19];
+ 												Vector2 vector22 = new Vector2(19f, 34f);
+ 												Vector2 value37 = new Vector2(27f, 59f);
+ 												Vector2 value38 = new Vector2(0f, 0f);
+@@ -18235,7 +_,7 @@
+ 												return;
+ 											}
+ 										case 400: {
+-												Texture2D value46 = TextureAssets.Npc[type].Value;
++												Texture2D value46 = NPCLoader.npcTexture[type];
+ 												Texture2D value47 = TextureAssets.Extra[19].Value;
+ 												Vector2 origin13 = new Vector2(40f, 40f);
+ 												Vector2 value48 = new Vector2(30f, 30f);
+@@ -18265,20 +_,20 @@
+ 												}
+ 
+ 												Microsoft.Xna.Framework.Rectangle frame2 = rCurrentNPC.frame;
+-												mySpriteBatch.Draw(TextureAssets.Npc[type].Value, new Vector2(position13.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, position13.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame2, rCurrentNPC.GetAlpha(npcColor), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++												mySpriteBatch.Draw(NPCLoader.npcTexture[type], new Vector2(position13.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, position13.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame2, rCurrentNPC.GetAlpha(npcColor), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 												if (rCurrentNPC.color != default(Microsoft.Xna.Framework.Color))
+-													mySpriteBatch.Draw(TextureAssets.Npc[type].Value, new Vector2(position13.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, position13.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame2, rCurrentNPC.GetColor(npcColor), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++													mySpriteBatch.Draw(NPCLoader.npcTexture[type], new Vector2(position13.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, position13.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame2, rCurrentNPC.GetColor(npcColor), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 
+-												mySpriteBatch.Draw(TextureAssets.GlowMask[156].Value, position13 + rCurrentNPC.Size * new Vector2(0.5f, 1f) - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++												mySpriteBatch.Draw(TextureAssets.GlowMask[156].Value, position13 + rCurrentNPC.Size * new Vector2(0.5f, 1f) - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 												float scaleFactor5 = 0.5f + (rCurrentNPC.GetAlpha(npcColor).ToVector3() - new Vector3(0.5f)).Length() * 0.5f;
+ 												for (int num82 = 0; num82 < 4; num82++) {
+-													mySpriteBatch.Draw(TextureAssets.GlowMask[156].Value, position13 + rCurrentNPC.Size * new Vector2(0.5f, 1f) - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY) + spinningpoint3.RotatedBy((float)num82 * ((float)Math.PI / 2f)) * scaleFactor5, rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++													mySpriteBatch.Draw(TextureAssets.GlowMask[156].Value, position13 + rCurrentNPC.Size * new Vector2(0.5f, 1f) - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY) + spinningpoint3.RotatedBy((float)num82 * ((float)Math.PI / 2f)) * scaleFactor5, rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 												}
+ 
+ 												return;
+ 											}
+ 										case 399: {
+-												Texture2D value32 = TextureAssets.Npc[type].Value;
++												Texture2D value32 = NPCLoader.npcTexture[type];
+ 												(rCurrentNPC.position - screenPos + Vector2.UnitY * rCurrentNPC.gfxOffY).Floor();
+ 												float num75 = 5f;
+ 												for (int num76 = 0; (float)num76 < num75; num76++) {
+@@ -18297,12 +_,12 @@
+ 													}
+ 												}
+ 
+-												mySpriteBatch.Draw(value32, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, rCurrentNPC.GetAlpha(npcColor), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++												mySpriteBatch.Draw(value32, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, rCurrentNPC.GetAlpha(npcColor), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+-												value32 = TextureAssets.GlowMask[100].Value;
++												value32 = NPCLoader.npcTexture[100];
+-												mySpriteBatch.Draw(value32, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(127 - rCurrentNPC.alpha / 2, 127 - rCurrentNPC.alpha / 2, 127 - rCurrentNPC.alpha / 2, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++												mySpriteBatch.Draw(value32, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(127 - rCurrentNPC.alpha / 2, 127 - rCurrentNPC.alpha / 2, 127 - rCurrentNPC.alpha / 2, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+-												value32 = TextureAssets.Extra[20].Value;
++												value32 = NPCLoader.npcTexture[20];
+ 												Microsoft.Xna.Framework.Rectangle value33 = value32.Frame(1, 4, 0, (int)rCurrentNPC.ai[0] + 1);
+-												Vector2 position12 = new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)value32.Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY + 18f + 6f);
++												Vector2 position12 = new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)value32.Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY + 18f + 6f);
+ 												mySpriteBatch.Draw(value32, position12, value33, rCurrentNPC.GetAlpha(npcColor), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 												value32 = TextureAssets.GlowMask[101].Value;
+ 												mySpriteBatch.Draw(value32, position12, value33, new Microsoft.Xna.Framework.Color(127 - rCurrentNPC.alpha / 2, 127 - rCurrentNPC.alpha / 2, 127 - rCurrentNPC.alpha / 2, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+@@ -18316,7 +_,7 @@
+ 													alpha3.G = (byte)(alpha3.G * (10 - num69) / 15);
+ 													alpha3.B = (byte)(alpha3.B * (10 - num69) / 15);
+ 													alpha3.A = (byte)(alpha3.A * (10 - num69) / 15);
+-													mySpriteBatch.Draw(TextureAssets.Npc[type].Value, new Vector2(rCurrentNPC.oldPos[num69].X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.oldPos[num69].Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, alpha3, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++													mySpriteBatch.Draw(NPCLoader.npcTexture[type], new Vector2(rCurrentNPC.oldPos[num69].X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.oldPos[num69].Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, alpha3, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 												}
+ 
+ 												break;
+@@ -18331,7 +_,7 @@
+ 											alpha9.G = (byte)(alpha9.G * (10 - num93) / 20);
+ 											alpha9.B = (byte)(alpha9.B * (10 - num93) / 20);
+ 											alpha9.A = (byte)(alpha9.A * (10 - num93) / 20);
+-											mySpriteBatch.Draw(TextureAssets.Npc[type].Value, new Vector2(rCurrentNPC.oldPos[num93].X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.oldPos[num93].Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, alpha9, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++											mySpriteBatch.Draw(NPCLoader.npcTexture[type], new Vector2(rCurrentNPC.oldPos[num93].X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.oldPos[num93].Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, alpha9, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 										}
+ 									}
+ 
+@@ -18343,7 +_,7 @@
+ 											alpha10.G = (byte)(alpha10.G * (10 - num94) / 20);
+ 											alpha10.B = (byte)(alpha10.B * (10 - num94) / 20);
+ 											alpha10.A = (byte)(alpha10.A * (10 - num94) / 20);
+-											mySpriteBatch.Draw(TextureAssets.Npc[type].Value, new Vector2(rCurrentNPC.oldPos[num94].X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.oldPos[num94].Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, alpha10, rCurrentNPC.oldRot[num94], halfSize, MathHelper.Lerp(0.5f, 1f, (5f - (float)num94) / 6f), spriteEffects, 0f);
++											mySpriteBatch.Draw(NPCLoader.npcTexture[type], new Vector2(rCurrentNPC.oldPos[num94].X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.oldPos[num94].Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, alpha10, rCurrentNPC.oldRot[num94], halfSize, MathHelper.Lerp(0.5f, 1f, (5f - (float)num94) / 6f), spriteEffects, 0f);
+ 										}
+ 									}
+ 
+@@ -18364,7 +_,7 @@
+ 
+ 											num98 += 5;
+ 											frame3.Y = num95 * num98;
+-											mySpriteBatch.Draw(TextureAssets.GlowMask[154].Value, new Vector2(rCurrentNPC.oldPos[num97].X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.oldPos[num97].Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), frame3, white3, rCurrentNPC.oldRot[num97], halfSize, MathHelper.Lerp(0.75f, 1.2f, (10f - (float)num97) / 10f), spriteEffects, 0f);
++											mySpriteBatch.Draw(TextureAssets.GlowMask[154].Value, new Vector2(rCurrentNPC.oldPos[num97].X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.oldPos[num97].Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), frame3, white3, rCurrentNPC.oldRot[num97], halfSize, MathHelper.Lerp(0.75f, 1.2f, (10f - (float)num97) / 10f), spriteEffects, 0f);
+ 										}
+ 									}
+ 
+@@ -18393,12 +_,12 @@
+ 												num103 += 4;
+ 
+ 											Microsoft.Xna.Framework.Rectangle value67 = value65.Frame(1, 4, 0, num103);
+-											mySpriteBatch.Draw(value65, new Vector2(rCurrentNPC.oldPos[num102].X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.oldPos[num102].Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), value67, value66, rCurrentNPC.oldRot[num102] + num100, origin17, MathHelper.Lerp(0.1f, 1.2f, (10f - (float)num102) / 10f), spriteEffects, 0f);
++											mySpriteBatch.Draw(value65, new Vector2(rCurrentNPC.oldPos[num102].X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.oldPos[num102].Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), value67, value66, rCurrentNPC.oldRot[num102] + num100, origin17, MathHelper.Lerp(0.1f, 1.2f, (10f - (float)num102) / 10f), spriteEffects, 0f);
+ 										}
+ 									}
+ 
+ 									if (type == 516) {
+-										int num104 = TextureAssets.Npc[type].Height() / npcFrameCount[type];
++										int num104 = NPCLoader.npcTexture[type].Height / npcFrameCount[type];
+ 										int num105 = rCurrentNPC.frame.Y / num104;
+ 										for (int num106 = 6; num106 >= 0; num106--) {
+ 											_ = ref rCurrentNPC.oldPos[num106];
+@@ -18414,16 +_,16 @@
+ 												num107 += 4;
+ 
+ 											frame4.Y = num104 * num107;
+-											mySpriteBatch.Draw(TextureAssets.Npc[type].Value, new Vector2(rCurrentNPC.oldPos[num106].X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.oldPos[num106].Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), frame4, white4, rCurrentNPC.rotation, halfSize, MathHelper.Lerp(0.35f, 1.2f, (10f - (float)num106) / 10f), spriteEffects, 0f);
++											mySpriteBatch.Draw(NPCLoader.npcTexture[type], new Vector2(rCurrentNPC.oldPos[num106].X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.oldPos[num106].Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), frame4, white4, rCurrentNPC.rotation, halfSize, MathHelper.Lerp(0.35f, 1.2f, (10f - (float)num106) / 10f), spriteEffects, 0f);
+ 										}
+ 									}
+ 
+ 									if (rCurrentNPC.type == 390 && rCurrentNPC.IsABestiaryIconDummy) {
+ 										LoadNPC(391);
+-										Texture2D value68 = TextureAssets.Npc[391].Value;
++										Texture2D value68 = NPCLoader.npcTexture[391];
+ 										Microsoft.Xna.Framework.Rectangle value69 = value68.Frame(1, npcFrameCount[391], 0, (int)rCurrentNPC.localAI[3]);
+ 										Vector2 value70 = new Vector2(-rCurrentNPC.width - 8, 10f);
+-										mySpriteBatch.Draw(value68, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY) + value70, value69, rCurrentNPC.GetAlpha(npcColor), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(value68, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY) + value70, value69, rCurrentNPC.GetAlpha(npcColor), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 									}
+ 
+ 									Microsoft.Xna.Framework.Rectangle frame5 = rCurrentNPC.frame;
+@@ -18441,7 +_,7 @@
+ 												color23.A /= 2;
+ 												for (float num112 = 0f; num112 < (float)Math.PI * 2f; num112 += (float)Math.PI / 2f) {
+ 													Vector2 vector29 = rCurrentNPC.position + spinningpoint5.RotatedBy(num112);
+-													mySpriteBatch.Draw(TextureAssets.Npc[type].Value, new Vector2(vector29.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, vector29.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, color23, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++													mySpriteBatch.Draw(NPCLoader.npcTexture[type], new Vector2(vector29.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, vector29.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, color23, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 												}
+ 
+ 												break;
+@@ -18453,12 +_,12 @@
+ 												color22.A /= 4;
+ 												for (float num109 = 0.9f; num109 >= 0f; num109 -= 0.125f) {
+ 													Vector2 vector27 = rCurrentNPC.position - rCurrentNPC.velocity * 10f * num109;
+-													mySpriteBatch.Draw(TextureAssets.Npc[type].Value, new Vector2(vector27.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, vector27.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, color22 * (1f - num109), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++													mySpriteBatch.Draw(NPCLoader.npcTexture[type], new Vector2(vector27.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, vector27.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, color22 * (1f - num109), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 												}
+ 
+ 												for (float num110 = 0f; num110 < (float)Math.PI * 2f; num110 += (float)Math.PI / 2f) {
+ 													Vector2 vector28 = rCurrentNPC.position + spinningpoint4.RotatedBy(num110);
+-													mySpriteBatch.Draw(TextureAssets.Npc[type].Value, new Vector2(vector28.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, vector28.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, color22, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++													mySpriteBatch.Draw(NPCLoader.npcTexture[type], new Vector2(vector28.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, vector28.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, color22, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 												}
+ 
+ 												break;
+@@ -18469,11 +_,11 @@
+ 										DrawNPCExtras(rCurrentNPC, beforeDraw: true, num37, num36, npcColor, halfSize, spriteEffects, screenPos);
+ 
+ 									if (type == 346 && (double)rCurrentNPC.life < (double)rCurrentNPC.lifeMax * 0.5) {
+-										mySpriteBatch.Draw(TextureAssets.SantaTank.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, rCurrentNPC.GetAlpha(npcColor), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(TextureAssets.SantaTank.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, rCurrentNPC.GetAlpha(npcColor), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 									}
+ 									else if (type == 356) {
+ 										frame5.Height--;
+-										mySpriteBatch.Draw(TextureAssets.Npc[type].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, rCurrentNPC.GetAlpha(npcColor), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(NPCLoader.npcTexture[type], new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, rCurrentNPC.GetAlpha(npcColor), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 									}
+ 									else if (type == 360) {
+ 										float num113 = 0f;
+@@ -18488,7 +_,7 @@
+ 												num113 = -1f;
+ 										}
+ 
+-										mySpriteBatch.Draw(TextureAssets.Npc[type].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale + num113, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, rCurrentNPC.GetAlpha(npcColor), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(NPCLoader.npcTexture[type], new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale + num113, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, rCurrentNPC.GetAlpha(npcColor), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 									}
+ 									else if (type == 655) {
+ 										float num114 = 0f;
+@@ -18503,7 +_,7 @@
+ 												num114 = -1f;
+ 										}
+ 
+-										mySpriteBatch.Draw(TextureAssets.Npc[type].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale + num114, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, rCurrentNPC.GetAlpha(Microsoft.Xna.Framework.Color.Orange), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(NPCLoader.npcTexture[type], new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale + num114, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, rCurrentNPC.GetAlpha(Microsoft.Xna.Framework.Color.Orange), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 									}
+ 									else if (type == 266 && rCurrentNPC.life < rCurrentNPC.lifeMax && (expertMode || getGoodWorld)) {
+ 										Microsoft.Xna.Framework.Color alpha11 = rCurrentNPC.GetAlpha(npcColor);
+@@ -18532,54 +_,54 @@
+ 												position15.Y = Main.player[myPlayer].Center.Y - num118;
+ 
+ 											position15.Y -= rCurrentNPC.height / 2;
+-											mySpriteBatch.Draw(TextureAssets.Npc[type].Value, new Vector2(position15.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, position15.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, alpha11, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++											mySpriteBatch.Draw(NPCLoader.npcTexture[type], new Vector2(position15.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, position15.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, alpha11, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 										}
+ 
+-										mySpriteBatch.Draw(TextureAssets.Npc[type].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, rCurrentNPC.GetAlpha(npcColor), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(NPCLoader.npcTexture[type], new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, rCurrentNPC.GetAlpha(npcColor), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 									}
+ 									else if (type == 421 && rCurrentNPC.ai[0] == 5f) {
+ 										Player player = Main.player[rCurrentNPC.target];
+ 										if (player.gravDir == -1f)
+ 											spriteEffects |= SpriteEffects.FlipVertically;
+ 
+-										mySpriteBatch.Draw(TextureAssets.Npc[type].Value, new Vector2(player.direction * 4, player.gfxOffY) + ((player.gravDir == 1f) ? player.Top : player.Bottom) - screenPos, frame5, rCurrentNPC.GetAlpha(npcColor), rCurrentNPC.rotation, frame5.Size() / 2f, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(NPCLoader.npcTexture[type], new Vector2(player.direction * 4, player.gfxOffY) + ((player.gravDir == 1f) ? player.Top : player.Bottom) - screenPos, frame5, rCurrentNPC.GetAlpha(npcColor), rCurrentNPC.rotation, frame5.Size() / 2f, rCurrentNPC.scale, spriteEffects, 0f);
+ 										mySpriteBatch.Draw(TextureAssets.GlowMask[146].Value, new Vector2(player.direction * 4, player.gfxOffY) + ((player.gravDir == 1f) ? player.Top : player.Bottom) - screenPos, frame5, rCurrentNPC.GetAlpha(npcColor), rCurrentNPC.rotation, frame5.Size() / 2f, rCurrentNPC.scale, spriteEffects, 0f);
+ 									}
+ 									else if (type == 518) {
+ 										Vector2 value71 = new Vector2(-10f, 0f);
+-										mySpriteBatch.Draw(TextureAssets.Npc[type].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, rCurrentNPC.GetAlpha(npcColor), rCurrentNPC.rotation, halfSize + value71, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(NPCLoader.npcTexture[type], new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, rCurrentNPC.GetAlpha(npcColor), rCurrentNPC.rotation, halfSize + value71, rCurrentNPC.scale, spriteEffects, 0f);
+ 										if (rCurrentNPC.color != default(Microsoft.Xna.Framework.Color))
+-											mySpriteBatch.Draw(TextureAssets.Npc[type].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, rCurrentNPC.GetColor(npcColor), rCurrentNPC.rotation, halfSize + value71, rCurrentNPC.scale, spriteEffects, 0f);
++											mySpriteBatch.Draw(NPCLoader.npcTexture[type], new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, rCurrentNPC.GetColor(npcColor), rCurrentNPC.rotation, halfSize + value71, rCurrentNPC.scale, spriteEffects, 0f);
+ 									}
+ 									else {
+-										mySpriteBatch.Draw(TextureAssets.Npc[type].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, rCurrentNPC.GetAlpha(npcColor), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(NPCLoader.npcTexture[type], new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, rCurrentNPC.GetAlpha(npcColor), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 										if (rCurrentNPC.color != default(Microsoft.Xna.Framework.Color))
+-											mySpriteBatch.Draw(TextureAssets.Npc[type].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, rCurrentNPC.GetColor(npcColor), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++											mySpriteBatch.Draw(NPCLoader.npcTexture[type], new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, rCurrentNPC.GetColor(npcColor), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 									}
+ 
+ 									if (rCurrentNPC.confused)
+-										mySpriteBatch.Draw(TextureAssets.Confuse.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 - (float)TextureAssets.Confuse.Height() - 20f), new Microsoft.Xna.Framework.Rectangle(0, 0, TextureAssets.Confuse.Width(), TextureAssets.Confuse.Height()), new Microsoft.Xna.Framework.Color(250, 250, 250, 70), rCurrentNPC.velocity.X * -0.05f, new Vector2(TextureAssets.Confuse.Width() / 2, TextureAssets.Confuse.Height() / 2), essScale + 0.2f, SpriteEffects.None, 0f);
++										mySpriteBatch.Draw(TextureAssets.Confuse.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 - (float)TextureAssets.Confuse.Height() - 20f), new Microsoft.Xna.Framework.Rectangle(0, 0, TextureAssets.Confuse.Width(), TextureAssets.Confuse.Height()), new Microsoft.Xna.Framework.Color(250, 250, 250, 70), rCurrentNPC.velocity.X * -0.05f, new Vector2(TextureAssets.Confuse.Width() / 2, TextureAssets.Confuse.Height() / 2), essScale + 0.2f, SpriteEffects.None, 0f);
+ 
+ 									if (type >= 639 && type <= 645)
+-										mySpriteBatch.Draw(TextureAssets.GlowMask[286].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, rCurrentNPC.GetAlpha(Microsoft.Xna.Framework.Color.White), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(TextureAssets.GlowMask[286].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, rCurrentNPC.GetAlpha(Microsoft.Xna.Framework.Color.White), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 
+ 									if (type >= 646 && type <= 652)
+-										mySpriteBatch.Draw(TextureAssets.GlowMask[287].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, rCurrentNPC.GetAlpha(Microsoft.Xna.Framework.Color.White), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(TextureAssets.GlowMask[287].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, rCurrentNPC.GetAlpha(Microsoft.Xna.Framework.Color.White), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 
+ 									if (type >= 134 && type <= 136 && npcColor != Microsoft.Xna.Framework.Color.Black) {
+-										mySpriteBatch.Draw(TextureAssets.Dest[type - 134].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255, 255, 255, 0) * (1f - (float)rCurrentNPC.alpha / 255f), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(TextureAssets.Dest[type - 134].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255, 255, 255, 0) * (1f - (float)rCurrentNPC.alpha / 255f), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 									}
+ 									else if (type == 125) {
+-										mySpriteBatch.Draw(TextureAssets.EyeLaser.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255, 255, 255, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(TextureAssets.EyeLaser.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255, 255, 255, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 									}
+ 									else if (type == 139) {
+-										mySpriteBatch.Draw(TextureAssets.Probe.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255, 255, 255, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(TextureAssets.Probe.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255, 255, 255, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 									}
+ 									else if (type == 127) {
+-										mySpriteBatch.Draw(TextureAssets.BoneEyes.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(200, 200, 200, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(TextureAssets.BoneEyes.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(200, 200, 200, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 									}
+ 									else if (type == 131) {
+-										mySpriteBatch.Draw(TextureAssets.BoneLaser.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(200, 200, 200, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(TextureAssets.BoneLaser.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(200, 200, 200, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 									}
+ 									else if (type == 120) {
+ 										for (int num119 = 1; num119 < rCurrentNPC.oldPos.Length; num119++) {
+@@ -18589,7 +_,7 @@
+ 											color24.G = (byte)(100 * (10 - num119) / 15);
+ 											color24.B = (byte)(150 * (10 - num119) / 15);
+ 											color24.A = (byte)(50 * (10 - num119) / 15);
+-											mySpriteBatch.Draw(TextureAssets.Chaos.Value, new Vector2(rCurrentNPC.oldPos[num119].X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.oldPos[num119].Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, color24, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++											mySpriteBatch.Draw(TextureAssets.Chaos.Value, new Vector2(rCurrentNPC.oldPos[num119].X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.oldPos[num119].Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, color24, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 										}
+ 									}
+ 									else if (type == 137 || type == 138) {
+@@ -18600,57 +_,57 @@
+ 											color25.G = (byte)(100 * (10 - num120) / 15);
+ 											color25.B = (byte)(150 * (10 - num120) / 15);
+ 											color25.A = (byte)(50 * (10 - num120) / 15);
+-											mySpriteBatch.Draw(TextureAssets.Npc[type].Value, new Vector2(rCurrentNPC.oldPos[num120].X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.oldPos[num120].Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, color25, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++											mySpriteBatch.Draw(NPCLoader.npcTexture[type], new Vector2(rCurrentNPC.oldPos[num120].X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.oldPos[num120].Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, color25, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 										}
+ 									}
+ 									else if (type == 327) {
+-										mySpriteBatch.Draw(TextureAssets.PumpkingFace.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, Microsoft.Xna.Framework.Color.White, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(TextureAssets.PumpkingFace.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, Microsoft.Xna.Framework.Color.White, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 										for (int num121 = 1; num121 < 10; num121++) {
+ 											Microsoft.Xna.Framework.Color color26 = new Microsoft.Xna.Framework.Color(110 - num121 * 10, 110 - num121 * 10, 110 - num121 * 10, 110 - num121 * 10);
+ 											Vector2 value72 = new Vector2((float)rand.Next(-10, 11) * 0.2f, (float)rand.Next(-10, 11) * 0.2f);
+-											mySpriteBatch.Draw(TextureAssets.PumpkingFace.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37) + value72, rCurrentNPC.frame, color26, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++											mySpriteBatch.Draw(TextureAssets.PumpkingFace.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37) + value72, rCurrentNPC.frame, color26, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 										}
+ 									}
+ 									else if (type == 325) {
+-										mySpriteBatch.Draw(TextureAssets.TreeFace.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, Microsoft.Xna.Framework.Color.White, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(TextureAssets.TreeFace.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, Microsoft.Xna.Framework.Color.White, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 										for (int num122 = 1; num122 < 10; num122++) {
+ 											Microsoft.Xna.Framework.Color color27 = new Microsoft.Xna.Framework.Color(110 - num122 * 10, 110 - num122 * 10, 110 - num122 * 10, 110 - num122 * 10);
+ 											Vector2 value73 = new Vector2((float)rand.Next(-10, 11) * 0.2f, (float)rand.Next(-10, 11) * 0.2f);
+-											mySpriteBatch.Draw(TextureAssets.TreeFace.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37) + value73, rCurrentNPC.frame, color27, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++											mySpriteBatch.Draw(TextureAssets.TreeFace.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37) + value73, rCurrentNPC.frame, color27, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 										}
+ 									}
+ 									else if (type == 345) {
+-										mySpriteBatch.Draw(TextureAssets.IceQueen.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, Microsoft.Xna.Framework.Color.White, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(TextureAssets.IceQueen.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, Microsoft.Xna.Framework.Color.White, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 										for (int num123 = 1; num123 < 5; num123++) {
+-											mySpriteBatch.Draw(color: new Microsoft.Xna.Framework.Color(100 - num123 * 10, 100 - num123 * 10, 100 - num123 * 10, 100 - num123 * 10), texture: TextureAssets.IceQueen.Value, position: new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37) - rCurrentNPC.velocity * num123 * 0.2f, sourceRectangle: rCurrentNPC.frame, rotation: rCurrentNPC.rotation, origin: halfSize, scale: rCurrentNPC.scale, effects: spriteEffects, layerDepth: 0f);
++											mySpriteBatch.Draw(color: new Microsoft.Xna.Framework.Color(100 - num123 * 10, 100 - num123 * 10, 100 - num123 * 10, 100 - num123 * 10), texture: TextureAssets.IceQueen.Value, position: new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37) - rCurrentNPC.velocity * num123 * 0.2f, sourceRectangle: rCurrentNPC.frame, rotation: rCurrentNPC.rotation, origin: halfSize, scale: rCurrentNPC.scale, effects: spriteEffects, layerDepth: 0f);
+ 										}
+ 									}
+ 									else if (type == 355) {
+-										mySpriteBatch.Draw(TextureAssets.Firefly.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255, 255, 255, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(TextureAssets.Firefly.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255, 255, 255, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 									}
+ 									else if (type == 358) {
+-										mySpriteBatch.Draw(TextureAssets.Lightningbug.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255, 255, 255, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(TextureAssets.Lightningbug.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255, 255, 255, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 									}
+ 									else if (type == 654) {
+-										mySpriteBatch.Draw(TextureAssets.GlowMask[290].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255, 255, 255, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(TextureAssets.GlowMask[290].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255, 255, 255, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 									}
+ 									else if (type == 653) {
+-										mySpriteBatch.Draw(TextureAssets.GlowMask[288].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 3f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255, 255, 255, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(TextureAssets.GlowMask[288].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 3f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255, 255, 255, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 									}
+ 									else if (type == 82) {
+-										mySpriteBatch.Draw(TextureAssets.WraithEye.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, Microsoft.Xna.Framework.Color.White, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(TextureAssets.WraithEye.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, Microsoft.Xna.Framework.Color.White, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 										for (int num124 = 1; num124 < 10; num124++) {
+-											mySpriteBatch.Draw(color: new Microsoft.Xna.Framework.Color(110 - num124 * 10, 110 - num124 * 10, 110 - num124 * 10, 110 - num124 * 10), texture: TextureAssets.WraithEye.Value, position: new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37) - rCurrentNPC.velocity * num124 * 0.5f, sourceRectangle: rCurrentNPC.frame, rotation: rCurrentNPC.rotation, origin: halfSize, scale: rCurrentNPC.scale, effects: spriteEffects, layerDepth: 0f);
++											mySpriteBatch.Draw(color: new Microsoft.Xna.Framework.Color(110 - num124 * 10, 110 - num124 * 10, 110 - num124 * 10, 110 - num124 * 10), texture: TextureAssets.WraithEye.Value, position: new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37) - rCurrentNPC.velocity * num124 * 0.5f, sourceRectangle: rCurrentNPC.frame, rotation: rCurrentNPC.rotation, origin: halfSize, scale: rCurrentNPC.scale, effects: spriteEffects, layerDepth: 0f);
+ 										}
+ 									}
+ 									else if (type == 253) {
+-										mySpriteBatch.Draw(TextureAssets.ReaperEye.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 3f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, Microsoft.Xna.Framework.Color.White, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(TextureAssets.ReaperEye.Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 3f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, Microsoft.Xna.Framework.Color.White, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 										for (int num125 = 1; num125 < 20; num125++) {
+-											mySpriteBatch.Draw(color: new Microsoft.Xna.Framework.Color(210 - num125 * 20, 210 - num125 * 20, 210 - num125 * 20, 210 - num125 * 20), texture: TextureAssets.ReaperEye.Value, position: new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 3f + halfSize.Y * rCurrentNPC.scale + num37) - rCurrentNPC.velocity * num125 * 0.5f, sourceRectangle: rCurrentNPC.frame, rotation: rCurrentNPC.rotation, origin: halfSize, scale: rCurrentNPC.scale, effects: spriteEffects, layerDepth: 0f);
++											mySpriteBatch.Draw(color: new Microsoft.Xna.Framework.Color(210 - num125 * 20, 210 - num125 * 20, 210 - num125 * 20, 210 - num125 * 20), texture: TextureAssets.ReaperEye.Value, position: new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 3f + halfSize.Y * rCurrentNPC.scale + num37) - rCurrentNPC.velocity * num125 * 0.5f, sourceRectangle: rCurrentNPC.frame, rotation: rCurrentNPC.rotation, origin: halfSize, scale: rCurrentNPC.scale, effects: spriteEffects, layerDepth: 0f);
+ 										}
+ 									}
+ 									else if (type == 245 && rCurrentNPC.alpha == 0 && !getGoodWorld) {
+-										mySpriteBatch.Draw(color: new Microsoft.Xna.Framework.Color(mouseTextColor, mouseTextColor, mouseTextColor, 0), texture: TextureAssets.Golem[3].Value, position: new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), sourceRectangle: frame5, rotation: rCurrentNPC.rotation, origin: halfSize, scale: rCurrentNPC.scale, effects: spriteEffects, layerDepth: 0f);
++										mySpriteBatch.Draw(color: new Microsoft.Xna.Framework.Color(mouseTextColor, mouseTextColor, mouseTextColor, 0), texture: TextureAssets.Golem[3].Value, position: new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), sourceRectangle: frame5, rotation: rCurrentNPC.rotation, origin: halfSize, scale: rCurrentNPC.scale, effects: spriteEffects, layerDepth: 0f);
+ 									}
+ 									else if (type == 246 && !getGoodWorld) {
+ 										Microsoft.Xna.Framework.Color color32 = new Microsoft.Xna.Framework.Color(mouseTextColor, mouseTextColor, mouseTextColor, 0);
+@@ -18658,7 +_,7 @@
+ 											mySpriteBatch.Draw(TextureAssets.Golem[1].Value, new Vector2(rCurrentNPC.Center.X - screenPos.X - 20f, rCurrentNPC.Center.Y - screenPos.Y - 27f), new Microsoft.Xna.Framework.Rectangle(0, 0, TextureAssets.Golem[1].Width(), TextureAssets.Golem[1].Height() / 2), color32, 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
+ 											Microsoft.Xna.Framework.Rectangle value74 = frame5;
+ 											value74.Y = 0;
+-											mySpriteBatch.Draw(TextureAssets.Extra[107].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), value74, color32, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++											mySpriteBatch.Draw(TextureAssets.Extra[107].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), value74, color32, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 										}
+ 										else if (rCurrentNPC.frame.Y < 444) {
+ 											mySpriteBatch.Draw(TextureAssets.Golem[2].Value, new Vector2(rCurrentNPC.Center.X - screenPos.X + 26f, rCurrentNPC.Center.Y - screenPos.Y - 28f), new Microsoft.Xna.Framework.Rectangle(0, 0, TextureAssets.Golem[2].Width(), TextureAssets.Golem[2].Height() / 4), color32, 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
+@@ -18675,22 +_,22 @@
+ 										Microsoft.Xna.Framework.Rectangle value76 = value75.Frame(1, 8);
+ 										_ = Microsoft.Xna.Framework.Color.White;
+ 										value76.Y += value76.Height * 2 * num126 + frame5.Y;
+-										mySpriteBatch.Draw(value75, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), value76, color33, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(value75, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), value76, color33, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 										value75 = TextureAssets.Extra[107].Value;
+ 										value76 = frame5;
+-										mySpriteBatch.Draw(value75, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), value76, color33, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(value75, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), value76, color33, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 									}
+ 									else if (type == 383) {
+-										mySpriteBatch.Draw(TextureAssets.GlowMask[11].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, new Microsoft.Xna.Framework.Color(255, 255, 255, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(TextureAssets.GlowMask[11].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, new Microsoft.Xna.Framework.Color(255, 255, 255, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 										if (rCurrentNPC.ai[2] != 0f && npc[(int)rCurrentNPC.ai[2] - 1].active && npc[(int)rCurrentNPC.ai[2] - 1].type == 384) {
+ 											_ = rCurrentNPC.ai[2];
+-											mySpriteBatch.Draw(TextureAssets.Npc[384].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), null, new Microsoft.Xna.Framework.Color(100, 100, 100, 0), rCurrentNPC.rotation, new Vector2(TextureAssets.Npc[384].Width(), TextureAssets.Npc[384].Height()) / 2f, rCurrentNPC.scale, spriteEffects, 0f);
++											mySpriteBatch.Draw(NPCLoader.npcTexture[384], new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), null, new Microsoft.Xna.Framework.Color(100, 100, 100, 0), rCurrentNPC.rotation, new Vector2(NPCLoader.npcTexture[384].Width, NPCLoader.npcTexture[384].Height) / 2f, rCurrentNPC.scale, spriteEffects, 0f);
+ 										}
+ 									}
+ 									else if (type == 381) {
+ 										Vector2 zero3 = Vector2.Zero;
+ 										Vector2 origin18 = Vector2.Zero;
+-										int num127 = TextureAssets.Npc[type].Height() / npcFrameCount[type];
++										int num127 = NPCLoader.npcTexture[type].Height / npcFrameCount[type];
+ 										int num128 = rCurrentNPC.frame.Y / num127;
+ 										Microsoft.Xna.Framework.Rectangle value77 = new Microsoft.Xna.Framework.Rectangle(0, 0, 32, 42);
+ 										switch (num128) {
+@@ -18765,7 +_,7 @@
+ 									else if (type == 382) {
+ 										Vector2 zero4 = Vector2.Zero;
+ 										Vector2 origin19 = Vector2.Zero;
+-										int num130 = TextureAssets.Npc[type].Height() / npcFrameCount[type];
++										int num130 = NPCLoader.npcTexture[type].Height / npcFrameCount[type];
+ 										int num131 = rCurrentNPC.frame.Y / num130;
+ 										Microsoft.Xna.Framework.Rectangle value78 = new Microsoft.Xna.Framework.Rectangle(0, 0, 30, 42);
+ 										switch (num131) {
+@@ -18837,10 +_,10 @@
+ 										mySpriteBatch.Draw(TextureAssets.Extra[1].Value, zero4, value78, npcColor, rCurrentNPC.rotation, origin19, rCurrentNPC.scale, spriteEffects, 0f);
+ 									}
+ 									else if (type == 520) {
+-										mySpriteBatch.Draw(TextureAssets.GlowMask[164].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, new Microsoft.Xna.Framework.Color(255, 255, 255, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(TextureAssets.GlowMask[164].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, new Microsoft.Xna.Framework.Color(255, 255, 255, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 										Vector2 zero5 = Vector2.Zero;
+ 										Vector2 origin20 = new Vector2(4f, 4f);
+-										int num133 = TextureAssets.Npc[type].Height() / npcFrameCount[type];
++										int num133 = NPCLoader.npcTexture[type].Height / npcFrameCount[type];
+ 										_ = rCurrentNPC.frame.Y / num133;
+ 										if (spriteEffects.HasFlag(SpriteEffects.FlipHorizontally)) {
+ 											zero5.X *= -1f;
+@@ -18858,7 +_,7 @@
+ 										mySpriteBatch.Draw(TextureAssets.GlowMask[165].Value, zero5, null, new Microsoft.Xna.Framework.Color(255, 255, 255, 0), num134, origin20, rCurrentNPC.scale, spriteEffects, 0f);
+ 									}
+ 									else if (type == 386) {
+-										mySpriteBatch.Draw(TextureAssets.GlowMask[31].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, new Microsoft.Xna.Framework.Color(255, 255, 255, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(TextureAssets.GlowMask[31].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, new Microsoft.Xna.Framework.Color(255, 255, 255, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 									}
+ 									else if (type == 387) {
+ 										Microsoft.Xna.Framework.Color color34 = new Microsoft.Xna.Framework.Color(1f, 1f, 1f, 1f) * 0.75f;
+@@ -18869,13 +_,13 @@
+ 										}
+ 
+ 										color34 *= (255f - (float)rCurrentNPC.alpha) / 255f;
+-										mySpriteBatch.Draw(TextureAssets.GlowMask[32].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, color34, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(TextureAssets.GlowMask[32].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, color34, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 									}
+ 									else if (type == 388) {
+-										mySpriteBatch.Draw(TextureAssets.GlowMask[33].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, new Microsoft.Xna.Framework.Color(255, 255, 255, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(TextureAssets.GlowMask[33].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, new Microsoft.Xna.Framework.Color(255, 255, 255, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 									}
+ 									else if (type == 389) {
+-										mySpriteBatch.Draw(TextureAssets.GlowMask[34].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, new Microsoft.Xna.Framework.Color(255, 255, 255, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(TextureAssets.GlowMask[34].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, new Microsoft.Xna.Framework.Color(255, 255, 255, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 									}
+ 									else if (type == 4 && rCurrentNPC.ai[1] >= 4f && rCurrentNPC.ai[0] == 3f) {
+ 										for (int num135 = 1; num135 < rCurrentNPC.oldPos.Length; num135++) {
+@@ -18885,14 +_,14 @@
+ 											color35.G = (byte)(0.5 * (double)(int)color35.G * (double)(10 - num135) / 20.0);
+ 											color35.B = (byte)(0.5 * (double)(int)color35.B * (double)(10 - num135) / 20.0);
+ 											color35.A = (byte)(0.5 * (double)(int)color35.A * (double)(10 - num135) / 20.0);
+-											mySpriteBatch.Draw(TextureAssets.Npc[type].Value, new Vector2(rCurrentNPC.oldPos[num135].X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.oldPos[num135].Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, color35, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++											mySpriteBatch.Draw(NPCLoader.npcTexture[type], new Vector2(rCurrentNPC.oldPos[num135].X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.oldPos[num135].Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, color35, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 										}
+ 									}
+ 									else if (type == 437) {
+ 										Microsoft.Xna.Framework.Color white5 = Microsoft.Xna.Framework.Color.White;
+ 										white5.A = 200;
+-										mySpriteBatch.Draw(TextureAssets.GlowMask[109].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, white5, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(TextureAssets.GlowMask[109].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), frame5, white5, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+-										mySpriteBatch.Draw(TextureAssets.GlowMask[108].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), null, white5, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(TextureAssets.GlowMask[108].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + num36 + rCurrentNPC.gfxOffY), null, white5, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 									}
+ 									else if (type == 471 && rCurrentNPC.ai[3] < 0f) {
+ 										for (int num136 = 1; num136 < rCurrentNPC.oldPos.Length; num136++) {
+@@ -18902,7 +_,7 @@
+ 											color36.G = (byte)(0.5 * (double)(int)color36.G * (double)(10 - num136) / 20.0);
+ 											color36.B = (byte)(0.5 * (double)(int)color36.B * (double)(10 - num136) / 20.0);
+ 											color36.A = (byte)(0.5 * (double)(int)color36.A * (double)(10 - num136) / 20.0);
+-											mySpriteBatch.Draw(TextureAssets.Npc[type].Value, new Vector2(rCurrentNPC.oldPos[num136].X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.oldPos[num136].Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, color36, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++											mySpriteBatch.Draw(NPCLoader.npcTexture[type], new Vector2(rCurrentNPC.oldPos[num136].X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.oldPos[num136].Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, color36, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 										}
+ 									}
+ 									else if (type == 477 && rCurrentNPC.velocity.Length() > 9f) {
+@@ -18914,13 +_,13 @@
+ 											color37.B = (byte)(0.5 * (double)(int)color37.B * (double)(10 - num137) / 20.0);
+ 											color37.A = (byte)(0.5 * (double)(int)color37.A * (double)(10 - num137) / 20.0);
+ 											Microsoft.Xna.Framework.Rectangle frame6 = rCurrentNPC.frame;
+-											int num138 = TextureAssets.Npc[type].Height() / npcFrameCount[type];
++											int num138 = NPCLoader.npcTexture[type].Height / npcFrameCount[type];
+ 											frame6.Y -= num138 * num137;
+ 											while (frame6.Y < 0) {
+ 												frame6.Y += num138 * npcFrameCount[type];
+ 											}
+ 
+-											mySpriteBatch.Draw(TextureAssets.Npc[type].Value, new Vector2(rCurrentNPC.oldPos[num137].X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.oldPos[num137].Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), frame6, color37, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++											mySpriteBatch.Draw(NPCLoader.npcTexture[type], new Vector2(rCurrentNPC.oldPos[num137].X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.oldPos[num137].Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), frame6, color37, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 										}
+ 									}
+ 
+@@ -18933,17 +_,17 @@
+ 											color38.B = (byte)(0.5 * (double)(int)color38.B * (double)(10 - num139) / 20.0);
+ 											color38.A = (byte)(0.5 * (double)(int)color38.A * (double)(10 - num139) / 20.0);
+ 											Microsoft.Xna.Framework.Rectangle frame7 = rCurrentNPC.frame;
+-											int num140 = TextureAssets.Npc[type].Height() / npcFrameCount[type];
++											int num140 = NPCLoader.npcTexture[type].Height / npcFrameCount[type];
+ 											frame7.Y -= num140 * num139;
+ 											while (frame7.Y < 0) {
+ 												frame7.Y += num140 * npcFrameCount[type];
+ 											}
+ 
+-											mySpriteBatch.Draw(TextureAssets.Npc[type].Value, new Vector2(rCurrentNPC.oldPos[num139].X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.oldPos[num139].Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), frame7, color38, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++											mySpriteBatch.Draw(NPCLoader.npcTexture[type], new Vector2(rCurrentNPC.oldPos[num139].X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.oldPos[num139].Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), frame7, color38, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 										}
+ 									}
+ 									else if (type == 472) {
+-										mySpriteBatch.Draw(TextureAssets.GlowMask[110].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++										mySpriteBatch.Draw(TextureAssets.GlowMask[110].Value, new Vector2(rCurrentNPC.position.X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.position.Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 									}
+ 									else if (rCurrentNPC.aiStyle == 87) {
+ 										if ((int)rCurrentNPC.ai[0] == 4 || rCurrentNPC.ai[0] == 5f || rCurrentNPC.ai[0] == 6f) {
+@@ -18954,7 +_,7 @@
+ 												color39.G = (byte)(0.5 * (double)(int)color39.G * (double)(10 - num141) / 20.0);
+ 												color39.B = (byte)(0.5 * (double)(int)color39.B * (double)(10 - num141) / 20.0);
+ 												color39.A = (byte)(0.5 * (double)(int)color39.A * (double)(10 - num141) / 20.0);
+-												mySpriteBatch.Draw(TextureAssets.Npc[type].Value, new Vector2(rCurrentNPC.oldPos[num141].X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)TextureAssets.Npc[type].Width() * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.oldPos[num141].Y - screenPos.Y + (float)rCurrentNPC.height - (float)TextureAssets.Npc[type].Height() * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, color39, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++												mySpriteBatch.Draw(NPCLoader.npcTexture[type], new Vector2(rCurrentNPC.oldPos[num141].X - screenPos.X + (float)(rCurrentNPC.width / 2) - (float)NPCLoader.npcTexture[type].Width * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, rCurrentNPC.oldPos[num141].Y - screenPos.Y + (float)rCurrentNPC.height - (float)NPCLoader.npcTexture[type].Height * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37), rCurrentNPC.frame, color39, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 											}
+ 										}
+ 									}
+@@ -18964,7 +_,7 @@
+ 													Texture2D value80 = TextureAssets.Extra[39].Value;
+ 													Vector2 center4 = rCurrentNPC.Center;
+ 													float num154 = 0f;
+-													switch (rCurrentNPC.frame.Y / (TextureAssets.Npc[type].Height() / npcFrameCount[type])) {
++													switch (rCurrentNPC.frame.Y / (NPCLoader.npcTexture[type].Height / npcFrameCount[type])) {
+ 														case 0:
+ 															num154 = 2f;
+ 															break;
+@@ -18990,46 +_,46 @@
+ 													break;
+ 												}
+ 											case 411:
+-												mySpriteBatch.Draw(TextureAssets.GlowMask[136].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++												mySpriteBatch.Draw(TextureAssets.GlowMask[136].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 												break;
+ 											case 409:
+-												mySpriteBatch.Draw(TextureAssets.GlowMask[138].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++												mySpriteBatch.Draw(TextureAssets.GlowMask[138].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 												break;
+ 											case 410:
+-												mySpriteBatch.Draw(TextureAssets.GlowMask[137].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++												mySpriteBatch.Draw(TextureAssets.GlowMask[137].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 												break;
+ 											case 407:
+-												mySpriteBatch.Draw(TextureAssets.GlowMask[139].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++												mySpriteBatch.Draw(TextureAssets.GlowMask[139].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 												break;
+ 											case 405:
+-												mySpriteBatch.Draw(TextureAssets.GlowMask[141].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++												mySpriteBatch.Draw(TextureAssets.GlowMask[141].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 												break;
+ 											case 406:
+-												mySpriteBatch.Draw(TextureAssets.GlowMask[142].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++												mySpriteBatch.Draw(TextureAssets.GlowMask[142].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 												break;
+ 											case 424:
+-												mySpriteBatch.Draw(TextureAssets.GlowMask[144].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++												mySpriteBatch.Draw(TextureAssets.GlowMask[144].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 												break;
+ 											case 423:
+-												mySpriteBatch.Draw(TextureAssets.GlowMask[145].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++												mySpriteBatch.Draw(TextureAssets.GlowMask[145].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 												break;
+ 											case 421:
+-												mySpriteBatch.Draw(TextureAssets.GlowMask[146].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++												mySpriteBatch.Draw(TextureAssets.GlowMask[146].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 												break;
+ 											case 420:
+-												mySpriteBatch.Draw(TextureAssets.GlowMask[147].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++												mySpriteBatch.Draw(TextureAssets.GlowMask[147].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 												break;
+ 											case 425:
+-												mySpriteBatch.Draw(TextureAssets.GlowMask[150].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++												mySpriteBatch.Draw(TextureAssets.GlowMask[150].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 												break;
+ 											case 429:
+-												mySpriteBatch.Draw(TextureAssets.GlowMask[151].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++												mySpriteBatch.Draw(TextureAssets.GlowMask[151].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 												break;
+ 											case 418: {
+-													mySpriteBatch.Draw(TextureAssets.GlowMask[161].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++													mySpriteBatch.Draw(TextureAssets.GlowMask[161].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 													float scaleFactor14 = 0.25f + (rCurrentNPC.GetAlpha(npcColor).ToVector3() - new Vector3(0.5f)).Length() * 0.25f;
+ 													for (int num153 = 0; num153 < 4; num153++) {
+-														mySpriteBatch.Draw(TextureAssets.GlowMask[161].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY) + rCurrentNPC.velocity.RotatedBy((float)num153 * ((float)Math.PI / 2f)) * scaleFactor14, rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++														mySpriteBatch.Draw(TextureAssets.GlowMask[161].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY) + rCurrentNPC.velocity.RotatedBy((float)num153 * ((float)Math.PI / 2f)) * scaleFactor14, rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 													}
+ 
+ 													break;
+@@ -19048,101 +_,101 @@
+ 														color40 = new Microsoft.Xna.Framework.Color(num152, num151, num151, num152);
+ 													}
+ 
+-													mySpriteBatch.Draw(TextureAssets.GlowMask[num150].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, color40, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++													mySpriteBatch.Draw(TextureAssets.GlowMask[num150].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, color40, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 													break;
+ 												}
+ 											default:
+ 												switch (type) {
+ 													case 415: {
+-															mySpriteBatch.Draw(TextureAssets.GlowMask[155].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++															mySpriteBatch.Draw(TextureAssets.GlowMask[155].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 															float scaleFactor7 = 0.5f + (rCurrentNPC.GetAlpha(npcColor).ToVector3() - new Vector3(0.5f)).Length() * 0.5f;
+ 															for (int num143 = 0; num143 < 4; num143++) {
+-																mySpriteBatch.Draw(TextureAssets.GlowMask[155].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY) + rCurrentNPC.velocity.RotatedBy((float)num143 * ((float)Math.PI / 2f)) * scaleFactor7, rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++																mySpriteBatch.Draw(TextureAssets.GlowMask[155].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY) + rCurrentNPC.velocity.RotatedBy((float)num143 * ((float)Math.PI / 2f)) * scaleFactor7, rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 															}
+ 
+ 															break;
+ 														}
+ 													case 419:
+-														mySpriteBatch.Draw(TextureAssets.GlowMask[154].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++														mySpriteBatch.Draw(TextureAssets.GlowMask[154].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 														if (rCurrentNPC.ai[2] >= -6f) {
+ 															float scaleFactor10 = 0.5f + (rCurrentNPC.GetAlpha(npcColor).ToVector3() - new Vector3(0.5f)).Length() * 0.5f;
+ 															for (int num146 = 0; num146 < 4; num146++) {
+-																mySpriteBatch.Draw(TextureAssets.GlowMask[154].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY) + rCurrentNPC.velocity.RotatedBy((float)num146 * ((float)Math.PI / 2f)) * scaleFactor10, rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++																mySpriteBatch.Draw(TextureAssets.GlowMask[154].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY) + rCurrentNPC.velocity.RotatedBy((float)num146 * ((float)Math.PI / 2f)) * scaleFactor10, rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 															}
+ 														}
+ 														else {
+ 															float scaleFactor11 = 4f;
+ 															for (int num147 = 0; num147 < 4; num147++) {
+-																mySpriteBatch.Draw(TextureAssets.GlowMask[154].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY) + Vector2.UnitX.RotatedBy((float)num147 * ((float)Math.PI / 2f)) * scaleFactor11, rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++																mySpriteBatch.Draw(TextureAssets.GlowMask[154].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY) + Vector2.UnitX.RotatedBy((float)num147 * ((float)Math.PI / 2f)) * scaleFactor11, rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 															}
+ 														}
+ 														break;
+ 													case 417: {
+-															mySpriteBatch.Draw(TextureAssets.GlowMask[160].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++															mySpriteBatch.Draw(TextureAssets.GlowMask[160].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 															float scaleFactor12 = 0.25f + (rCurrentNPC.GetAlpha(npcColor).ToVector3() - new Vector3(0.5f)).Length() * 0.25f;
+ 															for (int num148 = 0; num148 < 4; num148++) {
+-																mySpriteBatch.Draw(TextureAssets.GlowMask[160].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY) + rCurrentNPC.velocity.RotatedBy((float)num148 * ((float)Math.PI / 2f)) * scaleFactor12, rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++																mySpriteBatch.Draw(TextureAssets.GlowMask[160].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY) + rCurrentNPC.velocity.RotatedBy((float)num148 * ((float)Math.PI / 2f)) * scaleFactor12, rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 															}
+ 
+ 															break;
+ 														}
+ 													case 516: {
+-															mySpriteBatch.Draw(TextureAssets.Npc[type].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++															mySpriteBatch.Draw(NPCLoader.npcTexture[type], rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 															float scaleFactor8 = 0.5f + (rCurrentNPC.GetAlpha(npcColor).ToVector3() - new Vector3(0.5f)).Length() * 0.5f;
+ 															for (int num144 = 0; num144 < 4; num144++) {
+-																mySpriteBatch.Draw(TextureAssets.Npc[type].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY) + rCurrentNPC.velocity.RotatedBy((float)num144 * ((float)Math.PI / 2f)) * scaleFactor8, rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++																mySpriteBatch.Draw(NPCLoader.npcTexture[type], rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY) + rCurrentNPC.velocity.RotatedBy((float)num144 * ((float)Math.PI / 2f)) * scaleFactor8, rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 															}
+ 
+ 															break;
+ 														}
+ 													case 518: {
+ 															Vector2 value79 = new Vector2(-10f, 0f);
+-															mySpriteBatch.Draw(TextureAssets.GlowMask[163].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha), rCurrentNPC.rotation, halfSize + value79, rCurrentNPC.scale, spriteEffects, 0f);
++															mySpriteBatch.Draw(TextureAssets.GlowMask[163].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha), rCurrentNPC.rotation, halfSize + value79, rCurrentNPC.scale, spriteEffects, 0f);
+ 															float scaleFactor13 = 0.5f + (rCurrentNPC.GetAlpha(npcColor).ToVector3() - new Vector3(0.5f)).Length() * 0.5f;
+ 															for (int num149 = 0; num149 < 4; num149++) {
+-																mySpriteBatch.Draw(TextureAssets.GlowMask[163].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY) + rCurrentNPC.velocity.RotatedBy((float)num149 * ((float)Math.PI / 2f)) * scaleFactor13, rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), rCurrentNPC.rotation, halfSize + value79, rCurrentNPC.scale, spriteEffects, 0f);
++																mySpriteBatch.Draw(TextureAssets.GlowMask[163].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY) + rCurrentNPC.velocity.RotatedBy((float)num149 * ((float)Math.PI / 2f)) * scaleFactor13, rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), rCurrentNPC.rotation, halfSize + value79, rCurrentNPC.scale, spriteEffects, 0f);
+ 															}
+ 
+ 															break;
+ 														}
+ 													case 344:
+-														mySpriteBatch.Draw(TextureAssets.GlowMask[253].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(200, 200, 200, 100) * 0.5f, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++														mySpriteBatch.Draw(TextureAssets.GlowMask[253].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(200, 200, 200, 100) * 0.5f, rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 														break;
+ 													case 346: {
+ 															float scaleFactor9 = 4f;
+ 															for (int num145 = 0; num145 < 4; num145++) {
+-																mySpriteBatch.Draw(TextureAssets.GlowMask[254].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY) + Vector2.UnitX.RotatedBy((float)num145 * ((float)Math.PI / 2f)) * scaleFactor9, rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++																mySpriteBatch.Draw(TextureAssets.GlowMask[254].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY) + Vector2.UnitX.RotatedBy((float)num145 * ((float)Math.PI / 2f)) * scaleFactor9, rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 															}
+ 
+-															mySpriteBatch.Draw(TextureAssets.GlowMask[254].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(200, 200, 200, 100), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++															mySpriteBatch.Draw(TextureAssets.GlowMask[254].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(200, 200, 200, 100), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 															break;
+ 														}
+ 													case 315: {
+ 															float scaleFactor6 = 2f;
+ 															for (int num142 = 0; num142 < 4; num142++) {
+-																mySpriteBatch.Draw(TextureAssets.GlowMask[255].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY) + Vector2.UnitX.RotatedBy((float)num142 * ((float)Math.PI / 2f)) * scaleFactor6, rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++																mySpriteBatch.Draw(TextureAssets.GlowMask[255].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY) + Vector2.UnitX.RotatedBy((float)num142 * ((float)Math.PI / 2f)) * scaleFactor6, rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(64, 64, 64, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 															}
+ 
+-															mySpriteBatch.Draw(TextureAssets.GlowMask[255].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(200, 200, 200, 200), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++															mySpriteBatch.Draw(TextureAssets.GlowMask[255].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(200, 200, 200, 200), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 															break;
+ 														}
+ 													case 525:
+-														mySpriteBatch.Draw(TextureAssets.GlowMask[169].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(200, 200, 200, 100), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++														mySpriteBatch.Draw(TextureAssets.GlowMask[169].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(200, 200, 200, 100), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 														break;
+ 													case 526:
+-														mySpriteBatch.Draw(TextureAssets.GlowMask[170].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(200, 200, 200, 100), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++														mySpriteBatch.Draw(TextureAssets.GlowMask[170].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(200, 200, 200, 100), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 														break;
+ 													case 527:
+-														mySpriteBatch.Draw(TextureAssets.GlowMask[171].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(200, 200, 200, 100), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++														mySpriteBatch.Draw(TextureAssets.GlowMask[171].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(200, 200, 200, 100), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 														break;
+ 													case 533:
+-														mySpriteBatch.Draw(TextureAssets.GlowMask[172].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255, 255, 255, 100), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++														mySpriteBatch.Draw(TextureAssets.GlowMask[172].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255, 255, 255, 100), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 														break;
+ 													case 160:
+-														mySpriteBatch.Draw(TextureAssets.GlowMask[166].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++														mySpriteBatch.Draw(TextureAssets.GlowMask[166].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 														break;
+ 													case 209:
+-														mySpriteBatch.Draw(TextureAssets.GlowMask[167].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++														mySpriteBatch.Draw(TextureAssets.GlowMask[167].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 														break;
+ 												}
+ 												break;
+@@ -19170,7 +_,7 @@
+ 				case 544:
+ 				case 545:
+ 				case 581: {
+-						Texture2D value101 = TextureAssets.Npc[type].Value;
++						Texture2D value101 = NPCLoader.npcTexture[type];
+ 						Microsoft.Xna.Framework.Color color45 = Microsoft.Xna.Framework.Color.White;
+ 						float amount10 = 0f;
+ 						float amount11 = 0f;
+@@ -19418,10 +_,10 @@
+ 						mySpriteBatch.Draw(value101, vector35, rCurrentNPC.frame, rCurrentNPC.GetAlpha(color46), rCurrentNPC.rotation, origin22, rCurrentNPC.scale, spriteEffects, 0f);
+ 						switch (type) {
+ 							case 427:
+-								mySpriteBatch.Draw(TextureAssets.GlowMask[152].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++								mySpriteBatch.Draw(TextureAssets.GlowMask[152].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 255 - rCurrentNPC.alpha, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 								break;
+ 							case 426:
+-								mySpriteBatch.Draw(TextureAssets.GlowMask[153].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-TextureAssets.Npc[type].Width()) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-TextureAssets.Npc[type].Height()) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
++								mySpriteBatch.Draw(TextureAssets.GlowMask[153].Value, rCurrentNPC.Bottom - screenPos + new Vector2((float)(-NPCLoader.npcTexture[type].Width) * rCurrentNPC.scale / 2f + halfSize.X * rCurrentNPC.scale, (float)(-NPCLoader.npcTexture[type].Height) * rCurrentNPC.scale / (float)npcFrameCount[type] + 4f + halfSize.Y * rCurrentNPC.scale + num37 + rCurrentNPC.gfxOffY), rCurrentNPC.frame, new Microsoft.Xna.Framework.Color(128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 128 - rCurrentNPC.alpha / 2, 0), rCurrentNPC.rotation, halfSize, rCurrentNPC.scale, spriteEffects, 0f);
+ 								break;
+ 						}
+ 
+@@ -19550,7 +_,7 @@
+ 		}
+ 
+ 		private static void DrawNPCDirect_HallowBoss(SpriteBatch mySpriteBatch, NPC rCurrentNPC, ref Vector2 screenPos, int typeCache, ref Microsoft.Xna.Framework.Color npcColor, ref Vector2 halfSize, SpriteEffects npcSpriteEffect) {
+-			Texture2D value = TextureAssets.Npc[typeCache].Value;
++			Texture2D value = NPCLoader.npcTexture[typeCache];
+ 			Vector2 vector = rCurrentNPC.Center - screenPos;
+ 			bool flag = rCurrentNPC.AI_120_HallowBoss_IsInPhase2();
+ 			int num = (int)rCurrentNPC.ai[0];
 @@ -19872,8 +_,8 @@
  			float num3 = 22f * rCurrentNPC.scale;
  			float num4 = 18f * rCurrentNPC.scale;
@@ -83,6 +1070,15 @@
  			bool num7 = (int)rCurrentNPC.ai[0] == -999;
  			if (num7) {
  				num3 = 14f * rCurrentNPC.scale;
+@@ -19894,7 +_,7 @@
+ 
+ 			float num8 = -1f;
+ 			float num9 = 1f;
+-			int num10 = rCurrentNPC.frame.Y / (TextureAssets.Npc[typeCache].Height() / npcFrameCount[typeCache]);
++			int num10 = rCurrentNPC.frame.Y / (NPCLoader.npcTexture[typeCache].Height / npcFrameCount[typeCache]);
+ 			num9 -= (float)num10;
+ 			num8 += (float)(num10 * 2);
+ 			float num11 = 0.2f;
 @@ -19905,7 +_,7 @@
  				num8 -= num5 * addedRotation;
  			}
@@ -92,7 +1088,7 @@
  		}
  
  		protected void DrawNPCExtras(NPC n, bool beforeDraw, float addHeight, float addY, Microsoft.Xna.Framework.Color npcColor, Vector2 halfSize, SpriteEffects npcSpriteEffect, Vector2 screenPosition) {
-@@ -20125,7 +_,7 @@
+@@ -20125,22 +_,22 @@
  				}
  
  				instance.LoadItem(num8);
@@ -101,6 +1097,27 @@
  				int num10 = (int)DrawPlayerItemPos(1f, num8).X - num9;
  				Vector2 origin2 = new Vector2(-num10, value3.Height / 2);
  				if (n.spriteDirection == -1)
+ 					origin2 = new Vector2(value3.Width + num10, value3.Height / 2);
+ 
+ 				spriteBatch.Draw(value3, new Vector2((int)(vector2.X - screenPosition.X), (int)(vector2.Y - screenPosition.Y)), null, npcColor, rotation, origin2, n.scale * num7, npcSpriteEffect ^ SpriteEffects.FlipHorizontally, 0f);
+-				if (n.type == 22 && n.frame.Y / (TextureAssets.Npc[n.type].Height() / npcFrameCount[n.type]) >= 21) {
++				if (n.type == 22 && n.frame.Y / (NPCLoader.npcTexture[n.type].Height / npcFrameCount[n.type]) >= 21) {
+ 					Texture2D value4 = TextureAssets.Extra[52].Value;
+-					Microsoft.Xna.Framework.Rectangle value5 = value4.Frame(1, 5, 0, n.frame.Y / (TextureAssets.Npc[n.type].Height() / npcFrameCount[n.type]) - 21);
++					Microsoft.Xna.Framework.Rectangle value5 = value4.Frame(1, 5, 0, n.frame.Y / (NPCLoader.npcTexture[n.type].Height / npcFrameCount[n.type]) - 21);
+-					spriteBatch.Draw(value4, new Vector2(n.position.X - screenPosition.X + (float)(n.width / 2) - (float)TextureAssets.Npc[n.type].Width() * n.scale / 2f + halfSize.X * n.scale, n.position.Y - screenPosition.Y + (float)n.height - (float)TextureAssets.Npc[n.type].Height() * n.scale / (float)npcFrameCount[n.type] + 4f + halfSize.Y * n.scale + addHeight + addY + n.gfxOffY), value5, n.GetAlpha(npcColor), n.rotation, halfSize, n.scale, npcSpriteEffect, 0f);
++					spriteBatch.Draw(value4, new Vector2(n.position.X - screenPosition.X + (float)(n.width / 2) - (float)NPCLoader.npcTexture[n.type].Width * n.scale / 2f + halfSize.X * n.scale, n.position.Y - screenPosition.Y + (float)n.height - (float)NPCLoader.npcTexture[n.type].Height * n.scale / (float)npcFrameCount[n.type] + 4f + halfSize.Y * n.scale + addHeight + addY + n.gfxOffY), value5, n.GetAlpha(npcColor), n.rotation, halfSize, n.scale, npcSpriteEffect, 0f);
+ 				}
+-				else if (n.type == 368 && n.frame.Y / (TextureAssets.Npc[n.type].Height() / npcFrameCount[n.type]) >= 21) {
++				else if (n.type == 368 && n.frame.Y / (NPCLoader.npcTexture[n.type].Height / npcFrameCount[n.type]) >= 21) {
+ 					Texture2D value6 = TextureAssets.Extra[53].Value;
+-					Microsoft.Xna.Framework.Rectangle value7 = value6.Frame(1, 5, 0, n.frame.Y / (TextureAssets.Npc[n.type].Height() / npcFrameCount[n.type]) - 21);
++					Microsoft.Xna.Framework.Rectangle value7 = value6.Frame(1, 5, 0, n.frame.Y / (NPCLoader.npcTexture[n.type].Height / npcFrameCount[n.type]) - 21);
+-					spriteBatch.Draw(value6, new Vector2(n.position.X - screenPosition.X + (float)(n.width / 2) - (float)TextureAssets.Npc[n.type].Width() * n.scale / 2f + halfSize.X * n.scale, n.position.Y - screenPosition.Y + (float)n.height - (float)TextureAssets.Npc[n.type].Height() * n.scale / (float)npcFrameCount[n.type] + 4f + halfSize.Y * n.scale + addHeight + addY + n.gfxOffY), value7, n.GetAlpha(npcColor), n.rotation, halfSize, n.scale, npcSpriteEffect, 0f);
++					spriteBatch.Draw(value6, new Vector2(n.position.X - screenPosition.X + (float)(n.width / 2) - (float)NPCLoader.npcTexture[n.type].Width * n.scale / 2f + halfSize.X * n.scale, n.position.Y - screenPosition.Y + (float)n.height - (float)NPCLoader.npcTexture[n.type].Height * n.scale / (float)npcFrameCount[n.type] + 4f + halfSize.Y * n.scale + addHeight + addY + n.gfxOffY), value7, n.GetAlpha(npcColor), n.rotation, halfSize, n.scale, npcSpriteEffect, 0f);
+ 				}
+ 			}
+ 
 @@ -20154,13 +_,13 @@
  
  			if (NPCID.Sets.AttackType[n.type] == 3 && n.ai[0] == 15f) {
@@ -435,7 +1452,7 @@
  		}
  
  		protected void DrawUnderworldBackground(bool flat) {
-@@ -44719,8 +_,8 @@
+@@ -44719,13 +_,13 @@
  		}
  
  		public void LoadItem(int i) {
@@ -446,3 +1463,19 @@
  		}
  
  		public void LoadNPC(int i) {
+-			if (TextureAssets.Npc[i].State == AssetState.NotLoaded)
++			//if (TextureAssets.Npc[i].State == AssetState.NotLoaded)
+-				Assets.Request<Texture2D>(TextureAssets.Npc[i].Name);
++			//	Assets.Request<Texture2D>(TextureAssets.Npc[i].Name);
+ 		}
+ 
+ 		public void LoadProjectile(int i) {
+@@ -49618,7 +_,7 @@
+ 					num++;
+ 			}
+ 
+-			for (int j = 0; j < 663; j++) {
++			for (int j = 0; j < NPCLoader.Count; j++) {
+ 				townNPCCanSpawn[j] = false;
+ 			}
+ 

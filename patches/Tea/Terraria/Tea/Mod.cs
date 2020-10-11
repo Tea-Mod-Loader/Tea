@@ -12,6 +12,8 @@ namespace Terraria.Tea
         internal readonly List<ModRecipe> recipes = new List<ModRecipe>();
 		internal readonly IDictionary<string, ModItem> items = new Dictionary<string, ModItem>();
 		internal readonly IDictionary<string, GlobalItem> globalItems = new Dictionary<string, GlobalItem>();
+		internal readonly IDictionary<string, ModNPC> npcs = new Dictionary<string, ModNPC>();
+		internal readonly IDictionary<string, GlobalNPC> globalNPCs = new Dictionary<string, GlobalNPC>();
 
 		private string name;
 
@@ -38,6 +40,19 @@ namespace Terraria.Tea
 					ItemLoader.animations.Add(item.item.type);
 				}
 			}
+			foreach (ModNPC npc in npcs.Values) {
+				NPCLoader.npcTexture[npc.npc.type] = Loader.GetTexture(npc.mod.ModAssembly.GetName().Name + npc.texture);
+				npc.SetDefaults();
+				if (npc.npc.lifeMax > 32767 || npc.npc.boss) {
+					Main.npcLifeBytes[npc.npc.type] = 4;
+				}
+				else if (npc.npc.lifeMax > 127) {
+					Main.npcLifeBytes[npc.npc.type] = 2;
+				}
+				else {
+					Main.npcLifeBytes[npc.npc.type] = 1;
+				}
+			}
 		}
 
 		internal void Autoload() {
@@ -51,6 +66,12 @@ namespace Terraria.Tea
 				if (type.IsSubclassOf(typeof(GlobalItem))) {
 					AutoloadGlobalItem(type);
 				}
+				if (type.IsSubclassOf(typeof(ModNPC))) {
+					AutoloadNPC(type);
+				}
+				if (type.IsSubclassOf(typeof(GlobalNPC))) {
+					AutoloadGlobalNPC(type);
+				}
 			}
 		}
 
@@ -58,6 +79,8 @@ namespace Terraria.Tea
 			recipes.Clear();
 			items.Clear();
 			globalItems.Clear();
+			npcs.Clear();
+			globalNPCs.Clear();
 		}
 
 		public void AddItem(string name, ModItem item, string texture) {
@@ -77,6 +100,24 @@ namespace Terraria.Tea
 
 			ItemLoader.globalItems.Add(globalItem);
 		}
+
+		public void AddNPC(string name, ModNPC npc, string texture) {
+			int id = NPCLoader.ReserveNPCID();
+			npc.npc.name = name;
+			npc.npc.type = id;
+			npcs[name] = npc;
+			NPCLoader.npcs[id] = npc;
+			npc.texture = texture;
+			npc.mod = this;
+		}
+
+		public void AddGlobalNPC(string name, GlobalNPC globalNPC) {
+			globalNPC.mod = this;
+			globalNPC.Name = name;
+			this.globalNPCs[name] = globalNPC;
+			NPCLoader.globalNPCs.Add(globalNPC);
+		}
+
 
 		// TODO: AddEquipTexture
 		/*public int AddEquipTexture(ModItem item, EquipType type, string texture, string armTexture = "", string femaleTexture = "") {
@@ -139,6 +180,25 @@ namespace Terraria.Tea
 			}
 		}
 
+		private void AutoloadNPC(Type type) {
+			ModNPC npc = (ModNPC)Activator.CreateInstance(type);
+			npc.mod = this;
+			string name = type.Name;
+			string texture = (type.Namespace + "." + type.Name).Replace('.', '/');
+			if (npc.Autoload(ref name, ref texture)) {
+				AddNPC(name, npc, texture);
+			}
+		}
+
+		private void AutoloadGlobalNPC(Type type) {
+			GlobalNPC globalNPC = (GlobalNPC)Activator.CreateInstance(type);
+			globalNPC.mod = this;
+			string name = type.Name;
+			if (globalNPC.Autoload(ref name)) {
+				AddGlobalNPC(name, globalNPC);
+			}
+		}
+
 
 		public ModItem GetItem(string name) {
 			if (items.ContainsKey(name)) {
@@ -148,6 +208,34 @@ namespace Terraria.Tea
 				return null;
 			}
 		}
+
+		public ModNPC GetNPC(string name) {
+			if (npcs.ContainsKey(name)) {
+				return npcs[name];
+			}
+			else {
+				return null;
+			}
+		}
+
+		public GlobalNPC GetGlobalNPC(string name) {
+			if (this.globalNPCs.ContainsKey(name)) {
+				return this.globalNPCs[name];
+			}
+			else {
+				return null;
+			}
+		}
+
+		public GlobalItem GetGlobalItem(string name) {
+			if (globalItems.ContainsKey(name)) {
+				return globalItems[name];
+			}
+			else {
+				return null;
+			}
+		}
+
 
 		public int ItemType(string name) {
 			ModItem item = GetItem(name);
@@ -159,13 +247,12 @@ namespace Terraria.Tea
 			return item.item.type;
 		}
 
-		public GlobalItem GetGlobalItem(string name) {
-			if (globalItems.ContainsKey(name)) {
-				return globalItems[name];
+		public int NPCType(string name) {
+			ModNPC npc = GetNPC(name);
+			if (npc == null) {
+				return 0;
 			}
-			else {
-				return null;
-			}
+			return npc.npc.type;
 		}
 	}
 }

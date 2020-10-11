@@ -136,6 +136,13 @@ namespace Terraria.Tea
 			}
 		}
 
+		internal static void Unload() {
+			items.Clear();
+			nextItem = ItemID.Count;
+			globalItems.Clear();
+			animations.Clear();
+		}
+
 		public static bool IsModItem(Item item) => item.type >= ItemID.Count;
 
 		internal static void WriteID(Item item, BinaryWriter writer) {

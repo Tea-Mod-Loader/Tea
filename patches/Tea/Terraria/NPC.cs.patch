@@ -1,6 +1,6 @@
 --- src/Terraria/Terraria/NPC.cs
 +++ src/Tea/Terraria/NPC.cs
-@@ -19,6 +_,7 @@
+@@ -19,12 +_,13 @@
  using Terraria.Graphics.Effects;
  using Terraria.ID;
  using Terraria.Localization;
@@ -8,6 +8,118 @@
  using Terraria.Utilities;
  using Terraria.WorldBuilding;
  
+ namespace Terraria
+ {
+-	public class NPC : Entity
++	public partial class NPC : Entity
+ 	{
+ 		private const int NPC_TARGETS_START = 300;
+ 		public bool IsABestiaryIconDummy;
+@@ -349,7 +_,7 @@
+ 				if (!HasGivenName)
+ 					return TypeName;
+ 
+-				return Language.GetTextValue("Game.NPCTitle", _givenName, TypeName);
++				return !string.IsNullOrWhiteSpace(name) ? name : Language.GetTextValue("Game.NPCTitle", _givenName, TypeName);
+ 			}
+ 		}
+ 
+@@ -649,7 +_,7 @@
+ 		public static void UpdateFoundActiveNPCs() {
+ 			for (int i = 0; i < 200; i++) {
+ 				NPC nPC = Main.npc[i];
+-				if (nPC.active && nPC.type >= 0 && nPC.type < 663)
++				if (nPC.active && nPC.type >= 0 && nPC.type < NPCLoader.Count)
+ 					npcsFoundForCheckActive[nPC.type] = true;
+ 			}
+ 
+@@ -2781,6 +_,7 @@
+ 		}
+ 
+ 		public void SetDefaults(int Type, NPCSpawnParams spawnparams = default(NPCSpawnParams)) {
++			modNPC = null;
+ 			if (spawnparams.gameModeData == null)
+ 				spawnparams.gameModeData = Main.GameModeInfo;
+ 
+@@ -11611,6 +_,8 @@
+ 				noGravity = true;
+ 			}
+ 
++			NPCLoader.SetupNPC(this);
++
+ 			if (flag) {
+ 				for (int num4 = 0; num4 < 323; num4++) {
+ 					buffImmune[num4] = true;
+@@ -11619,8 +_,8 @@
+ 
+ 			if (Main.dedServ)
+ 				frame = default(Rectangle);
+-			else if (TextureAssets.Npc[type] != null && TextureAssets.Npc[type].IsLoaded)
+-				frame = new Rectangle(0, 0, TextureAssets.Npc[type].Width(), TextureAssets.Npc[type].Height() / Main.npcFrameCount[type]);
++			else if (NPCLoader.npcTexture[type] != null)
++				frame = new Rectangle(0, 0, NPCLoader.npcTexture[type].Width, NPCLoader.npcTexture[type].Height / Main.npcFrameCount[type]);
+ 			else
+ 				setFrameSize = true;
+ 
+@@ -37883,7 +_,7 @@
+ 					break;
+ 			}
+ 
+-			if (type >= 0 && type < 663 && NPCID.Sets.TownCritter[type] && target == 255) {
++			if (type >= 0 && type < NPCLoader.Count && NPCID.Sets.TownCritter[type] && target == 255) {
+ 				TargetClosest();
+ 				if (position.X < Main.player[target].position.X) {
+ 					base.direction = 1;
+@@ -47645,7 +_,7 @@
+ 		public void SetFrameSize() {
+ 			Main.instance.LoadNPC(type);
+ 			if (setFrameSize) {
+-				frame = new Rectangle(0, 0, TextureAssets.Npc[type].Width(), TextureAssets.Npc[type].Height() / Main.npcFrameCount[type]);
++				frame = new Rectangle(0, 0, NPCLoader.npcTexture[type].Width, NPCLoader.npcTexture[type].Height / Main.npcFrameCount[type]);
+ 				setFrameSize = false;
+ 			}
+ 		}
+@@ -47654,10 +_,7 @@
+ 			base.position += netOffset;
+ 			int num = 1;
+ 			if (!Main.dedServ) {
+-				if (!TextureAssets.Npc[type].IsLoaded)
+-					return;
+-
+-				num = TextureAssets.Npc[type].Height() / Main.npcFrameCount[type];
++				num = NPCLoader.npcTexture[type].Height / Main.npcFrameCount[type];
+ 			}
+ 
+ 			int num2 = 0;
+@@ -50055,8 +_,8 @@
+ 					}
+ 					else if (Main.netMode != 2 && !Main.dedServ) {
+ 						int num204 = (int)ai[0];
+-						if (Main.npc[num204].active && Main.npc[num204].type == 415 && TextureAssets.Npc[415].IsLoaded)
++						if (Main.npc[num204].active && Main.npc[num204].type == 415)
+-							frame.Y = Main.npc[num204].frame.Y / (TextureAssets.Npc[415].Height() / Main.npcFrameCount[415]) * num;
++							frame.Y = Main.npc[num204].frame.Y / (NPCLoader.npcTexture[415].Height / Main.npcFrameCount[415]) * num;
+ 					}
+ 					break;
+ 				case 417:
+@@ -56555,7 +_,7 @@
+ 		}
+ 
+ 		public static void ResetKillCount() {
+-			for (int i = 0; i < 663; i++) {
++			for (int i = 0; i < NPCLoader.Count; i++) {
+ 				killCount[i] = 0;
+ 			}
+ 		}
+@@ -56588,7 +_,7 @@
+ 		}
+ 
+ 		public void NPCLootOld() {
+-			if (Main.netMode == 1 || type >= 663)
++			if (Main.netMode == 1 || type >= NPCLoader.Count)
+ 				return;
+ 
+ 			bool flag = false;
 @@ -56648,7 +_,7 @@
  
  			if (type == 1 && ai[1] > 0f) {
@@ -17,3 +129,100 @@
  					int stackForSlimeItemDrop = GetStackForSlimeItemDrop(num3);
  					Item.NewItem((int)position.X, (int)position.Y, width, height, num3, stackForSlimeItemDrop);
  				}
+@@ -59122,7 +_,7 @@
+ 		}
+ 
+ 		public void NPCLoot() {
+-			if (Main.netMode == 1 || type >= 663)
++			if (Main.netMode == 1 || type >= NPCLoader.Count)
+ 				return;
+ 
+ 			Player closestPlayer = Main.player[Player.FindClosest(position, width, height)];
+@@ -60205,7 +_,7 @@
+ 				NetMessage.SendData(71, -1, -1, null, x, y, Type, Style);
+ 			}
+ 			else {
+-				if (Type < 0 || Type >= 663 || !Main.npcCatchable[Type] || !CanReleaseNPCs(who))
++				if (Type < 0 || Type >= NPCLoader.Count || !Main.npcCatchable[Type] || !CanReleaseNPCs(who))
+ 					return;
+ 
+ 				switch (Type) {
+@@ -60422,6 +_,7 @@
+ 			int num9;
+ 			int num10;
+ 			bool flag15;
++            NPCSpawnInfo spawnInfo = new NPCSpawnInfo();
+ 			while (true) {
+ 				if (num7 >= 255)
+ 					return;
+@@ -60747,6 +_,7 @@
+ 								}
+ 							}
+ 						}
++                        NPCLoader.EditSpawnRate(Main.player[num7], ref spawnRate, ref maxSpawns);
+ 
+ 						flag15 = false;
+ 						if (Main.player[num7].active && !Main.player[num7].dead && Main.player[num7].nearbyActiveNPCs < (float)maxSpawns && Main.rand.Next(spawnRate) == 0) {
+@@ -60772,6 +_,7 @@
+ 								safeRangeY += (int)((double)(sHeight / 16) * 0.5 / (double)num12);
+ 							}
+ 
++                            NPCLoader.EditSpawnRange(Main.player[num7], ref spawnRangeX, ref spawnRangeY, ref safeRangeX, ref safeRangeY);spawnInfo.safeRangeX = flag15;
+ 							int num13 = (int)(Main.player[num7].position.X / 16f) - spawnRangeX;
+ 							int num14 = (int)(Main.player[num7].position.X / 16f) + spawnRangeX;
+ 							int num15 = (int)(Main.player[num7].position.Y / 16f) - spawnRangeY;
+@@ -60898,6 +_,8 @@
+ 
+ 							int num29 = (int)Main.player[num7].Center.X / 16;
+ 							int num30 = (int)(Main.player[num7].Bottom.Y + 8f) / 16;
++							spawnInfo.playerFloorX = num29;
++							spawnInfo.playerFloorY = num30;
+ 							if (Main.tile[num, num2].type == 367) {
+ 								flag10 = true;
+ 							}
+@@ -61027,9 +_,33 @@
+ 
+ 			bool flag17 = (float)new Point(num9 - num, num10 - num2).X * Main.windSpeedTarget > 0f;
+ 			spawnTileType = SpawnNPC_TryFindingProperGroundTileType(spawnTileType, num, num2);
++			spawnInfo.spawnTileX = num;
++			spawnInfo.spawnTileY = num2;
++			spawnInfo.spawnTileType = num3;
++			spawnInfo.player = Main.player[num7];
++			spawnInfo.sky = flag3;
++			spawnInfo.lihzahrd = flag4;
++			spawnInfo.playerSafe = flag5;
++			spawnInfo.invasion = flag6;
++			spawnInfo.water = flag7;
++			spawnInfo.granite = flag9;
++			spawnInfo.marble = flag10;
++			spawnInfo.spiderCave = flag11;
++			spawnInfo.playerInTown = flag12;
++			spawnInfo.desertCave = flag13;
++			spawnInfo.planteraDefeated = flag14;
++			spawnInfo.safeRangeX = flag15;
+ 			int newNPC = 200;
+ 			int cattailX;
+ 			int cattailY;
++			int? spawnChoice = NPCLoader.ChooseSpawn(spawnInfo);
++			if (!spawnChoice.HasValue) {
++				return;
++			}
++			int spawn = spawnChoice.Value;
++			if (spawn != 0) {
++				goto endVanillaSpawn;
++			}
+ 			if (Main.player[num7].ZoneTowerNebula) {
+ 				bool flag18 = true;
+ 				int num50 = 0;
+@@ -63138,6 +_,11 @@
+ 						}
+ 						break;
+ 				}
++			}
++
++			endVanillaSpawn:
++			if (spawn != 0) {
++				newNPC = NPCLoader.SpawnNPC(spawn, num, num2);
+ 			}
+ 
+ 			if (Main.npc[newNPC].type == 1 && Main.player[num7].RollLuck(180) == 0)

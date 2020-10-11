@@ -1,0 +1,19 @@
+--- src/Terraria/Terraria/GameContent/Bestiary/UnlockableNPCEntryIcon.cs
++++ src/Tea/Terraria/GameContent/Bestiary/UnlockableNPCEntryIcon.cs
+@@ -3,6 +_,7 @@
+ using ReLogic.Content;
+ using Terraria.ID;
+ using Terraria.Localization;
++using Terraria.Tea;
+ 
+ namespace Terraria.GameContent.Bestiary
+ {
+@@ -163,7 +_,7 @@
+ 			}
+ 
+ 			if (_npcCache.townNPC && TownNPCProfiles.Instance.GetProfile(_npcCache.type, out ITownNPCProfile profile))
+-				TextureAssets.Npc[_npcCache.type] = profile.GetTextureNPCShouldUse(_npcCache);
++				NPCLoader.npcTexture[_npcCache.type] = profile.GetTextureNPCShouldUse(_npcCache).Value;
+ 
+ 			Main.instance.DrawNPCDirect(spriteBatch, _npcCache, _npcCache.behindTiles, Vector2.Zero);
+ 		}

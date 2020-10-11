@@ -1,0 +1,19 @@
+--- src/Terraria/Terraria/ID/ItemID.cs
++++ src/Tea/Terraria/ID/ItemID.cs
+@@ -2,6 +_,7 @@
+ using ReLogic.Reflection;
+ using System.Collections.Generic;
+ using Terraria.DataStructures;
++using Terraria.Tea;
+ 
+ namespace Terraria.ID
+ {
+@@ -35,7 +_,7 @@
+ 
+ 		public class Sets
+ 		{
+-			public static SetFactory Factory = new SetFactory(5045);
++			public static SetFactory Factory = new SetFactory(ItemLoader.Count);
+ 			public static List<int> ItemsThatAreProcessedAfterNormalContentSample = new List<int> {
+ 				1533,
+ 				1534,

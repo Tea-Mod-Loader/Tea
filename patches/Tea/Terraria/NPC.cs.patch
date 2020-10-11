@@ -102,6 +102,17 @@
  					}
  					break;
  				case 417:
+@@ -55664,6 +_,10 @@
+ 				if (!Main.player[i].active || Main.player[i].dead || Main.player[i].ghost)
+ 					continue;
+ 
++				if (Main.player[i].npcTypeNoAggro.Length < NPCLoader.Count + 1) {
++					Array.Resize(ref Main.player[i].npcTypeNoAggro, NPCLoader.Count + 1);
++				}
++
+ 				float num4 = Math.Abs(Main.player[i].position.X + (float)(Main.player[i].width / 2) - position.X + (float)(width / 2)) + Math.Abs(Main.player[i].position.Y + (float)(Main.player[i].height / 2) - position.Y + (float)(height / 2));
+ 				num4 -= (float)Main.player[i].aggro;
+ 				if (Main.player[i].npcTypeNoAggro[type] && direction != 0)
 @@ -56555,7 +_,7 @@
  		}
  

@@ -15,7 +15,7 @@ namespace Terraria.Tea
 		internal static readonly IDictionary<int, ModNPC> npcs = new Dictionary<int, ModNPC>();
 		internal static readonly IList<GlobalNPC> globalNPCs = new List<GlobalNPC>();
 
-		public static int Count = nextNPC;
+		public static int Count => nextNPC;
         public static Texture2D[] npcTexture = new Texture2D[NPCID.Count];
 
 		internal static int ReserveNPCID() {
@@ -37,7 +37,6 @@ namespace Terraria.Tea
 		internal static void ResizeArrays() {
             Array.Resize(ref npcTexture, nextNPC);
 			Array.Resize(ref TextureAssets.Npc, nextNPC);
-			//LoaderUtils.ResetStaticMembers(typeof(NPCID), true);
 			Array.Resize(ref Main.townNPCCanSpawn, nextNPC);
 			Array.Resize(ref Main.slimeRainNPC, nextNPC);
 			Array.Resize(ref Main.npcCatchable, nextNPC);
@@ -46,51 +45,7 @@ namespace Terraria.Tea
 			Array.Resize(ref NPC.npcsFoundForCheckActive, nextNPC);
 			Array.Resize(ref Lang._npcNameCache, nextNPC);
 			Array.Resize(ref EmoteBubble.CountNPCs, nextNPC);
-			Array.Resize(ref WorldGen.TownManager._hasRoom, nextNPC);
-            Array.Resize(ref NPCID.Sets.DontDoHardmodeScaling, nextNPC);
-            Array.Resize(ref NPCID.Sets.IsTownPet, nextNPC);
-            Array.Resize(ref NPCID.Sets.CantTakeLunchMoney, nextNPC);
-            Array.Resize(ref NPCID.Sets.TrailingMode, nextNPC);
-            Array.Resize(ref NPCID.Sets.IsDragonfly, nextNPC);
-            Array.Resize(ref NPCID.Sets.BelongsToInvasionOldOnesArmy, nextNPC);
-            Array.Resize(ref NPCID.Sets.TeleportationImmune, nextNPC);
-            Array.Resize(ref NPCID.Sets.UsesNewTargetting, nextNPC);
-            Array.Resize(ref NPCID.Sets.TakesDamageFromHostilesWithoutBeingFriendly, nextNPC);
-            Array.Resize(ref NPCID.Sets.AllNPCs, nextNPC);
-            Array.Resize(ref NPCID.Sets.HurtingBees, nextNPC);
-            Array.Resize(ref NPCID.Sets.FighterUsesDD2PortalAppearEffect, nextNPC);
-            Array.Resize(ref NPCID.Sets.StatueSpawnedDropRarity, nextNPC);
-            Array.Resize(ref NPCID.Sets.NoEarlymodeLootWhenSpawnedFromStatue, nextNPC);
-            Array.Resize(ref NPCID.Sets.NeedsExpertScaling, nextNPC);
-            Array.Resize(ref NPCID.Sets.ProjectileNPC, nextNPC);
-            Array.Resize(ref NPCID.Sets.SavesAndLoads, nextNPC);
-            Array.Resize(ref NPCID.Sets.TrailCacheLength, nextNPC);
-            Array.Resize(ref NPCID.Sets.NoMultiplayerSmoothingByType, nextNPC);
-            Array.Resize(ref NPCID.Sets.NoMultiplayerSmoothingByAI, nextNPC);
-            Array.Resize(ref NPCID.Sets.MPAllowedEnemies, nextNPC);
-            Array.Resize(ref NPCID.Sets.TownCritter, nextNPC);
-            Array.Resize(ref NPCID.Sets.CountsAsCritter, nextNPC);
-            Array.Resize(ref NPCID.Sets.HasNoPartyText, nextNPC);
-            Array.Resize(ref NPCID.Sets.HatOffsetY, nextNPC);
-            Array.Resize(ref NPCID.Sets.FaceEmote, nextNPC);
-            Array.Resize(ref NPCID.Sets.ExtraFramesCount, nextNPC);
-            Array.Resize(ref NPCID.Sets.AttackFrameCount, nextNPC);
-            Array.Resize(ref NPCID.Sets.DangerDetectRange, nextNPC);
-            Array.Resize(ref NPCID.Sets.AttackTime, nextNPC);
-            Array.Resize(ref NPCID.Sets.AttackAverageChance, nextNPC);
-            Array.Resize(ref NPCID.Sets.AttackType, nextNPC);
-            Array.Resize(ref NPCID.Sets.PrettySafe, nextNPC);
-            Array.Resize(ref NPCID.Sets.MagicAuraColor, nextNPC);
-            Array.Resize(ref NPCID.Sets.DemonEyes, nextNPC);
-            Array.Resize(ref NPCID.Sets.Zombies, nextNPC);
-            Array.Resize(ref NPCID.Sets.Skeletons, nextNPC);
-            Array.Resize(ref NPCID.Sets.BossHeadTextures, nextNPC);
-            Array.Resize(ref NPCID.Sets.PositiveNPCTypesExcludedFromDeathTally, nextNPC);
-            Array.Resize(ref NPCID.Sets.ShouldBeCountedAsBoss, nextNPC);
-            Array.Resize(ref NPCID.Sets.DangerThatPreventsOtherDangers, nextNPC);
-            Array.Resize(ref NPCID.Sets.MustAlwaysDraw, nextNPC);
-            Array.Resize(ref NPCID.Sets.ExtraTextureCount, nextNPC);
-            Array.Resize(ref NPCID.Sets.NPCFramingGroup, nextNPC);
+			LoaderUtils.ResetStaticMembers(typeof(NPCID), true);
 
 			for (int k = NPCID.Count; k < nextNPC; k++) {
 				Main.npcFrameCount[k] = 1;

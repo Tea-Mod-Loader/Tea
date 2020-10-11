@@ -8,6 +8,15 @@
  using Terraria.UI;
  using Terraria.UI.Chat;
  using Terraria.UI.Gamepad;
+@@ -1268,7 +_,7 @@
+ 		public int cMinion;
+ 		public int cLeinShampoo;
+ 		public int[] ownedProjectileCounts = new int[950];
+-		public bool[] npcTypeNoAggro = new bool[663];
++		public bool[] npcTypeNoAggro = new bool[NPCLoader.Count];
+ 		public int lastPortalColorIndex;
+ 		public int _portalPhysicsTime;
+ 		public bool portalPhysicsFlag;
 @@ -6191,37 +_,37 @@
  
  		private void UpdateItemDye(bool effectiveEquipmentSlot, bool armorHidden, Item armorItem, Item dyeItem) {

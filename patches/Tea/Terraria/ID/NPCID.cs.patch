@@ -1,0 +1,19 @@
+--- src/Terraria/Terraria/ID/NPCID.cs
++++ src/Tea/Terraria/ID/NPCID.cs
+@@ -2,6 +_,7 @@
+ using ReLogic.Reflection;
+ using System;
+ using System.Collections.Generic;
++using Terraria.Tea;
+ 
+ namespace Terraria.ID
+ {
+@@ -42,7 +_,7 @@
+ 				}
+ 			}
+ 
+-			public static SetFactory Factory = new SetFactory(663);
++			public static SetFactory Factory = new SetFactory(NPCLoader.Count);
+ 			public static Dictionary<int, int> SpecialSpawningRules = new Dictionary<int, int> {
+ 				{ 259, 0 },
+ 				{ 260, 0 },

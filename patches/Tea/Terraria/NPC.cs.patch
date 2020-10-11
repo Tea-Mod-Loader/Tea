@@ -24,6 +24,15 @@
  			}
  		}
  
+@@ -358,7 +_,7 @@
+ 		public string GivenOrTypeName {
+ 			get {
+ 				if (!HasGivenName)
+-					return TypeName;
++					return !string.IsNullOrWhiteSpace(name) ? name : TypeName;
+ 
+ 				return _givenName;
+ 			}
 @@ -649,7 +_,7 @@
  		public static void UpdateFoundActiveNPCs() {
  			for (int i = 0; i < 200; i++) {

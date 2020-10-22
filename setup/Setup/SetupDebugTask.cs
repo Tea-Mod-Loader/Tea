@@ -42,7 +42,7 @@ namespace Terraria.ModLoader.Setup
 		}
 
 		private void UpdateModCompileVersion(string modCompileDir) {
-			var teaCsPath = Path.Combine("src", "Tea", "Terraria", "Tea", "Loader.cs"); // TOOD: This
+			var teaCsPath = Path.Combine("src", "Tea", "Terraria", "ModLoader", "ModLoader.cs"); // TOOD: This
 			var r = new Regex(@"new Version\((.+?)\).+?string branchName.+?""(.*?)"".+?int beta.+?(\d+?)", RegexOptions.Singleline);
 			var match = r.Match(File.ReadAllText(teaCsPath));
 

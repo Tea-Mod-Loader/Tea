@@ -1,0 +1,10 @@
+--- src/Terraria/ReLogic/Content/Sources/IContentSource.cs
++++ src/Tea/ReLogic/Content/Sources/IContentSource.cs
+@@ -21,5 +_,7 @@
+ 		void ClearRejections();
+ 
+ 		bool TryGetRejections(List<string> rejectionReasons);
++
++		IEnumerable<string> EnumerateFiles();
+ 	}
+ }

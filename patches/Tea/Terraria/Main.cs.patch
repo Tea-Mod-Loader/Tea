@@ -1,0 +1,24 @@
+--- src/Terraria/Terraria/Main.cs
++++ src/Tea/Terraria/Main.cs
+@@ -66,6 +_,7 @@
+ using Terraria.IO;
+ using Terraria.Localization;
+ using Terraria.Map;
++using Terraria.ModLoader;
+ using Terraria.Net;
+ using Terraria.ObjectData;
+ using Terraria.Social;
+@@ -39165,8 +_,12 @@
+ 
+ 					Vector2 origin2 = FontAssets.MouseText.Value.MeasureString(versionNumber);
+ 					origin2.X *= 0.5f;
+-					origin2.Y *= 0.5f;
+ 					spriteBatch.DrawString(FontAssets.MouseText.Value, versionNumber, new Vector2(origin2.X + (float)num108 + 10f, (float)screenHeight - origin2.Y + (float)num109 - 2f), color12, 0f, origin2, 1f, SpriteEffects.None, 0f);
++
++					Vector2 origin3 = FontAssets.MouseText.Value.MeasureString(ModLoader.ModLoader.versionedName);
++					origin3.X *= 0.5f;
++					origin3.Y *= 0.5f;
++					spriteBatch.DrawString(FontAssets.MouseText.Value, ModLoader.ModLoader.versionedName, new Vector2(origin3.X + (float)num108 + 10f, (float)screenHeight - origin3.Y + (float)num109 - 2f), color12, 0f, origin3, 1f, SpriteEffects.None, 0f);
+ 				}
+ 			}
+ 

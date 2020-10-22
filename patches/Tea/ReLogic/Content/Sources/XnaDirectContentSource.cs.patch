@@ -1,0 +1,30 @@
+--- src/Terraria/ReLogic/Content/Sources/XnaDirectContentSource.cs
++++ src/Tea/ReLogic/Content/Sources/XnaDirectContentSource.cs
+@@ -9,6 +_,7 @@
+ 		private readonly string _rootDirectory;
+ 		private readonly HashSet<string> _files = new HashSet<string>();
+ 		private readonly RejectedAssetCollection _rejections = new RejectedAssetCollection();
++		private readonly HashSet<string> _filesWithoutExtensions = new HashSet<string>();
+ 
+ 		public IContentValidator ContentValidator {
+ 			get;
+@@ -22,9 +_,11 @@
+ 
+ 		private void BuildFileMap() {
+ 			_files.Clear();
++			_filesWithoutExtensions.Clear();
+ 			string[] files = Directory.GetFiles(_rootDirectory, "*.xnb", SearchOption.AllDirectories);
+ 			foreach (string text in files) {
+ 				_files.Add(text.ToLower());
++				_filesWithoutExtensions.Add(text.ToLower().Substring(0, text.Length - 4));
+ 			}
+ 		}
+ 
+@@ -57,5 +_,7 @@
+ 		}
+ 
+ 		public bool TryGetRejections(List<string> rejectionReasons) => _rejections.TryGetRejections(rejectionReasons);
++
++		public IEnumerable<string> EnumerateFiles() => _filesWithoutExtensions;
+ 	}
+ }

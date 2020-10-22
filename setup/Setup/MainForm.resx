@@ -57,9 +57,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="buttonDiffModLoader.ToolTip" xml:space="preserve">
-    <value>Recalculates the tModLoader patches
-Diffs the src/Terraria and src/tModLoader directories
+  <data name="buttonDiffTea.ToolTip" xml:space="preserve">
+    <value>Recalculates the Tea patches
+Diffs the src/Terraria and src/Tea directories
 Use this after making changes then commit the patches directory to the git
 Internally formats the Terraria sources before diffing
 

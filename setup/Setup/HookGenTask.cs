@@ -12,7 +12,7 @@ namespace Terraria.ModLoader.Setup
 {
 	internal class HookGenTask : SetupOperation
 	{
-		const string libsPath = "src/tModLoader/Terraria/Libraries";
+		const string libsPath = "src/Tea/Terraria/Libraries";
 
 		public HookGenTask(ITaskInterface taskInterface) : base(taskInterface)
 		{
@@ -20,7 +20,7 @@ namespace Terraria.ModLoader.Setup
 
 		public override void Run()
 		{
-			string targetExePath = @"src/tModLoader/Terraria/bin/WindowsDebug/net45/Terraria.exe";
+			string targetExePath = @"src/Tea/Terraria/bin/WindowsDebug/net45/Terraria.exe";
 			if (!File.Exists(targetExePath)) {
 				var result = MessageBox.Show($"\"{targetExePath}\" does not exist. Use Vanilla exe instead?", "tML exe not found", MessageBoxButton.YesNo);
 				if (result != MessageBoxResult.Yes) {
@@ -51,7 +51,7 @@ namespace Terraria.ModLoader.Setup
 
 			File.Delete(Path.ChangeExtension(fnaPath, "pdb"));
 
-			MessageBox.Show("Success. Make sure you diff tModLoader after this");
+			MessageBox.Show("Success. Make sure you diff Tea after this");
 		}
 
 		public static void HookGen(string inputPath, string outputPath)
@@ -75,15 +75,7 @@ namespace Terraria.ModLoader.Setup
 				HookPrivate = true,
 			};
 			gen.Generate();
-			RemoveModLoaderTypes(gen.OutputModule);
 			gen.OutputModule.Write(outputPath);
-		}
-
-		private static void RemoveModLoaderTypes(ModuleDefinition module)
-		{
-			for (int i = module.Types.Count - 1; i >= 0; i--)
-				if (module.Types[i].FullName.Contains("Terraria.ModLoader"))
-					module.Types.RemoveAt(i);
 		}
 
 		public static void XnaToFna(string inputPath)

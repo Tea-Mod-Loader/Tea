@@ -1,5 +1,13 @@
 --- src/Terraria/Terraria/Main.cs
 +++ src/Tea/Terraria/Main.cs
+@@ -66,6 +_,7 @@
+ using Terraria.IO;
+ using Terraria.Localization;
+ using Terraria.Map;
++using Terraria.ModLoader;
+ using Terraria.Net;
+ using Terraria.ObjectData;
+ using Terraria.Social;
 @@ -239,7 +_,7 @@
  		public static NPCHeadRenderer BossNPCHeadRenderer = null;
  		public static string versionNumber = "v1.4.1.1";
@@ -9,10 +17,12 @@
  		public static bool AnnouncementBoxDisabled;
  		public static int AnnouncementBoxRange = -1;
  		public static string AutogenSeedName;
-@@ -5009,6 +_,7 @@
+@@ -5009,6 +_,9 @@
  			SoundID.FillAccessMap();
  			Star.SpawnStars();
  			ItemSorting.SetupWhiteLists();
++			Logging.ClearLog();
++			ModLoader.ModLoader.BuildAllMods();
 +			ModLoader.ModLoader.Load();
  #endif
  		}

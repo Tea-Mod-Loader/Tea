@@ -75,8 +75,7 @@ namespace Terraria.ModLoader
 					mod.Load();
 				}
 				catch (Exception e) {
-					Logging.LogClient(e.Message);
-					Logging.LogClient(e.StackTrace);
+					Logging.LogClient(e.Message + "\n" + e.StackTrace);
 					return;
 				}
 
@@ -91,8 +90,7 @@ namespace Terraria.ModLoader
 					mod.SetupContent();
 				}
 				catch (Exception e) {
-					Logging.LogClient(e.Message);
-					Logging.LogClient(e.StackTrace);
+					Logging.LogClient(e.Message + "\n" + e.StackTrace);
 				}
 			}
 		}), 1);
@@ -119,8 +117,7 @@ namespace Terraria.ModLoader
 						LoadMod(modsToLoad[i]);
 					}
 					catch(Exception e) {
-						Logging.LogClient(e.Message);
-						Logging.LogClient(e.StackTrace);
+						Logging.LogClient(e.Message + "\n" + e.StackTrace);
 					}
 
 					modCount++;
@@ -176,37 +173,50 @@ namespace Terraria.ModLoader
 			return Directory.GetDirectories(ModSourcePath, "*", SearchOption.TopDirectoryOnly).Where(x => x != ".vs").ToArray();
 		}
 
-		internal static void BuildMod() {
-			ThreadPool.QueueUserWorkItem(new WaitCallback(delegate(object threadContext) {
-				LoadReferences();
+		internal static void BuildAllMods() => ThreadPool.QueueUserWorkItem(new WaitCallback(delegate(object threadContext) {
+			string[] modFolders = FindModSources();
+			int modCount = 0;
 
-				if (!CompileMod(_modToBuild)) {
-					return;
-				}
+			foreach (string modFolder in modFolders) {
+				_modToBuild = modFolder;
+				do_BuildMod(threadContext);
+				modCount++;
+			}
+		}), 1);
 
-				string file = ModPath + Path.DirectorySeparatorChar + Path.GetFileName(_modToBuild) + ".tea";
-				byte[] buffer = File.ReadAllBytes(file);
+		internal static void BuildMod() => ThreadPool.QueueUserWorkItem(new WaitCallback(delegate(object threadContext) { do_BuildMod(threadContext); }), 1);
 
-				using (FileStream fileStream = File.Create(file)) {
-					using (BinaryWriter writer = new BinaryWriter(fileStream)) {
+		private static bool do_BuildMod(object threadContext) {
+			LoadReferences();
+
+			if (!CompileMod(_modToBuild)) {
+				return false;
+			}
+
+			string file = ModPath + Path.DirectorySeparatorChar + Path.GetFileName(_modToBuild) + ".tea";
+			byte[] buffer = File.ReadAllBytes(file);
+
+			using (FileStream fileStream = File.Create(file)) {
+				using (BinaryWriter writer = new BinaryWriter(fileStream)) {
+					writer.Write(buffer.Length);
+					writer.Write(buffer);
+
+					string[] images = Directory.GetFiles(_modToBuild, "*.png", SearchOption.AllDirectories);
+
+					foreach (string image in images) {
+						string texturePath = image.Replace(ModSourcePath + Path.DirectorySeparatorChar, null);
+						texturePath = Path.ChangeExtension(texturePath.Replace(Path.DirectorySeparatorChar, '/'), null);
+						buffer = File.ReadAllBytes(image);
+						writer.Write(texturePath);
 						writer.Write(buffer.Length);
 						writer.Write(buffer);
-
-						string[] images = Directory.GetFiles(_modToBuild, "*.png", SearchOption.AllDirectories);
-
-						foreach (string image in images) {
-							string texturePath = image.Replace(ModSourcePath + Path.DirectorySeparatorChar, null);
-							texturePath = Path.ChangeExtension(texturePath.Replace(Path.DirectorySeparatorChar, '/'), null);
-							buffer = File.ReadAllBytes(image);
-							writer.Write(texturePath);
-							writer.Write(buffer.Length);
-							writer.Write(buffer);
-						}
-
-						writer.Write("end");
 					}
+
+					writer.Write("end");
 				}
-			}), 1);
+			}
+
+			return true;
 		}
 
 		private static void LoadReferences() {
@@ -242,8 +252,9 @@ namespace Terraria.ModLoader
 			CompilerErrorCollection errors = results.Errors;
 
 			if (errors.HasErrors) {
-				Logging.LogClient(errors.ToString());
-
+				foreach (CompilerError error in errors) {
+					Logging.LogClient(error.ToString());
+				}
 				return false;
 			}
 

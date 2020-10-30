@@ -1,0 +1,30 @@
+--- src/Terraria/Terraria/Main.cs
++++ src/Tea/Terraria/Main.cs
+@@ -239,7 +_,7 @@
+ 		public static NPCHeadRenderer BossNPCHeadRenderer = null;
+ 		public static string versionNumber = "v1.4.1.1";
+ 		public static string versionNumber2 = "v1.4.1.1";
+-		public static string SavePath = Program.LaunchParameters.ContainsKey("-savedirectory") ? Program.LaunchParameters["-savedirectory"] : Platform.Get<IPathService>().GetStoragePath("Terraria");
++		public static string SavePath = Program.LaunchParameters.ContainsKey("-savedirectory") ? Program.LaunchParameters["-savedirectory"] + Path.DirectorySeparatorChar + "Tea" : Platform.Get<IPathService>().GetStoragePath("Terraria") + Path.DirectorySeparatorChar + "Tea";
+ 		public static bool AnnouncementBoxDisabled;
+ 		public static int AnnouncementBoxRange = -1;
+ 		public static string AutogenSeedName;
+@@ -5009,6 +_,7 @@
+ 			SoundID.FillAccessMap();
+ 			Star.SpawnStars();
+ 			ItemSorting.SetupWhiteLists();
++			ModLoader.ModLoader.Load();
+ #endif
+ 		}
+ 
+@@ -39167,6 +_,10 @@
+ 					origin2.X *= 0.5f;
+ 					origin2.Y *= 0.5f;
+ 					spriteBatch.DrawString(FontAssets.MouseText.Value, versionNumber, new Vector2(origin2.X + (float)num108 + 10f, (float)screenHeight - origin2.Y + (float)num109 - 2f), color12, 0f, origin2, 1f, SpriteEffects.None, 0f);
++
++					Vector2 origin3 = FontAssets.MouseText.Value.MeasureString("Tea v0.0.1.0");
++					origin3.X *= 0.5f;
++					spriteBatch.DrawString(FontAssets.MouseText.Value, "Tea v0.0.1.0", new Vector2(origin3.X + (float)num108 + 10f, (float)screenHeight - origin3.Y + (float)num109 - 2f), color12, 0f, origin3, 1f, SpriteEffects.None, 0f);
+ 				}
+ 			}
+ 

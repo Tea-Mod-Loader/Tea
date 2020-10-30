@@ -1,0 +1,10 @@
+--- src/Terraria/Terraria/Initializers/AssetInitializer.cs
++++ src/Tea/Terraria/Initializers/AssetInitializer.cs
+@@ -31,6 +_,7 @@
+ 			IAssetRepository provider = new AssetRepository(new AssetLoader(assetReaderCollection), asyncAssetLoader);
+ 			services.AddService(typeof(AssetReaderCollection), assetReaderCollection);
+ 			services.AddService(typeof(IAssetRepository), provider);
++			ModLoader.ModLoader.InitializeModAssetLoader(services);
+ 		}
+ 
+ 		public static ResourcePackList CreateResourcePackList(IServiceProvider services) {

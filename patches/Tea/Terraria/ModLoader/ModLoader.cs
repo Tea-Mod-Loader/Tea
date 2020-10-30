@@ -28,6 +28,8 @@ namespace Terraria.ModLoader
 		public static readonly string ModPath = Main.SavePath + Path.DirectorySeparatorChar + "Mods";
 		public static readonly string ModSourcePath = Main.SavePath + Path.DirectorySeparatorChar + "Mod Sources";
 		public static readonly string DllPath = Main.SavePath + Path.DirectorySeparatorChar + "dllReferences";
+		public static readonly string VersionName = $"Tea v{Version} beta 3";
+		public static readonly Version Version = new Version(0, 1, 0, 0);
 		public static AssetReaderCollection ModAssetReaderCollection;
 		public static AsyncAssetLoader ModAsyncAssetLoader;
 		public static IAssetRepository ModAssetRepository;
@@ -75,7 +77,7 @@ namespace Terraria.ModLoader
 					mod.Load();
 				}
 				catch (Exception e) {
-					Logging.LogClient(e.Message + "\n" + e.StackTrace);
+					Logging.Tea.Warn(e.Message + "\n" + e.StackTrace);
 					return;
 				}
 
@@ -90,7 +92,7 @@ namespace Terraria.ModLoader
 					mod.SetupContent();
 				}
 				catch (Exception e) {
-					Logging.LogClient(e.Message + "\n" + e.StackTrace);
+					Logging.Tea.Warn(e.Message + "\n" + e.StackTrace);
 				}
 			}
 		}), 1);
@@ -117,7 +119,7 @@ namespace Terraria.ModLoader
 						LoadMod(modsToLoad[i]);
 					}
 					catch(Exception e) {
-						Logging.LogClient(e.Message + "\n" + e.StackTrace);
+						Logging.Tea.Warn(e.Message + "\n" + e.StackTrace);
 					}
 
 					modCount++;
@@ -253,7 +255,7 @@ namespace Terraria.ModLoader
 
 			if (errors.HasErrors) {
 				foreach (CompilerError error in errors) {
-					Logging.LogClient(error.ToString());
+					Logging.Tea.Warn(error.ToString());
 				}
 				return false;
 			}
